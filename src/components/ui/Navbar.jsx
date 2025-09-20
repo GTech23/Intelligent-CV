@@ -4,7 +4,7 @@ import Button from "../common/Button";
 const Navbar = () => {
   return (
     <>
-      <header className="max-w-8xl w-[90%] h-20  py-5 mx-auto flex items-center justify-between p-4 fixed top-0 left-0 right-0 z-1000 bg-white">
+      <header className="max-w-8xl w-full h-20 px-8   py-5 mx-auto flex items-center justify-between p-4 fixed top-0 left-0 right-0 z-1000 bg-white">
         <Link className="text-2xl font-light text-[#EA723C]">
           Intelligent <span className="font-bold">CV</span>
         </Link>

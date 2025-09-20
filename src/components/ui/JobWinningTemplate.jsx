@@ -29,7 +29,7 @@ const templateMeta = [
 
 const JobWinningTemplate = () => {
   return (
-    <section className="max-w-8xl mx-auto w-[95%]  min-h-150 p-6">
+    <section className="max-w-8xl mx-auto w-[95%]  min-h-150 p-6 mb-20">
       <div className="flex items-center flex-col space-y-8 justify-center">
         <h2 className="text-4xl font-bold text-center mb-4">
           Job Winning Templates
