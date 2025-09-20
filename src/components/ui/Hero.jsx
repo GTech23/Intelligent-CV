@@ -4,7 +4,7 @@ import HeroImage from "../../assets/images/home-hero-banner.avif";
 import { FaArrowRight } from "react-icons/fa";
 const Hero = () => {
   return (
-    <section className=" mx-auto py-7 ">
+    <section className=" mx-auto py-7 px-7 ">
       <div className=" flex items-center min-h-[85vh] space-x-12 gap-4 p-4">
         <div className="h-full mr-20">
           <h1 className="text-6xl font-bold mb-4 text-[#24272E]">
