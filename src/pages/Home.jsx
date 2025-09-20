@@ -12,30 +12,23 @@ import PartnersSection from "../components/ui/PartnerSection";
 import PricingSection from "../components/ui/PricingSection";
 import StatsSection from "../components/ui/Stats";
 import NewsletterSignup from "../components/ui/NewsLetterSignup";
+import HomeLayout from "../components/layout/HomeLayout";
 
 const Home = () => {
   return (
     <>
-      <Navbar />
-
-      <main className="mt-15">
-        <Hero />
-        <JobWinningTemplate />
-        <HowItWorksSection />
-        <PartnersSection />
-        <Features />
-        <JobSeekersSection />
-        <StatsSection />
-        <PricingSection />
-        <FAQSection />
-        <Cta />
-        <NewsletterSignup />
-        <SupportButton />
-      </main>
-
-      <footer>
-        <Footer />
-      </footer>
+      <Hero />
+      <JobWinningTemplate />
+      <HowItWorksSection />
+      <PartnersSection />
+      <Features />
+      <JobSeekersSection />
+      <StatsSection />
+      <PricingSection />
+      <FAQSection />
+      <Cta />
+      <NewsletterSignup />
+      <SupportButton />
     </>
   );
 };
