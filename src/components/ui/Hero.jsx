@@ -17,7 +17,10 @@ const Hero = () => {
             and effortlessly.
           </p>
 
-          <Link className="py-4 px-14 bg-[#EA723C] rounded-2xl text-white font-bold mb-4 inline-block">
+          <Link
+            to="/resume-builder/app/choose-templates"
+            className="py-4 px-14 bg-[#EA723C] rounded-2xl text-white font-bold mb-4 inline-block"
+          >
             Build My Resume Now
           </Link>
 

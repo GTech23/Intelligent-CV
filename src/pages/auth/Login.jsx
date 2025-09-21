@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
+import TextLogo from "../../components/common/TextLogo";
 import SupportButton from "../../components/ui/SupportButton";
 const Login = () => {
   return (
     <div>
       <title>Intelligent CV | Dashboard</title>
       <div className="bg-white p-3">
-        <Link to="/" className="text-2xl font-light text-[#EA723C]">
-          Intelligent <span className="font-bold">CV</span>
-        </Link>
+        <TextLogo />
       </div>
       <div className="min-h-[90vh] bg-cyan-50 p-6">
         <div className=" flex w-full h-full items-center justify-center">
