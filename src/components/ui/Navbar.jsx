@@ -33,7 +33,7 @@ const Navbar = () => {
             </li>
           </ul>
 
-          <Button text="Login" to="/login" />
+          <Button text="Login" to="/dashboard/app/account/login" />
         </nav>
       </header>
     </>
