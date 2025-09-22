@@ -7,35 +7,75 @@ import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ChooseTemplates from "./pages/resume/ChooseTemplates";
 
+// Resume Step Imports
 import ContactStep from "./pages/resume/steps/ContactStep";
+import WorkExperienceStep from "./pages/resume/steps/WorkExperienceStep";
+import EducationStep from "./pages/resume/steps/EducationStep";
+import CertificationStep from "./pages/resume/steps/CertificationStep";
+import SkillStep from "./pages/resume/steps/SkillStep";
+import SummaryStep from "./pages/resume/steps/SummaryStep";
+import ReferenceStep from "./pages/resume/steps/ReferenceStep";
 
 import HomeLayout from "./components/layout/HomeLayout";
 import ResumeLayout from "./components/layout/ResumeLayout";
+
+// Context
+import { ResumeProvider } from "./context/ResumeContext";
 const App = () => {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomeLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/pricing" element={<Pricing />} />
-          </Route>
-          <Route path="/dashboard/app/account/login" element={<Login />} />
-          <Route path="/dashboard/app/account/create" element={<Register />} />
-          <Route
-            path="/resume-builder/app/choose-templates"
-            element={<ChooseTemplates />}
-          />
-          <Route
-            path="/dashboard/app/account/forgot-password"
-            element={<ForgotPassword />}
-          />
-          <Route path="/dashboard/app/personalize" element={<ResumeLayout />}>
-            <Route index element={<ContactStep />} />
-          </Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
+      <ResumeProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomeLayout />}>
+              <Route index element={<Home />} />
+              <Route path="/pricing" element={<Pricing />} />
+            </Route>
+            <Route path="/dashboard/app/account/login" element={<Login />} />
+            <Route
+              path="/dashboard/app/account/create"
+              element={<Register />}
+            />
+            <Route
+              path="/resume-builder/app/choose-templates"
+              element={<ChooseTemplates />}
+            />
+            <Route
+              path="/dashboard/app/account/forgot-password"
+              element={<ForgotPassword />}
+            />
+            <Route path="/dashboard/app/personalize" element={<ResumeLayout />}>
+              <Route index element={<ContactStep />} />
+              <Route
+                path="/dashboard/app/personalize/work_experience"
+                element={<WorkExperienceStep />}
+              />
+              <Route
+                path="/dashboard/app/personalize/education"
+                element={<EducationStep />}
+              />
+              <Route
+                path="/dashboard/app/personalize/certification"
+                element={<CertificationStep />}
+              />
+              <Route
+                path="/dashboard/app/personalize/skill"
+                element={<SkillStep />}
+              />
+              <Route
+                path="/dashboard/app/personalize/summary"
+                element={<SummaryStep />}
+              />
+              <Route
+                path="/dashboard/app/personalize/reference"
+                element={<ReferenceStep />}
+              />
+            </Route>
+
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </ResumeProvider>
     </>
   );
 };

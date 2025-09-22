@@ -1,7 +1,6 @@
 import { FaUserCircle, FaUpload } from "react-icons/fa";
 import TextInput from "../../../components/common/TextInput";
 
-import fields from "../../../data/formField.js";
 const ContactStep = () => {
   return (
     <div className="flex gap-8">
@@ -25,13 +24,36 @@ const ContactStep = () => {
             <input type="file" accept="image/*" className="hidden" />
           </div>
           <div className="grid grid-cols-2 gap-8">
-            {fields.map((field) => {
-              return (
-                <div className={`${field.hasTwoColumn ? "col-span-2" : ""}`}>
-                  <TextInput data={field} />
-                </div>
-              );
-            })}
+            <div className="">
+              <TextInput name="first-name" placeholder={"First Name"} />
+            </div>
+            <div className="">
+              <TextInput name="last-name" placeholder={"Last Name"} />
+            </div>
+            <div className="col-span-2">
+              <TextInput
+                name="job-title"
+                placeholder={"Desried Job Title (Optional)"}
+              />
+            </div>
+            <div className="">
+              <TextInput name="email" placeholder={"Email Address"} />
+            </div>
+            <div className="">
+              <TextInput name="phone" placeholder={"Phone Number"} />
+            </div>
+            <div className="">
+              <TextInput name="country" placeholder={"Country"} />
+            </div>
+            <div className="">
+              <TextInput name="city" placeholder={"City"} />
+            </div>
+            <div className="">
+              <TextInput name="state" placeholder={"State or Province"} />
+            </div>
+            <div className="">
+              <TextInput name="postal-code" placeholder={"Postal Code"} />
+            </div>
 
             <button className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold ">
               Back
