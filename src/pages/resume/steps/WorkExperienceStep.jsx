@@ -1,5 +1,8 @@
 import TextInput from "../../../components/common/TextInput";
+import useQuery from "../../../hooks/UseQuery";
 const WorkExperienceStep = () => {
+  const param = useQuery();
+  console.log(param.get("field"));
   return (
     <>
       <div className="flex gap-8">

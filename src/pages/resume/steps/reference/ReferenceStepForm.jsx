@@ -1,9 +1,9 @@
-import TextInput from "../../../components/common/TextInput";
+import TextInput from "../../../../components/common/TextInput";
 
-const ReferenceStep = () => {
+const ReferenceStepForm = () => {
   return (
     <>
-      <div className="flex gap-8">
+      <div className=" gap-8">
         <title>Resume Builder</title>
         <div className="max-w-5xl  w-full mx-auto">
           <h1 className="text-4xl font-bold text-gray-700">Add Reference</h1>
@@ -61,11 +61,9 @@ const ReferenceStep = () => {
             </div>
           </form>
         </div>
-
-        <div></div>
       </div>
     </>
   );
 };
 
-export default ReferenceStep;
+export default ReferenceStepForm;

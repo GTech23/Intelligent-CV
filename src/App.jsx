@@ -14,7 +14,7 @@ import EducationStep from "./pages/resume/steps/EducationStep";
 import CertificationStep from "./pages/resume/steps/CertificationStep";
 import SkillStep from "./pages/resume/steps/SkillStep";
 import SummaryStep from "./pages/resume/steps/SummaryStep";
-import ReferenceStep from "./pages/resume/steps/ReferenceStep";
+import ReferenceStep from "./pages/resume/steps/reference/ReferenceStep";
 
 import HomeLayout from "./components/layout/HomeLayout";
 import ResumeLayout from "./components/layout/ResumeLayout";
