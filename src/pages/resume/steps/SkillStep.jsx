@@ -1,15 +1,13 @@
-
 import "quill/dist/quill.snow.css";
 import { FaPlus } from "react-icons/fa6";
 import { InputWithTrash } from "../../../components/common/TextInput";
-
 
 const SkillStep = () => {
   return (
     <>
       <div className="flex gap-8">
         <title>Resume Builder</title>
-        <div>
+        <div className="max-w-5xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-700">Skills</h1>
           <p>
             You're on a roll. Let's find relevant skills for the job your

@@ -3,7 +3,7 @@ import { InputWithTrash } from "../../../components/common/TextInput";
 const CertificationStep = () => {
   return (
     <>
-      <div className="flex gap-8">
+      <div className=" gap-8 max-w-5xl mx-auto">
         <title>Resume Builder</title>
         <div>
           <h1 className="text-4xl font-bold text-gray-700">

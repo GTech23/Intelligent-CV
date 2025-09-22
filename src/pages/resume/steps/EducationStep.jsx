@@ -4,7 +4,7 @@ const EducationStep = () => {
     <>
       <div className="flex gap-8">
         <title>Resume Builder</title>
-        <div>
+        <div className="max-w-5xl mx-auto  w-full">
           <h1 className="text-4xl font-bold text-gray-700">Education</h1>
           <p>
             Great job! You're onto the next section. Where did you attend
@@ -12,7 +12,7 @@ const EducationStep = () => {
           </p>
 
           <form action="#" className="my-4 flex items-start gap-8">
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 w-full gap-8">
               <div className="">
                 <TextInput name="school" placeholder={"School Name"} />
               </div>
@@ -40,6 +40,17 @@ const EducationStep = () => {
                   placeholder={"Graduation Year"}
                 />
               </div>
+
+              <div className="col-span-2 flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  className="accent-orange-400 w-5 h-5"
+                  name="currently-work-here"
+                  id=""
+                />
+                <label htmlFor="">Remove graduation date from resume</label>
+              </div>
+
               <button className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold ">
                 Back
               </button>
