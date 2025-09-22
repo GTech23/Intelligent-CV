@@ -22,6 +22,7 @@ import ResumeLayout from "./components/layout/ResumeLayout";
 // Context
 import { ResumeProvider } from "./context/ResumeContext";
 import ResumeFinalize from "./pages/resume/steps/ResumeFinalize";
+import ResumeDownload from "./pages/resume/ResumeDownload";
 const App = () => {
   return (
     <>
@@ -74,6 +75,10 @@ const App = () => {
               <Route
                 path="/dashboard/app/personalize/finalize"
                 element={<ResumeFinalize />}
+              />
+              <Route
+                path="/dashboard/app/personalize/done"
+                element={<ResumeDownload />}
               />
             </Route>
 
