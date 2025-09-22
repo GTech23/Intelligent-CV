@@ -9,7 +9,7 @@ import ChooseTemplates from "./pages/resume/ChooseTemplates";
 
 // Resume Step Imports
 import ContactStep from "./pages/resume/steps/ContactStep";
-import WorkExperienceStep from "./pages/resume/steps/WorkExperienceStep";
+import WorkExperienceStep from "./pages/resume/steps/experience/WorkExperienceStep";
 import CertificationStep from "./pages/resume/steps/CertificationStep";
 import SkillStep from "./pages/resume/steps/SkillStep";
 import SummaryStep from "./pages/resume/steps/SummaryStep";
@@ -23,6 +23,7 @@ import { ResumeProvider } from "./context/ResumeContext";
 import ResumeFinalize from "./pages/resume/steps/ResumeFinalize";
 import ResumeDownload from "./pages/resume/ResumeDownload";
 import EducacationStep from "./pages/resume/steps/education/EducationStep";
+
 const App = () => {
   return (
     <>
