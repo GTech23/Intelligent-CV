@@ -60,13 +60,8 @@ export const ResumeProvider = ({ children }) => {
       },
     ],
     certifications: [
-      {
-        name: "Full-Stack Web Development",
-        issuer: "Coursera",
-        date: { $date: { $numberLong: "1619827200000" } },
-        description:
-          "Completed a professional certificate in full-stack development.",
-      },
+      "Certificate in Entreprenuership",
+      "Certificate in Sales & Marketing",
     ],
     languages: [
       {
