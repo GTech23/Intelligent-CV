@@ -1,8 +1,20 @@
 import "quill/dist/quill.snow.css";
 import { FaPlus } from "react-icons/fa6";
-import { InputWithTrash } from "../../../components/common/TextInput";
-
+import { useResume } from "../../../context/ResumeContext";
+import { FiTrash } from "react-icons/fi";
 const SkillStep = () => {
+  const { formData, setFormData } = useResume();
+
+  const handleSkillChange = (index, value) => {
+    const updatedCert = [...formData.skills];
+    updatedCert[index] = value;
+
+    setFormData((prev) => ({
+      ...prev,
+      skills: updatedCert,
+    }));
+  };
+
   return (
     <>
       <div className="flex gap-8">
@@ -15,10 +27,26 @@ const SkillStep = () => {
           </p>
 
           <form action="#" className="my-4  items-start gap-8">
-            <div className="grid grid-cols-1 gap-8">
-              <div className="">
-                <InputWithTrash name="skill_id" placeholder={"Skill 1"} />
-              </div>
+            <div className="grid grid-cols-1 gap-4">
+              {formData.skills.map((skill, index) => (
+                <div key={index} className="relative w-full mb-1">
+                  <input
+                    name={`skill_id${index}`}
+                    id={`skill_id${index}`}
+                    onChange={(e) => handleSkillChange(index, e.target.value)}
+                    value={skill}
+                    placeholder={`Skill ${index + 1}`}
+                    className="w-full px-6 pr-12 py-3 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700"
+                  >
+                    <FiTrash size={18} />
+                  </button>
+                </div>
+              ))}
 
               <div className="flex items-center gap-2">
                 <FaPlus />
