@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 import Quill from "quill";
+import "quill/dist/quill.snow.css";
 import ResultCard from "../../../components/ui/ResultCard";
-const RawQuillEditor = () => {
+import { useResume } from "../../../context/ResumeContext";
+
+const RawQuillEditor = ({ value, onChange }) => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
 
@@ -13,19 +16,43 @@ const RawQuillEditor = () => {
           toolbar: [
             ["bold", "italic", "underline", "strike"],
             [{ list: "bullet" }],
-
             ["clean"],
           ],
         },
         placeholder: "Add, edit, and write here.",
       });
+
+      quillRef.current.root.innerHTML = value || "";
+
+      quillRef.current.on("text-change", () => {
+        const textContent = quillRef.current.root.textContent;
+        onChange(textContent);
+      });
     }
-  }, []);
+  }, [onChange, value]);
+
+  useEffect(() => {
+    if (quillRef.current && value !== quillRef.current.root.innerHTML) {
+      quillRef.current.root.innerHTML = value || "";
+    }
+  }, [value]);
 
   return <div ref={editorRef} />;
 };
 
 const SummaryStep = () => {
+  const { formData, setFormData } = useResume();
+
+  const handleSummaryChange = (newSummary) => {
+    setFormData((prev) => ({
+      ...prev,
+      personal: {
+        ...prev.personal,
+        summary: newSummary,
+      },
+    }));
+  };
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
@@ -41,10 +68,13 @@ const SummaryStep = () => {
 
       <div className="grid grid-cols-2 gap-8">
         <div>
-          <RawQuillEditor />
+          <RawQuillEditor
+            value={formData.personal.summary || ""}
+            onChange={handleSummaryChange}
+          />
         </div>
 
-        <div className=" overflow-y-auto max-h-[450px] h-full">
+        <div className="overflow-y-auto max-h-[450px] h-full">
           <ResultCard>
             Seeking to utilize excellent communication, interpersonal, and
             organizational skills to complete tasks. Reliable with a good work
@@ -66,11 +96,12 @@ const SummaryStep = () => {
           </ResultCard>
         </div>
       </div>
-      <div className=" col-span-1 flex items-center my-4 py-8 justify-between">
-        <button className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold ">
+
+      <div className="col-span-1 flex items-center my-4 py-8 justify-between">
+        <button className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold">
           Back
         </button>
-        <button className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1  font-bold ">
+        <button className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1 font-bold">
           Save & Next
         </button>
       </div>
