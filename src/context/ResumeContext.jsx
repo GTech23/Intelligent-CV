@@ -6,11 +6,16 @@ export const useResume = () => useContext(ResumeContext);
 export const ResumeProvider = ({ children }) => {
   const [formData, setFormData] = useState({
     personal: {
-      fullName: "Admin Addy",
+      photoUrl: "https://myphotocom.com/abds",
+      firstName: "Admin",
+      lastName: "Addy",
       title: "Database Engineer",
       email: "admin@gmail.com",
       phone: "+2349130327299",
-      address: "Port Harcourt, Rivers State",
+      country: "Nigeria",
+      city: "Port Harcourt",
+      state: "Rivers State",
+      postalCode: "50012",
       linkedin: "https://www.linkedin.com/in/adminaddy",
       website: "https://admin-indol.vercel.app",
       profileImage: "https://example.com/profile.jpg",
@@ -22,20 +27,24 @@ export const ResumeProvider = ({ children }) => {
         school: "University of Example",
         degree: "Bachelor of Science",
         fieldOfStudy: "Computer Science",
-        startDate: { $date: { $numberLong: "1472688000000" } },
-        endDate: { $date: { $numberLong: "1590969600000" } },
-        description: "Focused on software engineering and data structures.",
+        graduationMonth: "January",
+        graduationYear: "2013",
+        removeGraduationDate: false,
       },
     ],
     experience: [
       {
         company: "TechCorp Inc.",
         position: "Frontend Developer",
-        startDate: { $date: { $numberLong: "1593561600000" } },
-        endDate: { $date: { $numberLong: "1659312000000" } },
-        location: "Remote",
-        description: "Worked on building and maintaining web applications.",
-        highlights: [
+        startMonth: "September",
+        startYear: "2021",
+        endMonth: "June",
+        country: "United Kingdom",
+        province: "New York",
+        city: "St Marys",
+        endYear: "2025",
+        isCurrentlyWorking: false,
+        responsibilities: [
           "Developed reusable React components",
           "Improved page load speed by 40%",
           "Collaborated with designers and backend engineers",
@@ -72,6 +81,8 @@ export const ResumeProvider = ({ children }) => {
   });
 
   return (
-    <ResumeContext value={(formData, setFormData)}>{children}</ResumeContext>
+    <ResumeContext.Provider value={{ formData, setFormData }}>
+      {children}
+    </ResumeContext.Provider>
   );
 };

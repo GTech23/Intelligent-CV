@@ -1,10 +1,11 @@
 import { FiTrash } from "react-icons/fi";
-const TextInput = ({ type = "text", name, placeholder }) => {
+const TextInput = ({ type = "text", name, placeholder, ref }) => {
   return (
     <input
       type={type}
       name={name}
       id={name}
+      ref={ref}
       placeholder={placeholder}
       className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
     />

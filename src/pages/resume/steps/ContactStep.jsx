@@ -1,7 +1,30 @@
 import { FaUserCircle, FaUpload } from "react-icons/fa";
-import TextInput from "../../../components/common/TextInput";
+import { useResume } from "../../../context/ResumeContext";
+import { useRef } from "react";
 
 const ContactStep = () => {
+  const { formData, setFormData } = useResume();
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const jobTitleRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneRef = useRef(null);
+  const countryRef = useRef(null);
+  const cityRef = useRef(null);
+  const provinceRef = useRef(null);
+  const postalCodeRef = useRef(null);
+
+  const savePersonal = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      personal: {
+        ...prev.personal,
+        [name]: value,
+      },
+    }));
+  };
+
   return (
     <div className="flex gap-8">
       <title>Resume Builder</title>
@@ -25,34 +48,84 @@ const ContactStep = () => {
           </div>
           <div className="grid grid-cols-2 gap-8">
             <div className="">
-              <TextInput name="first-name" placeholder={"First Name"} />
-            </div>
-            <div className="">
-              <TextInput name="last-name" placeholder={"Last Name"} />
-            </div>
-            <div className="col-span-2">
-              <TextInput
-                name="job-title"
-                placeholder={"Desried Job Title (Optional)"}
+              <input
+                ref={firstNameRef}
+                name="firstName"
+                placeholder={"First Name"}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                onBlur={savePersonal}
               />
             </div>
             <div className="">
-              <TextInput name="email" placeholder={"Email Address"} />
+              <input
+                ref={lastNameRef}
+                name="lastName"
+                placeholder={"Last Name"}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                onBlur={savePersonal}
+              />
+            </div>
+            <div className="col-span-2">
+              <input
+                ref={jobTitleRef}
+                name="title"
+                placeholder={"Desried Job Title (Optional)"}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                onBlur={savePersonal}
+              />
             </div>
             <div className="">
-              <TextInput name="phone" placeholder={"Phone Number"} />
+              <input
+                ref={emailRef}
+                name="email"
+                placeholder={"Email Address"}
+                onBlur={savePersonal}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              />
             </div>
             <div className="">
-              <TextInput name="country" placeholder={"Country"} />
+              <input
+                ref={phoneRef}
+                name="phone"
+                onBlur={savePersonal}
+                placeholder={"Phone Number"}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              />
             </div>
             <div className="">
-              <TextInput name="city" placeholder={"City"} />
+              <input
+                ref={countryRef}
+                name="country"
+                placeholder={"Country"}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              />
             </div>
             <div className="">
-              <TextInput name="state" placeholder={"State or Province"} />
+              <input
+                ref={cityRef}
+                name="city"
+                placeholder={"City"}
+                onBlur={savePersonal}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+              />
             </div>
             <div className="">
-              <TextInput name="postal-code" placeholder={"Postal Code"} />
+              <input
+                ref={provinceRef}
+                name="state"
+                placeholder={"State or Province"}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                onBlur={savePersonal}
+              />
+            </div>
+            <div className="">
+              <input
+                ref={postalCodeRef}
+                name="postalCode"
+                placeholder={"Postal Code"}
+                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                onBlur={savePersonal}
+              />
             </div>
 
             <button className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold ">
