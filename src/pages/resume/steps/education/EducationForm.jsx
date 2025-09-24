@@ -26,91 +26,104 @@ const EducationForm = () => {
 
         <form action="#" className="my-4 flex items-start gap-8">
           <div className="grid grid-cols-2 w-full gap-8">
-            <div>
-              <input
-                name="school"
-                placeholder="School Name"
-                value={formData.education[0].school}
-                onChange={(e) =>
-                  handleEducationChange(0, "school", e.target.value)
-                }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <input
-                name="location"
-                placeholder="School Location"
-                value={formData.education[0].location || ""}
-                onChange={(e) =>
-                  handleEducationChange(0, "location", e.target.value)
-                }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <input
-                name="degree"
-                placeholder="Degree or Program"
-                value={formData.education[0].degree}
-                onChange={(e) =>
-                  handleEducationChange(0, "degree", e.target.value)
-                }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <input
-                name="field-of-study"
-                placeholder="Field of Study"
-                value={formData.education[0].fieldOfStudy}
-                onChange={(e) =>
-                  handleEducationChange(0, "fieldOfStudy", e.target.value)
-                }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <input
-                name="graduation-month"
-                placeholder="Graduation Month"
-                value={formData.education[0].graduationMonth}
-                onChange={(e) =>
-                  handleEducationChange(0, "graduationMonth", e.target.value)
-                }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-            <div>
-              <input
-                name="graduation-year"
-                placeholder="Graduation Year"
-                value={formData.education[0].graduationYear}
-                onChange={(e) =>
-                  handleEducationChange(0, "graduationYear", e.target.value)
-                }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            <div className="col-span-2 flex items-center gap-2">
-              <input
-                type="checkbox"
-                className="accent-orange-400 w-5 h-5"
-                name="removeGraduationDate"
-                checked={formData.education[0].removeGraduationDate}
-                onChange={(e) =>
-                  handleEducationChange(
-                    0,
-                    "removeGraduationDate",
-                    e.target.checked
-                  )
-                }
-              />
-              <label htmlFor="removeGraduationDate">
-                Remove graduation date from resume
-              </label>
-            </div>
+            {formData.education.map((edu, i) => {
+              return (
+                <>
+                  <div>
+                    <input
+                      name="school"
+                      placeholder="School Name"
+                      value={edu.school}
+                      onChange={(e) =>
+                        handleEducationChange(i, "school", e.target.value)
+                      }
+                      className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      name="location"
+                      placeholder="School Location"
+                      value={edu.location}
+                      onChange={(e) =>
+                        handleEducationChange(i, "location", e.target.value)
+                      }
+                      className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      name="degree"
+                      placeholder="Degree or Program"
+                      value={edu.degree}
+                      onChange={(e) =>
+                        handleEducationChange(i, "degree", e.target.value)
+                      }
+                      className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      name="field-of-study"
+                      placeholder="Field of Study"
+                      value={edu.fieldOfStudy}
+                      onChange={(e) =>
+                        handleEducationChange(i, "fieldOfStudy", e.target.value)
+                      }
+                      className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      name="graduation-month"
+                      placeholder="Graduation Month"
+                      value={edu.graduationMonth}
+                      onChange={(e) =>
+                        handleEducationChange(
+                          0,
+                          "graduationMonth",
+                          e.target.value
+                        )
+                      }
+                      className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <input
+                      name="graduation-year"
+                      placeholder="Graduation Year"
+                      value={edu.graduationYear}
+                      onChange={(e) =>
+                        handleEducationChange(
+                          0,
+                          "graduationYear",
+                          e.target.value
+                        )
+                      }
+                      className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div className="col-span-2 flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      className="accent-orange-400 w-5 h-5"
+                      name="removeGraduationDate"
+                      checked={edu.removeGraduationDate}
+                      onChange={(e) =>
+                        handleEducationChange(
+                          0,
+                          "removeGraduationDate",
+                          e.target.checked
+                        )
+                      }
+                    />
+                    <label htmlFor="removeGraduationDate">
+                      Remove graduation date from resume
+                    </label>
+                  </div>
+                </>
+              );
+            })}
 
             <button
               type="button"

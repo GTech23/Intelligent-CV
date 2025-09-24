@@ -22,7 +22,7 @@ const EducationStepView = () => {
             className="flex gap-2 items-center font-bold text-md cursor-pointer hover:underline"
           >
             <FaPlus />
-            Add reference
+            Add education
           </button>
         </div>
         <div className="flex items-center justify-between my-3">

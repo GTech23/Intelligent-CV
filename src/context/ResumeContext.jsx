@@ -30,6 +30,7 @@ export const ResumeProvider = ({ children }) => {
         graduationMonth: "January",
         graduationYear: "2013",
         removeGraduationDate: false,
+        location: "Washington DC",
       },
     ],
     experience: [
@@ -71,6 +72,18 @@ export const ResumeProvider = ({ children }) => {
       {
         name: "French",
         level: "Intermediate",
+      },
+    ],
+
+    references: [
+      {
+        firstName: "John",
+        lastName: "Doe",
+        company: "Google LCC",
+        jobTitle: "Backend Engineer",
+        email: "johndoe@domain.com",
+        phone: "01234569045",
+        relationshipStatus: "friend",
       },
     ],
   });

@@ -28,7 +28,7 @@ const WorkExperienceView = () => {
             className="flex gap-2 bg-black text-white  py-2 px-6 rounded-lg my-3 items-center font-bold text-md cursor-pointer hover:underline"
           >
             <FaPlus />
-            Add reference
+            Add experience
           </button>
         </div>
         <div className="flex items-center justify-between my-3">
