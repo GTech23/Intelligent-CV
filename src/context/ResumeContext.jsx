@@ -24,7 +24,7 @@ export const ResumeProvider = ({ children }) => {
     },
     education: [
       {
-        school: "University of Example",
+        school: "University of Port Harcourt",
         degree: "Bachelor of Science",
         fieldOfStudy: "Computer Science",
         graduationMonth: "January",
@@ -53,13 +53,7 @@ export const ResumeProvider = ({ children }) => {
       },
     ],
     skills: ["JavaScript", "Node.js", "React", "MongoDB", "Express"],
-    projects: [
-      {
-        name: "Resume Builder App",
-        link: "https://github.com/johndoe/resume-builder",
-        description: "A web app that helps users create and download resumes.",
-      },
-    ],
+
     certifications: [
       "Certificate in Entreprenuership",
       "Certificate in Sales & Marketing",
