@@ -24,9 +24,22 @@ import ResumeFinalize from "./pages/resume/steps/ResumeFinalize";
 import ResumeDownload from "./pages/resume/ResumeDownload";
 import EducacationStep from "./pages/resume/steps/education/EducationStep";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <ResumeProvider>
         <BrowserRouter>
           <Routes>

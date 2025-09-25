@@ -1,6 +1,7 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 import resumeComplete from "../../../assets/images/resume-complete.png";
+import { Link } from "react-router-dom";
 const ResumeFinalize = () => {
   return (
     <>
@@ -25,10 +26,13 @@ const ResumeFinalize = () => {
             <FaArrowLeft />
             Continue Editing
           </button>
-          <button className="py-3 px-8 bg-amber-700 text-white  font-bold rounded-2xl cursor-pointer flex items-center justify-center gap-4">
+          <Link
+            to="/dashboard/app/personalize/done"
+            className="py-3 px-8 bg-amber-700 text-white  font-bold rounded-2xl cursor-pointer flex items-center justify-center gap-4"
+          >
             Proceed to Download
             <FaArrowRight />
-          </button>
+          </Link>
         </div>
       </div>
     </>

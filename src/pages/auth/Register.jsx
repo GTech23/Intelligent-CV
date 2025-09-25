@@ -1,6 +1,39 @@
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 import SupportButton from "../../components/ui/SupportButton";
+import { toast } from "react-toastify";
 const Register = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const usernameRef = useRef();
+
+  async function handleRegister() {
+    try {
+      const response = await fetch(
+        "https://intelligent-cv-backend.onrender.com/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: usernameRef.current.value,
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+          }),
+        }
+      );
+
+      const payload = await response.json();
+      if (payload.success) {
+        toast.success(payload.message);
+      } else {
+        toast.error(payload.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <div>
       <title>Intelligent CV | Dashboard</title>
@@ -18,6 +51,7 @@ const Register = () => {
             <form action="#">
               <div className="mb-4">
                 <input
+                  ref={usernameRef}
                   type="text"
                   className="py-2 text-lg px-4 border-1 border-zinc-500 w-full rounded-md bg-white"
                   placeholder="Username"
@@ -28,6 +62,7 @@ const Register = () => {
               </div>
               <div className="mb-4">
                 <input
+                  ref={emailRef}
                   type="email"
                   className="py-2 text-lg px-4 border-1 border-zinc-500 w-full rounded-md bg-white"
                   placeholder="Email"
@@ -38,6 +73,7 @@ const Register = () => {
               </div>
               <div className="mb-4">
                 <input
+                  ref={passwordRef}
                   id="password"
                   name="password"
                   type="password"
@@ -48,7 +84,11 @@ const Register = () => {
               </div>
 
               <div>
-                <button className="bg-[#EA723C] rounded-lg cursor-pointer py-3 px-8 w-full my-6 text-white font-semibold text-lg">
+                <button
+                  type="button"
+                  onClick={handleRegister}
+                  className="bg-[#EA723C] rounded-lg cursor-pointer py-3 px-8 w-full my-6 text-white font-semibold text-lg"
+                >
                   Join
                 </button>
               </div>

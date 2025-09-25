@@ -1,7 +1,40 @@
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 import TextLogo from "../../components/common/TextLogo";
 import SupportButton from "../../components/ui/SupportButton";
+import { Navigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const Login = () => {
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  async function handleLogin() {
+    try {
+      const response = await fetch(
+        "https://intelligent-cv-backend.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+          }),
+        }
+      );
+
+      const payload = await response.json();
+      if (payload.success) {
+        toast.success(payload.message);
+        localStorage.setItem("token", payload.token);
+        window.location.href = "/dashboard/app/personalize";
+      } else {
+        toast.error(payload.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <div>
       <title>Intelligent CV | Dashboard</title>
@@ -17,6 +50,7 @@ const Login = () => {
             <form action="#">
               <div className="mb-4">
                 <input
+                  ref={emailRef}
                   type="email"
                   className="py-2 text-lg px-4 border-1 border-zinc-500 w-full rounded-md bg-white"
                   placeholder="Email"
@@ -27,6 +61,7 @@ const Login = () => {
               </div>
               <div className="mb-4">
                 <input
+                  ref={passwordRef}
                   id="password"
                   name="password"
                   type="password"
@@ -55,7 +90,11 @@ const Login = () => {
               </div>
 
               <div>
-                <button className="bg-[#EA723C] rounded-lg cursor-pointer py-3 px-8 w-full my-6 text-white font-semibold text-lg">
+                <button
+                  type="button"
+                  onClick={handleLogin}
+                  className="bg-[#EA723C] rounded-lg cursor-pointer py-3 px-8 w-full my-6 text-white font-semibold text-lg"
+                >
                   Log in
                 </button>
               </div>
