@@ -1,8 +1,12 @@
 import { jwtDecode } from "jwt-decode";
-
 export default function Dashboard() {
   const token = localStorage.getItem("token");
-  const user = jwtDecode(token);
+  let user = {};
+  try {
+    user = token ? jwtDecode(token) : {};
+  } catch {
+    user = {};
+  }
   const userNameFromEmail = user?.email ? user.email.split("@")[0] : "User";
   const capitalizedUserName =
     userNameFromEmail.charAt(0).toUpperCase() + userNameFromEmail.slice(1);
