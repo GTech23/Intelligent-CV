@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import { Link } from "react-router-dom";
 export default function Dashboard() {
   const token = localStorage.getItem("token");
   let user = {};
@@ -23,9 +24,9 @@ export default function Dashboard() {
             </p>
           </div>
 
-          <button className="bg-[#EA723C] cursor-pointer text-white px-4 py-2 rounded">
+          <Link className="bg-[#EA723C] cursor-pointer text-white px-4 py-2 rounded">
             + Create Resume
-          </button>
+          </Link>
         </div>
       </main>
     </div>

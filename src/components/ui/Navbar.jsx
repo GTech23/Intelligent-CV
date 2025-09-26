@@ -33,7 +33,11 @@ const Navbar = () => {
             </li>
           </ul>
 
-          <Button text="Login" to="/dashboard/app/account/login" />
+          {localStorage.getItem("token") ? (
+            <Button text="Access Dashboard" to="/dashboard/app/home" />
+          ) : (
+            <Button text="Login" to="/dashboard/app/account/login" />
+          )}
         </nav>
       </header>
     </>
