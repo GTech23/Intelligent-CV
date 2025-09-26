@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import SupportButton from "../../components/ui/SupportButton";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 const Register = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const usernameRef = useRef();
-
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   async function handleRegister() {
+    setLoading(true);
     try {
       const response = await fetch(
         "https://intelligent-cv-backend.onrender.com/api/auth/register",
@@ -25,13 +29,17 @@ const Register = () => {
       );
 
       const payload = await response.json();
+      setLoading(false);
       if (payload.success) {
         toast.success(payload.message);
+        navigate("/dashboard/app/account/login", { replace: true });
       } else {
         toast.error(payload.message);
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }
   return (
@@ -89,7 +97,7 @@ const Register = () => {
                   onClick={handleRegister}
                   className="bg-[#EA723C] rounded-lg cursor-pointer py-3 px-8 w-full my-6 text-white font-semibold text-lg"
                 >
-                  Join
+                  {loading ? "Creating account..." : "Join"}
                 </button>
               </div>
               <p className=" text-md font-semibold text-center text-[#EA723C]">

@@ -26,6 +26,10 @@ import EducacationStep from "./pages/resume/steps/education/EducationStep";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+// Dashboard Imports
+import DashboardLayout from "./pages/dashboard/DashbaordLayout";
+import Dashboard from "./pages/dashboard/Dashboard";
 const App = () => {
   return (
     <>
@@ -94,6 +98,10 @@ const App = () => {
                 path="/dashboard/app/personalize/done"
                 element={<ResumeDownload />}
               />
+            </Route>
+
+            <Route path="/dashboard/app/home" element={<DashboardLayout />}>
+              <Route index element={<Dashboard />} />
             </Route>
 
             <Route path="*" element={<NotFoundPage />} />

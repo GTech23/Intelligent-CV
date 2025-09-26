@@ -2,12 +2,16 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import TextLogo from "../../components/common/TextLogo";
 import SupportButton from "../../components/ui/SupportButton";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useState } from "react";
 const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   async function handleLogin() {
+    setLoading(true);
     try {
       const response = await fetch(
         "https://intelligent-cv-backend.onrender.com/api/auth/login",
@@ -24,15 +28,18 @@ const Login = () => {
       );
 
       const payload = await response.json();
+      setLoading(false);
       if (payload.success) {
         toast.success(payload.message);
         localStorage.setItem("token", payload.token);
-        window.location.href = "/dashboard/app/personalize";
+        navigate("/dashboard/app/home", { replace: true });
       } else {
         toast.error(payload.message);
       }
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }
   return (
@@ -95,7 +102,7 @@ const Login = () => {
                   onClick={handleLogin}
                   className="bg-[#EA723C] rounded-lg cursor-pointer py-3 px-8 w-full my-6 text-white font-semibold text-lg"
                 >
-                  Log in
+                  {loading ? "Logging in..." : "Log in"}
                 </button>
               </div>
               <p className=" text-md font-semibold text-center text-[#EA723C]">
