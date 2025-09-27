@@ -3,6 +3,7 @@ import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import ResultCard from "../../../components/ui/ResultCard";
 import { useResume } from "../../../context/ResumeContext";
+import { useNavigate } from "react-router-dom";
 
 const RawQuillEditor = ({ value, onChange }) => {
   const editorRef = useRef(null);
@@ -42,6 +43,7 @@ const RawQuillEditor = ({ value, onChange }) => {
 
 const SummaryStep = () => {
   const { formData, setFormData } = useResume();
+  const navigate = useNavigate();
 
   const handleSummaryChange = (newSummary) => {
     setFormData((prev) => ({
@@ -101,7 +103,10 @@ const SummaryStep = () => {
         type="button"
         className="col-span-1 flex items-center my-4 py-8 justify-between"
       >
-        <button className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold">
+        <button
+          onClick={() => navigate(-1)}
+          className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold"
+        >
           Back
         </button>
         <button

@@ -1,8 +1,10 @@
 import { FaPlus } from "react-icons/fa6";
 import { useResume } from "../../../context/ResumeContext";
 import { FiTrash } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 const CertificationStep = () => {
   const { formData, setFormData } = useResume();
+  const navigate = useNavigate();
 
   const handleCertificationChange = (index, value) => {
     const updatedCert = [...formData.certifications];
@@ -62,6 +64,7 @@ const CertificationStep = () => {
 
               <div className=" col-span-1 flex items-center justify-between">
                 <button
+                  onClick={() => navigate(-1)}
                   type="button"
                   className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold "
                 >

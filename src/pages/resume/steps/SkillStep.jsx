@@ -2,8 +2,10 @@ import "quill/dist/quill.snow.css";
 import { FaPlus } from "react-icons/fa6";
 import { useResume } from "../../../context/ResumeContext";
 import { FiTrash } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 const SkillStep = () => {
   const { formData, setFormData } = useResume();
+  const navigate = useNavigate();
 
   const handleSkillChange = (index, value) => {
     const updatedCert = [...formData.skills];
@@ -57,6 +59,7 @@ const SkillStep = () => {
 
               <div className=" col-span-1 flex items-center justify-between">
                 <button
+                  onClick={() => navigate(-1)}
                   type="button"
                   className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold "
                 >

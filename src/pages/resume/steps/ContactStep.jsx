@@ -1,9 +1,11 @@
 import { FaUserCircle, FaUpload } from "react-icons/fa";
 import { useResume } from "../../../context/ResumeContext";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ContactStep = () => {
   const { formData, setFormData } = useResume();
+  const navigate = useNavigate();
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const jobTitleRef = useRef(null);
@@ -129,6 +131,7 @@ const ContactStep = () => {
             </div>
 
             <button
+              onClick={() => navigate(-1)}
               type="button"
               className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold "
             >

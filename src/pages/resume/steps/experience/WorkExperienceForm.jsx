@@ -1,8 +1,10 @@
 import React from "react";
 import { useResume } from "../../../../context/ResumeContext";
+import { useNavigate } from "react-router-dom";
 
 const WorkExperienceForm = () => {
   const { formData, setFormData } = useResume();
+  const navigate = useNavigate();
 
   const handleExperienceChange = (index, field, value) => {
     const updatedExperience = [...formData.experience];

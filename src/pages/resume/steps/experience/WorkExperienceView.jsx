@@ -101,6 +101,7 @@ const WorkExperienceView = () => {
           </button>
           <div className="flex items-center justify-between my-3">
             <button
+              onClick={() => navigate(-1)}
               type="button"
               className="py-3  bg-white rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold "
             >

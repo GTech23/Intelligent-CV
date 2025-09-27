@@ -1,4 +1,4 @@
-import { FaPlus } from "react-icons/fa6";
+import { FaPlus, FaTrash } from "react-icons/fa6";
 import useQuery from "../../../../hooks/UseQuery";
 import { useNavigate } from "react-router-dom";
 import { useResume } from "../../../../context/ResumeContext";
@@ -7,13 +7,52 @@ import ReferenceStepForm from "./ReferenceStepForm";
 const ReferenceStepView = () => {
   const query = useQuery();
   const navigate = useNavigate();
-  const { formData } = useResume();
-  const references = formData.references || [];
+  const { formData, setFormData } = useResume();
+  // Filter out references where all fields are empty
+  const references = (formData.references || []).filter((ref) => {
+    if (!ref) return false;
+    return Object.values(ref).some((v) => v && v.toString().trim() !== "");
+  });
   const showForm = query.get("add_reference") === "true";
   const redirectToForm = () => {
     query.set("add_reference", "true");
+    setFormData((prev) => ({
+      ...prev,
+      references: [
+        ...(prev.references || []),
+        {
+          firstName: "",
+          lastName: "",
+          company: "",
+          jobTitle: "",
+          email: "",
+          phone: "",
+        },
+      ],
+    }));
     navigate(`?${query.toString()}`);
   };
+
+  const handleEditReference = (index) => {
+    query.set("edit_reference", index);
+    navigate(`?${query.toString()}`);
+  };
+
+  const handleDeleteReference = (index) => {
+    const updatedReferences = [...references];
+    updatedReferences.splice(index, 1);
+    setFormData((prev) => ({
+      ...prev,
+      references: updatedReferences,
+    }));
+    if (updatedReferences.length === 0) {
+      query.delete("edit_reference");
+      navigate(`?${query.toString()}`);
+    } else {
+      navigate(`?${query.toString()}`);
+    }
+  };
+
   return (
     <>
       {showForm ? (
@@ -70,12 +109,20 @@ const ReferenceStepView = () => {
                           </div>
                         </div>
                         <div className="flex items-center gap-4 justify-between">
-                          <button className="flex items-center font-bold border-zinc-400 gap-3 cursor-pointer p-2 border rounded-md">
+                          <button
+                            onClick={() => {
+                              handleEditReference(index);
+                            }}
+                            className="flex items-center font-bold border-zinc-400 gap-3 cursor-pointer p-2 border rounded-md"
+                          >
                             <FaPlus />
                             Edit
                           </button>
                           <button className="flex  items-center font-bold border-zinc-400 gap-3 cursor-pointer p-3 border rounded-full">
-                            <FaPlus className="text-red-500" />
+                            <FaTrash
+                              onClick={() => handleDeleteReference(index)}
+                              className="text-red-500"
+                            />
                           </button>
                         </div>
                       </div>
