@@ -8,12 +8,13 @@ const ReferenceStepView = () => {
   const query = useQuery();
   const navigate = useNavigate();
   const { formData, setFormData } = useResume();
-  // Filter out references where all fields are empty
   const references = (formData.references || []).filter((ref) => {
     if (!ref) return false;
     return Object.values(ref).some((v) => v && v.toString().trim() !== "");
   });
-  const showForm = query.get("add_reference") === "true";
+
+  const showForm =
+    query.get("add_reference") === "true" || query.has("edit_reference");
   const redirectToForm = () => {
     query.set("add_reference", "true");
     setFormData((prev) => ({
@@ -111,7 +112,8 @@ const ReferenceStepView = () => {
                         <div className="flex items-center gap-4 justify-between">
                           <button
                             onClick={() => {
-                              handleEditReference(index);
+                              query.set("edit_reference", index);
+                              navigate(`?${query.toString()}`);
                             }}
                             className="flex items-center font-bold border-zinc-400 gap-3 cursor-pointer p-2 border rounded-md"
                           >

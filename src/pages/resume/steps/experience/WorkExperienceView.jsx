@@ -8,7 +8,8 @@ const WorkExperienceView = () => {
   const { formData } = useResume();
   const workExperience = formData.experience || [];
   const query = useQuery();
-  const showForm = query.get("add_reference") === "true";
+  const showForm =
+    query.get("add_experience") === "true" || query.has("edit_experience");
   const redirectToForm = () => {
     query.set("add_experience", "true");
     navigate(`?${query.toString()}`);
