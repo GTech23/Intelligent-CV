@@ -17,6 +17,21 @@ const SkillStep = () => {
     }));
   };
 
+  const handleAddSkill = () => {
+    setFormData((prev) => ({
+      ...prev,
+      skills: [...prev.skills, ""],
+    }));
+  };
+
+  const handleRemoveSkill = (index) => {
+    const updatedSkills = formData.skills.filter((_, i) => i !== index);
+    setFormData((prev) => ({
+      ...prev,
+      skills: updatedSkills,
+    }));
+  };
+
   return (
     <>
       <div className="flex gap-8">
@@ -42,20 +57,26 @@ const SkillStep = () => {
                   />
 
                   <button
+                    onClick={() => handleRemoveSkill(index)}
+                    aria-label="Remove Skill"
                     type="button"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700"
+                    className="absolute right-3 cursor-pointer top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700"
                   >
                     <FiTrash size={18} />
                   </button>
                 </div>
               ))}
 
-              <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleAddSkill}
+                className="flex items-center gap-2"
+              >
                 <FaPlus />
                 <span className="hover:underline cursor-pointer">
                   Add another skill
                 </span>
-              </div>
+              </button>
 
               <div className=" col-span-1 flex items-center justify-between">
                 <button
