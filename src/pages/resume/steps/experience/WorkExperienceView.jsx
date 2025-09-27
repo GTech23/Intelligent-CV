@@ -5,13 +5,43 @@ import { useResume } from "../../../../context/ResumeContext";
 import WorkExperienceForm from "./WorkExperienceForm";
 const WorkExperienceView = () => {
   const navigate = useNavigate();
-  const { formData } = useResume();
-  const workExperience = formData.experience || [];
+  const { formData, setFormData } = useResume();
+
+  const workExperience = (formData.experience || []).filter((ref) => {
+    if (!ref) return false;
+    return Object.values(ref).some((v) => v && v.toString().trim() !== "");
+  });
+
   const query = useQuery();
   const showForm =
     query.get("add_experience") === "true" || query.has("edit_experience");
+  const handleDeleteExperience = (index) => {
+    const updatedExperience = [...workExperience];
+    updatedExperience.splice(index, 1);
+    setFormData((prev) => ({
+      ...prev,
+      experience: updatedExperience,
+    }));
+  };
+
   const redirectToForm = () => {
     query.set("add_experience", "true");
+    setFormData((prev) => ({
+      ...prev,
+      experience: [
+        ...(prev.experience || []),
+        {
+          position: "",
+          company: "",
+          city: "",
+          country: "",
+          startMonth: "",
+          startYear: "",
+          endMonth: "",
+          endYear: "",
+        },
+      ],
+    }));
     navigate(`?${query.toString()}`);
   };
   return (
@@ -25,17 +55,18 @@ const WorkExperienceView = () => {
           </h1>
           <p>Edit, update, or add new roles to complete your resume.</p>
 
-          {formData.education.length === 0 && (
+          {workExperience.length == 0 && (
             <div className="border-1 bg-[#EFF1E4] border-dotted min-h-50 rounded-2xl my-4 flex items-center justify-center">
               <button
                 onClick={redirectToForm}
                 className="flex gap-2 items-center font-bold text-md cursor-pointer hover:underline"
               >
                 <FaPlus />
-                Add education
+                Add experience
               </button>
             </div>
           )}
+
           {workExperience.length > 0 &&
             workExperience.map((exp, index) => {
               return (
@@ -67,11 +98,20 @@ const WorkExperienceView = () => {
                       </div>
 
                       <div className="flex items-center gap-4 justify-between">
-                        <button className="flex items-center font-bold border-zinc-400 gap-3 cursor-pointer p-2 border rounded-md">
+                        <button
+                          onClick={() => {
+                            query.set("edit_experience", index);
+                            navigate(`?${query.toString()}`);
+                          }}
+                          className="flex items-center font-bold border-zinc-400 gap-3 cursor-pointer p-2 border rounded-md"
+                        >
                           <FaPencil />
                           Edit
                         </button>
-                        <button className="flex  items-center font-bold border-zinc-400 gap-3 cursor-pointer p-3 border rounded-full">
+                        <button
+                          onClick={() => handleDeleteExperience(index)}
+                          className="flex  items-center font-bold border-zinc-400 gap-3 cursor-pointer p-3 border rounded-full"
+                        >
                           <FaTrash className="text-red-500" />
                         </button>
                       </div>
@@ -82,24 +122,30 @@ const WorkExperienceView = () => {
                         Job description
                       </span>
                       <ul className="list-disc list-inside">
-                        {exp.responsibilities.map((duty, index) => (
-                          <li key={index} className="text-sm text-gray-700">
-                            {duty}
+                        {exp.responsiblities &&
+                          exp.responsiblities.map((item, idx) => (
+                            <li key={idx}>{item}</li>
+                          ))}
+                        {(!exp.responsibilities ||
+                          exp.responsibilities.length === 0) && (
+                          <li className="text-gray-500 italic">
+                            No description provided.
                           </li>
-                        ))}
+                        )}
                       </ul>
                     </div>
                   </div>
+                  <button
+                    onClick={redirectToForm}
+                    className="flex gap-2 items-center font-bold text-md cursor-pointer hover:underline mt-4"
+                  >
+                    <FaPlus />
+                    Add another experience
+                  </button>
                 </div>
               );
             })}
-          <button
-            onClick={redirectToForm}
-            className="flex gap-2 items-center font-bold text-md cursor-pointer hover:underline mt-4"
-          >
-            <FaPlus />
-            Add another experience
-          </button>
+
           <div className="flex items-center justify-between my-3">
             <button
               onClick={() => navigate(-1)}

@@ -21,10 +21,8 @@ const ReferenceStepForm = ({ editIndex }) => {
     }));
   };
 
-  // Remove reference if leaving without saving (only for new/empty refs)
   const handleBack = () => {
     if (!savedRef.current) {
-      // Only delete if this is a new reference (all fields empty)
       const isEmpty = Object.values(ref).every((v) => !v);
       if (isEmpty && references.length > 0) {
         const updatedReferences = [...references];
