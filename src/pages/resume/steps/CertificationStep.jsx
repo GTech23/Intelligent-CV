@@ -16,6 +16,22 @@ const CertificationStep = () => {
     }));
   };
 
+  const handleAddCertification = () => {
+    setFormData((prev) => ({
+      ...prev,
+      certifications: [...prev.certifications, ""],
+    }));
+  };
+
+  const handleRemoveCertification = (index) => {
+    const updatedCert = [...formData.certifications];
+    updatedCert.splice(index, 1);
+    setFormData((prev) => ({
+      ...prev,
+      certifications: updatedCert,
+    }));
+  };
+
   return (
     <>
       <div className=" gap-8 max-w-5xl mx-auto">
@@ -46,8 +62,10 @@ const CertificationStep = () => {
                     />
 
                     <button
+                      aria-label="Remove Certification"
+                      onClick={() => handleRemoveCertification(index)}
                       type="button"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700"
+                      className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700"
                     >
                       <FiTrash size={18} />
                     </button>
@@ -55,12 +73,16 @@ const CertificationStep = () => {
                 ))}
               </div>
 
-              <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleAddCertification}
+                className="flex items-center  cursor-pointer gap-2"
+              >
                 <FaPlus />
                 <span className="hover:underline cursor-pointer">
                   Add another license or certification
                 </span>
-              </div>
+              </button>
 
               <div className=" col-span-1 flex items-center justify-between">
                 <button
