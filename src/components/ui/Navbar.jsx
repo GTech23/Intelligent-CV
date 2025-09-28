@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import Button from "../common/Button";
-
+import { isTokenExpired } from "../../utils/auth.js";
 const Navbar = () => {
+  const isExpired = isTokenExpired(localStorage.getItem("token"));
+  if (isExpired) {
+    localStorage.removeItem("token");
+  }
   return (
     <>
       <header className="max-w-8xl w-full h-20 px-8   py-5 mx-auto flex items-center justify-between p-4 fixed top-0 left-0 right-0 z-1000 bg-white">
@@ -33,10 +37,10 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {localStorage.getItem("token") ? (
-            <Button text="Access Dashboard" to="/dashboard/app/home" />
-          ) : (
+          {isExpired ? (
             <Button text="Login" to="/dashboard/app/account/login" />
+          ) : (
+            <Button text="Access Dashboard" to="/dashboard/app/home" />
           )}
         </nav>
       </header>
