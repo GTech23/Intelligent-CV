@@ -30,6 +30,7 @@ import "react-toastify/dist/ReactToastify.css";
 // Dashboard Imports
 import DashboardLayout from "./pages/dashboard/DashbaordLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
+import ScrollToTop from "./components/common/ScrollToTop";
 const App = () => {
   return (
     <>
@@ -46,6 +47,7 @@ const App = () => {
       />
       <ResumeProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<HomeLayout />}>
               <Route index element={<Home />} />
