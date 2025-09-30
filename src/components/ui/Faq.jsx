@@ -22,6 +22,11 @@ const faqs = [
     answer:
       "Absolutely. We use encrypted connections and do not share or sell your information. Your data privacy is a top priority.",
   },
+  {
+    question: "Why use our Resume Builder?",
+    answer:
+      "It's fast, it's easy, and it can make a professional, full-page resume for anyone. Regardless of how much work experience you have, how long you went to school, or what skills you possess, our software was designed by certified resume writers to generate a complete resume for every kind of job seeker.",
+  },
 ];
 
 const FAQSection = () => {
@@ -40,11 +45,11 @@ const FAQSection = () => {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-white border border-gray-200 rounded-md shadow-sm"
+              className="bg-white border cursor-pointer border-gray-200 rounded-md shadow-sm"
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex justify-between items-center px-6 py-4 text-left text-lg font-medium focus:outline-none"
+                className="w-full flex justify-between cursor-pointer items-center px-6 py-4 text-left text-lg font-medium focus:outline-none"
               >
                 <span>{faq.question}</span>
                 {openIndex === index ? (

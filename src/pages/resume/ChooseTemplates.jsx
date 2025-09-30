@@ -69,11 +69,11 @@ const ChooseTemplates = () => {
           {loading && (
             <BiLoader className="animate-spin text-4xl text-[#EA723C] mx-auto my-20" />
           )}
-          <div className="my-4 grid grid-cols-3 gap-4">
+          <div className="my-4 grid grid-cols-3 gap-8">
             {resume.map((template) => (
               <div
                 key={template._id}
-                className={`border-2 p-4 rounded-xl relative group cursor-pointer transition-all duration-200 ${
+                className={`border-2 p-4 rounded-xl relative group cursor-pointer transition-all duration-200 hover:rotate-3 ${
                   selectedTemplate === template._id
                     ? "border-[#EA723C]"
                     : "border-transparent"
@@ -88,7 +88,7 @@ const ChooseTemplates = () => {
                 <img
                   src={advanced}
                   alt={template.name}
-                  className="w-full h-auto mb-4 rounded-lg"
+                  className="w-full object-cover h-auto mb-4 rounded-lg"
                 />
                 <h2 className="text-xl font-semibold mb-2 text-[#EA723C] text-center">
                   {template.name}

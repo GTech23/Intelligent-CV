@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Loader from "./components/common/Loader";
 import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFound";
 import Pricing from "./pages/Pricing";
@@ -18,6 +19,8 @@ import ReferenceStep from "./pages/resume/steps/reference/ReferenceStep";
 import HomeLayout from "./components/layout/HomeLayout";
 import ResumeLayout from "./components/layout/ResumeLayout";
 
+import { useEffect, useState } from "react";
+
 // Context
 import { ResumeProvider } from "./context/ResumeContext";
 import ResumeFinalize from "./pages/resume/steps/ResumeFinalize";
@@ -32,86 +35,110 @@ import DashboardLayout from "./pages/dashboard/DashbaordLayout";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ScrollToTop from "./components/common/ScrollToTop";
 const App = () => {
-  return (
-    <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <ResumeProvider>
-        <BrowserRouter>
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<HomeLayout />}>
-              <Route index element={<Home />} />
-              <Route path="/pricing" element={<Pricing />} />
-            </Route>
-            <Route path="/dashboard/app/account/login" element={<Login />} />
-            <Route
-              path="/dashboard/app/account/create"
-              element={<Register />}
-            />
-            <Route
-              path="/resume-builder/app/choose-templates"
-              element={<ChooseTemplates />}
-            />
-            <Route
-              path="/dashboard/app/account/forgot-password"
-              element={<ForgotPassword />}
-            />
-            <Route path="/dashboard/app/personalize" element={<ResumeLayout />}>
-              <Route index element={<ContactStep />} />
-              <Route
-                path="/dashboard/app/personalize/work_experience"
-                element={<WorkExperienceStep />}
-              />
-              <Route
-                path="/dashboard/app/personalize/education"
-                element={<EducacationStep />}
-              />
-              <Route
-                path="/dashboard/app/personalize/certification"
-                element={<CertificationStep />}
-              />
-              <Route
-                path="/dashboard/app/personalize/skill"
-                element={<SkillStep />}
-              />
-              <Route
-                path="/dashboard/app/personalize/summary"
-                element={<SummaryStep />}
-              />
-              <Route
-                path="/dashboard/app/personalize/reference"
-                element={<ReferenceStep />}
-              />
-              <Route
-                path="/dashboard/app/personalize/finalize"
-                element={<ResumeFinalize />}
-              />
-              <Route
-                path="/dashboard/app/personalize/done"
-                element={<ResumeDownload />}
-              />
-            </Route>
+  const [loading, setLoading] = useState(true);
 
-            <Route path="/dashboard/app/home" element={<DashboardLayout />}>
-              <Route index element={<Dashboard />} />
-            </Route>
+  useEffect(() => {
+    const handleLoad = () => {
+      setLoading(false);
+    };
 
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </BrowserRouter>
-      </ResumeProvider>
-    </>
-  );
+    window.addEventListener("load", handleLoad);
+
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
+  }, []);
+
+  {
+    return loading ? (
+      <div className="h-screen font-bold w-full flex  flex-col items-center justify-center">
+        <Loader />
+        Loading, Please wait...
+      </div>
+    ) : (
+      <>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <ResumeProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<HomeLayout />}>
+                <Route index element={<Home />} />
+                <Route path="/pricing" element={<Pricing />} />
+              </Route>
+              <Route path="/dashboard/app/account/login" element={<Login />} />
+              <Route
+                path="/dashboard/app/account/create"
+                element={<Register />}
+              />
+              <Route
+                path="/resume-builder/app/choose-templates"
+                element={<ChooseTemplates />}
+              />
+              <Route
+                path="/dashboard/app/account/forgot-password"
+                element={<ForgotPassword />}
+              />
+              <Route
+                path="/dashboard/app/personalize"
+                element={<ResumeLayout />}
+              >
+                <Route index element={<ContactStep />} />
+                <Route
+                  path="/dashboard/app/personalize/work_experience"
+                  element={<WorkExperienceStep />}
+                />
+                <Route
+                  path="/dashboard/app/personalize/education"
+                  element={<EducacationStep />}
+                />
+                <Route
+                  path="/dashboard/app/personalize/certification"
+                  element={<CertificationStep />}
+                />
+                <Route
+                  path="/dashboard/app/personalize/skill"
+                  element={<SkillStep />}
+                />
+                <Route
+                  path="/dashboard/app/personalize/summary"
+                  element={<SummaryStep />}
+                />
+                <Route
+                  path="/dashboard/app/personalize/reference"
+                  element={<ReferenceStep />}
+                />
+                <Route
+                  path="/dashboard/app/personalize/finalize"
+                  element={<ResumeFinalize />}
+                />
+                <Route
+                  path="/dashboard/app/personalize/done"
+                  element={<ResumeDownload />}
+                />
+              </Route>
+
+              <Route path="/dashboard/app/home" element={<DashboardLayout />}>
+                <Route index element={<Dashboard />} />
+              </Route>
+
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </BrowserRouter>
+        </ResumeProvider>
+      </>
+    );
+  }
 };
 
 export default App;

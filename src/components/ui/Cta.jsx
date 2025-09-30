@@ -14,17 +14,10 @@ const Cta = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
-            to="/builder"
+            to="resume-builder/app/choose-templates"
             className="bg-white text-black font-semibold py-3 px-6 rounded-md hover:bg-gray-100 transition"
           >
             Build My Resume
-          </Link>
-
-          <Link
-            to="/templates"
-            className="text-white border border-white py-3 px-6 rounded-md hover:bg-white hover:text-[transition"
-          >
-            Browse Templates
           </Link>
         </div>
       </div>
