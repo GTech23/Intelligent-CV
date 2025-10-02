@@ -1,103 +1,135 @@
+import { useEffect, useRef, useState } from "react";
+import Quill from "quill";
 import "quill/dist/quill.snow.css";
-import { FaPlus } from "react-icons/fa6";
 import { useResume } from "../../../context/ResumeContext";
-import { FiTrash } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import ResultCard from "../../../components/ui/ResultCard"; // optional suggestion cards
+
+const RawQuillEditor = ({ value, onChange }) => {
+  const editorRef = useRef(null);
+  const quillRef = useRef(null);
+
+  useEffect(() => {
+    if (editorRef.current && !quillRef.current) {
+      quillRef.current = new Quill(editorRef.current, {
+        theme: "snow",
+        modules: {
+          toolbar: [["bold", "italic"], [{ list: "bullet" }], ["clean"]],
+        },
+        placeholder: "List your skills as bullet points...",
+      });
+
+      if (value) quillRef.current.root.innerHTML = value;
+
+      quillRef.current.on("text-change", () => {
+        onChange(quillRef.current.root.innerHTML);
+      });
+    }
+  }, [value, onChange]);
+
+  useEffect(() => {
+    if (quillRef.current && value !== quillRef.current.root.innerHTML) {
+      quillRef.current.root.innerHTML = value || "";
+    }
+  }, [value]);
+
+  return <div ref={editorRef} />;
+};
+
+const arrayToUlHtml = (arr = []) =>
+  arr && arr.length
+    ? `<ul>${arr.map((s) => `<li>${s}</li>`).join("")}</ul>`
+    : "";
+
 const SkillStep = () => {
   const { formData, setFormData } = useResume();
   const navigate = useNavigate();
 
-  const handleSkillChange = (index, value) => {
-    const updatedCert = [...formData.skills];
-    updatedCert[index] = value;
+  const [editorValue, setEditorValue] = useState("");
+
+  // load initial content from skills array
+  useEffect(() => {
+    if (formData.skills && formData.skills.length > 0) {
+      setEditorValue(arrayToUlHtml(formData.skills));
+    } else {
+      setEditorValue("");
+    }
+  }, [formData.skills]);
+
+  const handleSave = () => {
+    // parse <li> items into array
+    const container = document.createElement("div");
+    container.innerHTML = editorValue || "";
+    const items = Array.from(container.querySelectorAll("li")).map((li) =>
+      li.textContent.trim()
+    );
 
     setFormData((prev) => ({
       ...prev,
-      skills: updatedCert,
+      skills: items,
     }));
+
+    navigate("?step=summary"); // or your next step
   };
 
-  const handleAddSkill = () => {
-    setFormData((prev) => ({
-      ...prev,
-      skills: [...prev.skills, ""],
-    }));
-  };
-
-  const handleRemoveSkill = (index) => {
-    const updatedSkills = formData.skills.filter((_, i) => i !== index);
-    setFormData((prev) => ({
-      ...prev,
-      skills: updatedSkills,
-    }));
+  const insertSuggestion = (skill) => {
+    const container = document.createElement("div");
+    container.innerHTML = editorValue || "";
+    let ul = container.querySelector("ul");
+    if (!ul) {
+      ul = document.createElement("ul");
+      container.appendChild(ul);
+    }
+    const li = document.createElement("li");
+    li.textContent = skill;
+    ul.appendChild(li);
+    setEditorValue(container.innerHTML);
   };
 
   return (
-    <>
-      <div className="flex gap-8">
-        <title>Resume Builder</title>
-        <div className="max-w-5xl mx-auto">
-          <h1 className="text-4xl font-bold text-gray-700">Skills</h1>
-          <p>
-            You're on a roll. Let's find relevant skills for the job your
-            applying for. Listing 6-10 skills is best.
-          </p>
+    <div className="flex gap-8">
+      <div className="max-w-5xl mx-auto w-full">
+        <h1 className="text-4xl font-bold text-gray-700">Skills</h1>
+        <p>
+          You're on a roll. Let's find relevant skills for the job you're
+          applying for. Listing 6-10 skills is best.
+        </p>
 
-          <form action="#" className="my-4  items-start gap-8">
-            <div className="grid grid-cols-1 gap-4">
-              {formData.skills.map((skill, index) => (
-                <div key={index} className="relative w-full mb-1">
-                  <input
-                    name={`skill_id${index}`}
-                    id={`skill_id${index}`}
-                    onChange={(e) => handleSkillChange(index, e.target.value)}
-                    value={skill}
-                    placeholder={`Skill ${index + 1}`}
-                    className="w-full px-6 pr-12 py-3 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
+        <div className="grid grid-cols-2 gap-8 mt-6">
+          {/* Quill editor */}
+          <div>
+            <RawQuillEditor value={editorValue} onChange={setEditorValue} />
+          </div>
 
-                  <button
-                    onClick={() => handleRemoveSkill(index)}
-                    aria-label="Remove Skill"
-                    type="button"
-                    className="absolute right-3 cursor-pointer top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700"
-                  >
-                    <FiTrash size={18} />
-                  </button>
-                </div>
-              ))}
+          {/* Suggestions */}
+          <div className="space-y-2 overflow-y-auto max-h-[400px]">
+            {["React", "Node.js", "Project Management"].map((s, i) => (
+              <ResultCard key={i} onClick={() => insertSuggestion(s)}>
+                {s}
+              </ResultCard>
+            ))}
+          </div>
+        </div>
 
-              <button
-                type="button"
-                onClick={handleAddSkill}
-                className="flex items-center gap-2"
-              >
-                <FaPlus />
-                <span className="hover:underline cursor-pointer">
-                  Add another skill
-                </span>
-              </button>
-
-              <div className=" col-span-1 flex items-center justify-between">
-                <button
-                  onClick={() => navigate(-1)}
-                  type="button"
-                  className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold "
-                >
-                  Back
-                </button>
-                <button
-                  type="button"
-                  className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1  font-bold "
-                >
-                  Save & Next
-                </button>
-              </div>
-            </div>
-          </form>
+        {/* Buttons section */}
+        <div className="flex items-center justify-between mt-18 w-full">
+          <button
+            onClick={() => navigate(-1)}
+            type="button"
+            className="py-3 px-9 border border-gray-400 rounded-2xl font-bold text-gray-700 hover:bg-gray-100"
+          >
+            Back
+          </button>
+          <button
+            onClick={handleSave}
+            type="button"
+            className="py-3 px-9 bg-orange-400 text-white rounded-2xl font-bold hover:bg-orange-500"
+          >
+            Save & Next
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

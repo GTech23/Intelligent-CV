@@ -15,7 +15,7 @@ const ReferenceStepView = () => {
 
   const showForm =
     query.get("add_reference") === "true" || query.has("edit_reference");
-    
+
   const redirectToForm = () => {
     query.set("add_reference", "true");
     setFormData((prev) => ({
@@ -57,22 +57,9 @@ const ReferenceStepView = () => {
       ) : (
         <div className="max-w-5xl  w-full mx-auto">
           <h1 className="text-4xl font-bold text-gray-700">Edit Reference</h1>
-          <div className=" my-8 py-4">
-            <label htmlFor="" className="mb-2 inline-block">
-              Include References?
-            </label>
-            <select
-              className={`w-full px-6 border-gray-300 appearance-none  bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-              name=""
-              id=""
-            >
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-              <option value="upon request">Upon Request</option>
-            </select>
-          </div>
+
           {references.length === 0 ? (
-            <div className="border-2 border-dotted min-h-50 rounded-2xl flex items-center justify-center">
+            <div className="border-2 border-dotted min-h-50 my-8 rounded-2xl flex items-center justify-center">
               <button
                 onClick={redirectToForm}
                 className="flex gap-2 items-center font-bold text-md cursor-pointer hover:underline"
@@ -116,11 +103,11 @@ const ReferenceStepView = () => {
                             <FaPlus />
                             Edit
                           </button>
-                          <button className="flex  items-center font-bold border-zinc-400 gap-3 cursor-pointer p-3 border rounded-full">
-                            <FaTrash
-                              onClick={() => handleDeleteReference(index)}
-                              className="text-red-500"
-                            />
+                          <button
+                            onClick={() => handleDeleteReference(index)}
+                            className="flex  items-center font-bold border-zinc-400 gap-3 cursor-pointer p-3 border rounded-full"
+                          >
+                            <FaTrash className="text-red-500" />
                           </button>
                         </div>
                       </div>
