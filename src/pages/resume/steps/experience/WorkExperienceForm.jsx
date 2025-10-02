@@ -1,50 +1,58 @@
 import { useRef } from "react";
 import { useResume } from "../../../../context/ResumeContext";
 import { useNavigate } from "react-router-dom";
+import useQuery from "../../../../hooks/UseQuery";
 
-const WorkExperienceForm = ({ editIndex }) => {
+const WorkExperienceForm = () => {
   const { formData, setFormData } = useResume();
   const navigate = useNavigate();
-  const experience = formData.experience || [];
-  const index =
-    editIndex !== undefined ? Number(editIndex) : experience.length - 1;
-  const ref = experience[index] || {};
+  const query = useQuery();
+
+  const experiences = formData.experience || [];
+
+  // resolve editing index from query param
+  const expIndexParam = parseInt(query.get("expIndex"), 10);
+  const index = Number.isFinite(expIndexParam)
+    ? expIndexParam
+    : experiences.length - 1;
+  const ref = experiences[index] || {};
   const savedRef = useRef(false);
 
-  // Handle changes to experience fields
   const handleExperienceChange = (index, field, value) => {
-    const updatedExperience = [...formData.experience];
-    updatedExperience[index][field] = value;
-
-    setFormData((prev) => ({
-      ...prev,
-      experience: updatedExperience,
-    }));
+    setFormData((prev) => {
+      const updated = (prev.experience || []).map((e, i) =>
+        i === index ? { ...e, [field]: value } : e
+      );
+      return { ...prev, experience: updated };
+    });
   };
 
   const handleBack = () => {
+    // if user cancels while adding a blank experience, remove it
     if (!savedRef.current) {
       const isEmpty = Object.values(ref).every((v) => !v);
-      if (isEmpty && experience.length > 0) {
-        const updatedExperience = [...experience];
-        updatedExperience.splice(index, 1);
-        setFormData((prev) => ({
-          ...prev,
-          experience: updatedExperience,
-        }));
+      if (isEmpty && experiences.length > 0) {
+        const updated = [...experiences];
+        updated.splice(index, 1);
+        setFormData((prev) => ({ ...prev, experience: updated }));
       }
     }
-    navigate(-1);
+    // go back to list (clear add/edit params)
+    query.delete("add_experience");
+    query.delete("expIndex");
+    navigate(`?${query.toString()}`);
   };
 
-  const handleSave = () => {
+  const handleSaveToList = () => {
     savedRef.current = true;
-    navigate(-1);
+    // simply return to the list view (clear add/edit query params)
+    query.delete("add_experience");
+    query.delete("expIndex");
+    navigate(`?${query.toString()}`);
   };
 
   return (
     <div className="flex gap-8">
-      <title>Resume Builder</title>
       <div>
         <h1 className="text-4xl font-bold text-gray-700">Experience</h1>
         <p>
@@ -52,18 +60,18 @@ const WorkExperienceForm = ({ editIndex }) => {
           recent job.
         </p>
 
-        <form action="#" className="my-4 items-start gap-8">
+        <form className="my-4 items-start gap-8">
           <div key={index} className="grid grid-cols-12 gap-8 mb-8">
             {/* Job Title */}
             <div className="col-span-6">
               <input
                 name="position"
                 placeholder="Job Title"
-                value={ref.position}
+                value={ref.position || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "position", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -72,11 +80,11 @@ const WorkExperienceForm = ({ editIndex }) => {
               <input
                 name="company"
                 placeholder="Company or Organization Name"
-                value={ref.company}
+                value={ref.company || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "company", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -85,11 +93,11 @@ const WorkExperienceForm = ({ editIndex }) => {
               <input
                 name="country"
                 placeholder="Country"
-                value={ref.country}
+                value={ref.country || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "country", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -98,11 +106,11 @@ const WorkExperienceForm = ({ editIndex }) => {
               <input
                 name="province"
                 placeholder="Province or State"
-                value={ref.province}
+                value={ref.province || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "province", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -111,11 +119,11 @@ const WorkExperienceForm = ({ editIndex }) => {
               <input
                 name="city"
                 placeholder="City"
-                value={ref.city}
+                value={ref.city || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "city", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -124,11 +132,11 @@ const WorkExperienceForm = ({ editIndex }) => {
               <input
                 name="startMonth"
                 placeholder="Start Month"
-                value={ref.startMonth}
+                value={ref.startMonth || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "startMonth", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -138,11 +146,11 @@ const WorkExperienceForm = ({ editIndex }) => {
                 type="number"
                 name="startYear"
                 placeholder="Start Year"
-                value={ref.startYear}
+                value={ref.startYear || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "startYear", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -151,11 +159,11 @@ const WorkExperienceForm = ({ editIndex }) => {
               <input
                 name="endMonth"
                 placeholder="End Month"
-                value={ref.endMonth}
+                value={ref.endMonth || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "endMonth", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -165,11 +173,11 @@ const WorkExperienceForm = ({ editIndex }) => {
                 type="number"
                 name="endYear"
                 placeholder="End Year"
-                value={ref.endYear}
+                value={ref.endYear || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "endYear", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
               />
             </div>
 
@@ -177,8 +185,9 @@ const WorkExperienceForm = ({ editIndex }) => {
             <div className="col-span-12 flex items-center gap-2">
               <input
                 type="checkbox"
+                id="currentlyWorkingInput"
                 className="accent-orange-400 w-5 h-5"
-                checked={ref.isCurrentlyWorking}
+                checked={!!ref.isCurrentlyWorking}
                 onChange={(e) =>
                   handleExperienceChange(
                     index,
@@ -187,7 +196,9 @@ const WorkExperienceForm = ({ editIndex }) => {
                   )
                 }
               />
-              <label>I currently work here</label>
+              <label htmlFor="currentlyWorkingInput">
+                I currently work here
+              </label>
             </div>
 
             <div className="col-span-12 flex justify-between mt-4">
@@ -199,9 +210,9 @@ const WorkExperienceForm = ({ editIndex }) => {
                 Back
               </button>
               <button
-                onClick={handleSave}
+                onClick={handleSaveToList}
                 type="button"
-                className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border font-bold"
+                className="py-3 bg-orange-400 rounded-2xl text-white px-9 border font-bold"
               >
                 Save & Next
               </button>

@@ -20,7 +20,7 @@ export const ResumeProvider = ({ children }) => {
       website: "https://admin-indol.vercel.app",
       profileImage: "https://example.com/profile.jpg",
       summary:
-        "Passionate software engineer with experience in web and backend development.",
+        "Seeking to utilize excellent communication, interpersonal, and organizational skills to complete tasks. Reliable with a good work ethic and the ability to quickly adapt to new tasks and environments.",
     },
     education: [
       {
@@ -58,16 +58,6 @@ export const ResumeProvider = ({ children }) => {
       "Certificate in Entreprenuership",
       "Certificate in Sales & Marketing",
     ],
-    languages: [
-      {
-        name: "English",
-        level: "Fluent",
-      },
-      {
-        name: "French",
-        level: "Intermediate",
-      },
-    ],
 
     references: [
       {
@@ -80,6 +70,7 @@ export const ResumeProvider = ({ children }) => {
         relationshipStatus: "friend",
       },
     ],
+    includeReference: "yes",
   });
 
   return (

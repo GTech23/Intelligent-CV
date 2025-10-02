@@ -41,12 +41,12 @@ const ResumeDownload = () => {
       <div className="max-w-5xl mx-auto w-full flex items-center justify-center p-6">
         <div className="min-h-[297mm] shadow-2xl drop-shadow-xl rounded-xl flex items-center justify-center bg-white w-[210mm]">
           {loading ? (
-            <Loader />
+            <div className="flex flex-col items-center  justify-center gap-4">
+              <Loader />
+              <p>Preparing Preview</p>
+            </div>
           ) : (
-            <div
-              dangerouslySetInnerHTML={{ __html: html }}
-              style={{ width: "100%" }}
-            />
+            <div>{html}</div>
           )}
         </div>
       </div>

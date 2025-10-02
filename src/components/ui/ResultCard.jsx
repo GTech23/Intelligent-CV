@@ -2,8 +2,8 @@ import { FaPlus } from "react-icons/fa6";
 
 function ResultCard({ children }) {
   return (
-    <div className="flex items-start bg-white rounded-lg shadow-sm p-4 mb-4">
-      <button className="flex items-center justify-center w-10 h-10 rounded-full bg-black text-white mr-4 flex-shrink-0">
+    <div className="flex items-start bg-white rounded-lg shadow-sm p-4 mb-4 cursor-pointer">
+      <button className="flex items-center cursor-pointer justify-center w-10 h-10 rounded-full bg-black text-white mr-4 flex-shrink-0">
         <FaPlus className="w-6 h-6" />
       </button>
       <p className="text-gray-800 text-base leading-relaxed">{children}</p>
