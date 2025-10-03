@@ -182,6 +182,7 @@ const WorkExperienceView = () => {
               Back
             </button>
             <button
+              onClick={() => navigate("/dashboard/app/personalize/education")}
               type="button"
               className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 font-bold"
             >

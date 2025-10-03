@@ -134,6 +134,7 @@ const ReferenceStepView = () => {
             </button>
             <button
               type="button"
+              onClick={() => navigate("/dashboard/app/personalize/finalize")}
               className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1  font-bold "
             >
               Save & Next

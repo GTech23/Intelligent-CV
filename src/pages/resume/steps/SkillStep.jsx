@@ -57,7 +57,6 @@ const SkillStep = () => {
   }, [formData.skills]);
 
   const handleSave = () => {
-    // parse <li> items into array
     const container = document.createElement("div");
     container.innerHTML = editorValue || "";
     const items = Array.from(container.querySelectorAll("li")).map((li) =>
@@ -69,7 +68,7 @@ const SkillStep = () => {
       skills: items,
     }));
 
-    navigate("?step=summary"); // or your next step
+    navigate("/dashboard/app/personalize/summary");
   };
 
   const insertSuggestion = (skill) => {
@@ -123,7 +122,7 @@ const SkillStep = () => {
           <button
             onClick={handleSave}
             type="button"
-            className="py-3 px-9 bg-orange-400 text-white rounded-2xl font-bold hover:bg-orange-500"
+            className="py-3 px-9 cursor-pointer bg-orange-400 text-white rounded-2xl font-bold hover:bg-orange-500"
           >
             Save & Next
           </button>

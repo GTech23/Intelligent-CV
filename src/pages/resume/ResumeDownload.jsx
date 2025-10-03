@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../../components/common/Loader";
+
 const ResumeDownload = () => {
   const [loading, setLoading] = useState(false);
   const [html, setHtml] = useState("");
+
   const previewResume = async () => {
     try {
       setLoading(true);
@@ -13,20 +15,20 @@ const ResumeDownload = () => {
           method: "GET",
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "text/html",
           },
         }
       );
 
       if (!response.ok) {
-        toast.error(`An Error occured rendering PDF`);
+        toast.error(`An Error occurred rendering PDF`);
         return;
       }
 
       const data = await response.text();
       setHtml(data);
-      console.log(data);
     } catch (error) {
-      toast.error(`An Error occured rendering PDF`);
+      toast.error(`An Error occurred rendering PDF`);
       console.error(error);
     } finally {
       setLoading(false);
@@ -36,17 +38,22 @@ const ResumeDownload = () => {
   useEffect(() => {
     previewResume();
   }, []);
+
   return (
     <div>
-      <div className="max-w-5xl mx-auto w-full flex items-center justify-center p-6">
-        <div className="min-h-[297mm] shadow-2xl drop-shadow-xl rounded-xl flex items-center justify-center bg-white w-[210mm]">
+      <div className="max-w-5xl mx-auto w-full flex items-center justify-center p-2">
+        <div className="h-[297mm] w-[210mm] shadow-2xl drop-shadow-xl rounded-xl bg-white overflow-auto">
           {loading ? (
-            <div className="flex flex-col items-center  justify-center gap-4">
+            <div className="flex flex-col items-center justify-center gap-4 h-full">
               <Loader />
               <p>Preparing Preview</p>
             </div>
           ) : (
-            <div>{html}</div>
+            <iframe
+              title="Resume Preview"
+              srcDoc={html}
+              className="w-full h-full px-6 py-8 overflow-auto"
+            />
           )}
         </div>
       </div>
