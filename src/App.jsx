@@ -27,7 +27,7 @@ import ResumeFinalize from "./pages/resume/steps/ResumeFinalize";
 import ResumeDownload from "./pages/resume/ResumeDownload";
 import EducacationStep from "./pages/resume/steps/education/EducationStep";
 
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Dashboard Imports
@@ -53,13 +53,13 @@ const App = () => {
     return loading ? (
       <div className="h-screen font-bold w-full flex  flex-col items-center justify-center">
         <Loader />
-        Loading, Please wait...
+        Intelligent CV is loading, Please wait...
       </div>
     ) : (
       <>
         <ToastContainer
           position="top-right"
-          autoClose={5000}
+          autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

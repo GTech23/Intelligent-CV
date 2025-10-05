@@ -62,7 +62,7 @@ const EducationForm = ({ editIndex }) => {
                   placeholder="School Name"
                   value={edu.school}
                   onChange={(e) =>
-                    handleEducationChange(i, "school", e.target.value)
+                    handleEducationChange(index, "school", e.target.value)
                   }
                   className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -73,7 +73,7 @@ const EducationForm = ({ editIndex }) => {
                   placeholder="School Location"
                   value={edu.location}
                   onChange={(e) =>
-                    handleEducationChange(i, "location", e.target.value)
+                    handleEducationChange(index, "location", e.target.value)
                   }
                   className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -84,7 +84,7 @@ const EducationForm = ({ editIndex }) => {
                   placeholder="Degree or Program"
                   value={edu.degree}
                   onChange={(e) =>
-                    handleEducationChange(i, "degree", e.target.value)
+                    handleEducationChange(index, "degree", e.target.value)
                   }
                   className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -95,7 +95,7 @@ const EducationForm = ({ editIndex }) => {
                   placeholder="Field of Study"
                   value={edu.fieldOfStudy}
                   onChange={(e) =>
-                    handleEducationChange(i, "fieldOfStudy", e.target.value)
+                    handleEducationChange(index, "fieldOfStudy", e.target.value)
                   }
                   className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -106,7 +106,7 @@ const EducationForm = ({ editIndex }) => {
                   placeholder="Graduation Month"
                   value={edu.graduationMonth}
                   onChange={(e) =>
-                    handleEducationChange(0, "graduationMonth", e.target.value)
+                    handleEducationChange(index, "graduationMonth", e.target.value)
                   }
                   className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -117,7 +117,7 @@ const EducationForm = ({ editIndex }) => {
                   placeholder="Graduation Year"
                   value={edu.graduationYear}
                   onChange={(e) =>
-                    handleEducationChange(0, "graduationYear", e.target.value)
+                    handleEducationChange(index, "graduationYear", e.target.value)
                   }
                   className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
@@ -130,7 +130,7 @@ const EducationForm = ({ editIndex }) => {
                   checked={edu.removeGraduationDate}
                   onChange={(e) =>
                     handleEducationChange(
-                      0,
+                      index,
                       "removeGraduationDate",
                       e.target.checked
                     )

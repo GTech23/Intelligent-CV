@@ -37,6 +37,7 @@ const Login = () => {
         toast.error(payload.message);
       }
     } catch (err) {
+      toast.error(`Something went wrong, try again`);
       console.log(err);
     } finally {
       setLoading(false);

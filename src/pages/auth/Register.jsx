@@ -37,6 +37,7 @@ const Register = () => {
         toast.error(payload.message);
       }
     } catch (err) {
+      toast.error(err.message);
       console.log(err);
     } finally {
       setLoading(false);
