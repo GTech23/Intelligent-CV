@@ -1,8 +1,9 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 import resumeComplete from "../../../assets/images/resume-complete.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 const ResumeFinalize = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className=" gap-8">
@@ -18,17 +19,19 @@ const ResumeFinalize = () => {
             </p>
           </div>
 
-          <img src={resumeComplete} className="w-1/2" alt="" />
+          <img src={resumeComplete} className="w-full md:w-1/2" alt="" />
         </div>
 
         <div className="flex  justify-center space-x-8 gap-4">
-          <button className="py-3 px-8  bg-white text-black  font-bold rounded-2xl cursor-pointer flex items-center justify-center gap-4">
+          <button onClick={() => {
+            navigate("/dashboard/app/personalize/")
+          }} className="py-3 px-8  bg-white text-black  font-bold rounded-2xl cursor-pointer flex items-center justify-center gap-4">
             <FaArrowLeft />
             Continue Editing
           </button>
           <Link
             to="/dashboard/app/personalize/done"
-            className="py-3 px-8 bg-amber-700 text-white  font-bold rounded-2xl cursor-pointer flex items-center justify-center gap-4"
+            className="py-3 text-sm px-8 bg-amber-700 text-white  font-bold rounded-lg cursor-pointer flex items-center justify-center gap-4"
           >
             Proceed to Download
             <FaArrowRight />

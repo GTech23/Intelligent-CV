@@ -38,7 +38,7 @@ const ContactStep = () => {
           To help employers contact you, add your name, email, and phone number.
         </p>
 
-        <form action="#" className="my-4 flex items-start gap-8">
+        <form action="#" className="my-4 flex flex-col items-start gap-8 sm:flex-row">
           <div className="w-40 h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer bg-gray-50 hover:border-blue-500 transition-all">
             <>
               <FaUserCircle className="text-5xl text-gray-400" />
@@ -54,6 +54,7 @@ const ContactStep = () => {
                 ref={firstNameRef}
                 name="firstName"
                 placeholder={"First Name"}
+                autoComplete="false"
                 className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
               />
@@ -62,6 +63,7 @@ const ContactStep = () => {
               <input
                 ref={lastNameRef}
                 name="lastName"
+                 autoComplete="false"
                 placeholder={"Last Name"}
                 className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
@@ -71,6 +73,7 @@ const ContactStep = () => {
               <input
                 ref={jobTitleRef}
                 name="title"
+                 autoComplete="false"
                 placeholder={"Desried Job Title (Optional)"}
                 className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
@@ -80,6 +83,7 @@ const ContactStep = () => {
               <input
                 ref={emailRef}
                 name="email"
+                 autoComplete="false"
                 placeholder={"Email Address"}
                 onBlur={savePersonal}
                 className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
@@ -91,12 +95,14 @@ const ContactStep = () => {
                 name="phone"
                 onBlur={savePersonal}
                 placeholder={"Phone Number"}
+                 autoComplete="false"
                 className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
             <div className="">
               <input
                 ref={countryRef}
+                autoComplete="off"
                 name="country"
                 placeholder={"Country"}
                 className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}

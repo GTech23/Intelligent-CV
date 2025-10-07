@@ -2,11 +2,9 @@ import TextLogo from "../../components/common/TextLogo";
 import Sidebar from "../ui/Sidebar";
 import { Outlet, useLocation } from "react-router-dom";
 import { FaDownload } from "react-icons/fa6";
-import { useResume } from "../../context/ResumeContext";
 import { toast } from "react-toastify";
-import { useState, Suspense, useEffect } from "react";
+import { useState } from "react";
 const ResumeLayout = () => {
-  const { formData } = useResume();
   const [loading, setLoading] = useState(false);
 
   const downloadResume = async () => {
@@ -65,7 +63,7 @@ const ResumeLayout = () => {
         </div>
 
         <Sidebar />
-        <div className="ml-[320px] rounded-3xl bg-[#f3f5eb] min-h-screen  mt-10 p-8">
+        <div className=" ml-0 rounded-3xl bg-[#f3f5eb] min-h-screen  mt-10 p-8 sm:ml-[320px]">
           <Outlet />
         </div>
       </section>

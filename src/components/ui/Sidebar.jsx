@@ -63,7 +63,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="max-w-xs px-6  w-full fixed left-0 h-full mt-10">
+    <aside className="max-w-xs px-6 hidden  w-full fixed left-0 h-full mt-10 sm:block">
       <ul>
         {steps.map((step, index) => (
           <NavLink

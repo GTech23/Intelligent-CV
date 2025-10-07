@@ -5,8 +5,7 @@ import modern from "../../assets/images/templates/modern.avif";
 import chicago from "../../assets/images/templates/chicago.webp";
 import latest from "../../assets/images/templates/2025.avif";
 import elegant from "../../assets/images/templates/elegant.avif";
-import advanced from "../../assets/images/templates/advanced.avif";
-import majestic from "../../assets/images/templates/majestic.avif";
+
 
 const templateMeta = [
   {
@@ -46,7 +45,7 @@ const JobWinningTemplate = () => {
         </div>
       </div>
 
-      <div className=" grid grid-cols-4 mt-10 gap-8">
+      <div className=" grid grid-cols-1 mt-10 gap-8 sm:grid-cols-4">
         {templateMeta.map((meta) => {
           return <TemplateCardPreview meta={meta} />;
         })}

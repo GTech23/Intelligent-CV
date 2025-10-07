@@ -68,7 +68,7 @@ const SummaryStep = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8">
         <div>
           <RawQuillEditor
             value={formData.personal.summary || ""}
@@ -76,7 +76,7 @@ const SummaryStep = () => {
           />
         </div>
 
-        <div className="overflow-y-auto max-h-[450px] h-full">
+        <div className="overflow-y-auto mt-8 max-h-[450px] h-full sm:mt-0">
           <ResultCard>
             Seeking to utilize excellent communication, interpersonal, and
             organizational skills to complete tasks. Reliable with a good work

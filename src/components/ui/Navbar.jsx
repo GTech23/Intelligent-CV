@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../common/Button";
 import { isTokenExpired } from "../../utils/auth.js";
+import {FaBars} from 'react-icons/fa'
 const Navbar = () => {
   const isExpired = isTokenExpired(localStorage.getItem("token"));
   if (isExpired) {
@@ -13,7 +14,7 @@ const Navbar = () => {
           Intelligent <span className="font-bold">CV</span>
         </Link>
 
-        <nav className="flex items-center space-x-14" id="main-nav">
+        <nav className="hidden  items-center space-x-14 sm:flex" id="main-nav">
           <ul className="flex items-center space-x-12 gap-4">
             <li>
               <Link to="/" className="hover:text-[#EA723C]">
@@ -43,6 +44,8 @@ const Navbar = () => {
             <Button text="Access Dashboard" to="/dashboard/app/home" />
           )}
         </nav>
+
+        <FaBars className='text-3xl cursor-pointer text-[#EA723C] sm:hidden' />
       </header>
     </>
   );

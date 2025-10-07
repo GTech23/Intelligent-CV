@@ -34,7 +34,7 @@ const PartnersSection = () => {
           Trusted by Students and Professionals from
         </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center justify-center">
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center justify-center">
           {logos.map((logo, index) => (
             <div key={index} className="flex justify-center">
               <img

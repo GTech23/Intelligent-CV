@@ -56,7 +56,7 @@ const PricingCard = ({ pricingStats: { plan, price, features } }) => {
         <p className="text-sm font-semibold mb-2 text-gray-700">
           WHAT'S INCLUDED
         </p>
-        <ul className="text-sm text-gray-700 space-y-2">
+        <ul className="text-sm text-left text-gray-700 space-y-2">
           {features.map((feature) => {
             return <li>✅ {feature}</li>;
           })}

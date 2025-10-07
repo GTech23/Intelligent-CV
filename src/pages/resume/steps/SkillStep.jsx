@@ -3,7 +3,7 @@ import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import { useResume } from "../../../context/ResumeContext";
 import { useNavigate } from "react-router-dom";
-import ResultCard from "../../../components/ui/ResultCard"; // optional suggestion cards
+import ResultCard from "../../../components/ui/ResultCard"; 
 
 const RawQuillEditor = ({ value, onChange }) => {
   const editorRef = useRef(null);
@@ -47,7 +47,7 @@ const SkillStep = () => {
 
   const [editorValue, setEditorValue] = useState("");
 
-  // load initial content from skills array
+ 
   useEffect(() => {
     if (formData.skills && formData.skills.length > 0) {
       setEditorValue(arrayToUlHtml(formData.skills));
@@ -94,14 +94,14 @@ const SkillStep = () => {
           applying for. Listing 6-10 skills is best.
         </p>
 
-        <div className="grid grid-cols-2 gap-8 mt-6">
+        <div className="grid grid-cols-1 gap-8 mt-6 sm:grid-cols-2">
           {/* Quill editor */}
           <div>
             <RawQuillEditor value={editorValue} onChange={setEditorValue} />
           </div>
 
           {/* Suggestions */}
-          <div className="space-y-2 overflow-y-auto max-h-[400px]">
+          <div className="space-y-2 overflow-y-auto max-h-[400px] mt-8 sm:mt-0">
             {["React", "Node.js", "Project Management"].map((s, i) => (
               <ResultCard key={i} onClick={() => insertSuggestion(s)}>
                 {s}

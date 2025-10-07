@@ -61,7 +61,7 @@ const ChooseTemplates = () => {
 
         <div className="bg-neutral-100 min-h-screen mt-10 rounded-3xl p-6">
           <div className="flex items-center flex-col p-6 justify-center mb-8 space-y-4">
-            <h1 className="text-4xl font-bold text-gray-700">
+            <h1 className="text-3xl text-center font-bold text-gray-700 sm:text-left sm:text-4xl">
               Choose from our professionally designed templates
             </h1>
           </div>
@@ -69,7 +69,7 @@ const ChooseTemplates = () => {
           {loading && (
             <BiLoader className="animate-spin text-4xl text-[#EA723C] mx-auto my-20" />
           )}
-          <div className="my-4 grid grid-cols-3 gap-8">
+          <div className="my-4 grid grid-cols-1 gap-8 sm:grid-cols-3">
             {resume.map((template) => (
               <div
                 key={template._id}

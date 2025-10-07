@@ -82,14 +82,14 @@ const Pricing = () => {
             <h1 className="text-5xl text-[#24272E] font-bold my-4 max-w-4xl text-center">
               Invest in your future with confidence.
             </h1>
-            <p className="text-[#52575E]">
+            <p className="text-[#52575E] text-center">
               Unlock your career potential with our affordable pricing plans.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
             {pricingMeta.map((pm, i) => {
-              return <PricingCard pricingStats={pm} />;
+              return <PricingCard key={i} pricingStats={pm} />;
             })}
           </div>
 
