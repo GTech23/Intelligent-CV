@@ -1,94 +1,112 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Loader from "./components/common/Loader";
-import Home from "./pages/Home";
-import NotFoundPage from "./pages/NotFound";
-import Pricing from "./pages/Pricing";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import ChooseTemplates from "./pages/resume/ChooseTemplates";
-
-// Resume Step Imports
-import ContactStep from "./pages/resume/steps/ContactStep";
-import WorkExperienceStep from "./pages/resume/steps/experience/WorkExperienceStep";
-import CertificationStep from "./pages/resume/steps/CertificationStep";
-import SkillStep from "./pages/resume/steps/SkillStep";
-import SummaryStep from "./pages/resume/steps/SummaryStep";
-import ReferenceStep from "./pages/resume/steps/reference/ReferenceStep";
-
-import HomeLayout from "./components/layout/HomeLayout";
-import ResumeLayout from "./components/layout/ResumeLayout";
-
-import { useEffect, useState } from "react";
-
-// Context
-import { ResumeProvider } from "./context/ResumeContext";
-import ResumeFinalize from "./pages/resume/steps/ResumeFinalize";
-import ResumeDownload from "./pages/resume/ResumeDownload";
-import EducacationStep from "./pages/resume/steps/education/EducationStep";
-
+import { useEffect, useState, lazy, Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// Dashboard Imports
-import DashboardLayout from "./pages/dashboard/DashbaordLayout";
-import Dashboard from "./pages/dashboard/Dashboard";
+import Loader from "./components/common/Loader";
 import ScrollToTop from "./components/common/ScrollToTop";
+import { ResumeProvider } from "./context/ResumeContext";
+
+const Home = lazy(() => import("./pages/Home"));
+const NotFoundPage = lazy(() => import("./pages/NotFound"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const Register = lazy(() => import("./pages/auth/Register"));
+const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+const ChooseTemplates = lazy(() => import("./pages/resume/ChooseTemplates"));
+
+const ContactStep = lazy(() => import("./pages/resume/steps/ContactStep"));
+const WorkExperienceStep = lazy(() =>
+  import("./pages/resume/steps/experience/WorkExperienceStep")
+);
+const CertificationStep = lazy(() =>
+  import("./pages/resume/steps/CertificationStep")
+);
+const SkillStep = lazy(() => import("./pages/resume/steps/SkillStep"));
+const SummaryStep = lazy(() => import("./pages/resume/steps/SummaryStep"));
+const ReferenceStep = lazy(() =>
+  import("./pages/resume/steps/reference/ReferenceStep")
+);
+const ResumeFinalize = lazy(() =>
+  import("./pages/resume/steps/ResumeFinalize")
+);
+const ResumeDownload = lazy(() => import("./pages/resume/ResumeDownload"));
+const EducacationStep = lazy(() =>
+  import("./pages/resume/steps/education/EducationStep")
+);
+
+const HomeLayout = lazy(() => import("./components/layout/HomeLayout"));
+const ResumeLayout = lazy(() => import("./components/layout/ResumeLayout"));
+
+const DashboardLayout = lazy(() =>
+  import("./pages/dashboard/DashbaordLayout")
+);
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+
 const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const handleLoad = () => {
-      setLoading(false);
-    };
-
+    const handleLoad = () => setLoading(false);
     window.addEventListener("load", handleLoad);
-
-    return () => {
-      window.removeEventListener("load", handleLoad);
-    };
+    return () => window.removeEventListener("load", handleLoad);
   }, []);
 
-  {
-    return loading ? (
-      <div className="h-screen font-bold w-full flex  flex-col items-center justify-center">
+  if (loading) {
+    return (
+      <div className="h-screen font-bold w-full flex flex-col items-center justify-center">
         <Loader />
         Intelligent CV is loading, Please wait...
       </div>
-    ) : (
-      <>
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <ResumeProvider>
-          <BrowserRouter>
-            <ScrollToTop />
+    );
+  }
+
+  return (
+    <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <ResumeProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <Suspense
+            fallback={
+              <div className="h-screen w-full flex flex-col items-center justify-center font-semibold">
+                <Loader />
+                Loading page...
+              </div>
+            }
+          >
             <Routes>
               <Route path="/" element={<HomeLayout />}>
                 <Route index element={<Home />} />
                 <Route path="/pricing" element={<Pricing />} />
               </Route>
-              <Route path="/dashboard/app/account/login" element={<Login />} />
+
+              <Route
+                path="/dashboard/app/account/login"
+                element={<Login />}
+              />
               <Route
                 path="/dashboard/app/account/create"
                 element={<Register />}
               />
               <Route
-                path="/resume-builder/app/choose-templates"
-                element={<ChooseTemplates />}
-              />
-              <Route
                 path="/dashboard/app/account/forgot-password"
                 element={<ForgotPassword />}
               />
+              <Route
+                path="/resume-builder/app/choose-templates"
+                element={<ChooseTemplates />}
+              />
+
               <Route
                 path="/dashboard/app/personalize"
                 element={<ResumeLayout />}
@@ -134,11 +152,11 @@ const App = () => {
 
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
-          </BrowserRouter>
-        </ResumeProvider>
-      </>
-    );
-  }
+          </Suspense>
+        </BrowserRouter>
+      </ResumeProvider>
+    </>
+  );
 };
 
 export default App;
