@@ -45,11 +45,11 @@ const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const App = () => {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const handleLoad = () => setLoading(false);
-    window.addEventListener("load", handleLoad);
-    return () => window.removeEventListener("load", handleLoad);
-  }, []);
+useEffect(() => {
+  const timer = setTimeout(() => setLoading(false), 1000);
+  return () => clearTimeout(timer);
+}, []);
+
 
   if (loading) {
     return (
