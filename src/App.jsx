@@ -37,11 +37,6 @@ const EducacationStep = lazy(() =>
 const HomeLayout = lazy(() => import("./components/layout/HomeLayout"));
 const ResumeLayout = lazy(() => import("./components/layout/ResumeLayout"));
 
-const DashboardLayout = lazy(() =>
-  import("./pages/dashboard/DashbaordLayout")
-);
-const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
-
 const App = () => {
   const [loading, setLoading] = useState(true);
 
@@ -146,10 +141,7 @@ useEffect(() => {
                 />
               </Route>
 
-              <Route path="/dashboard/app/home" element={<DashboardLayout />}>
-                <Route index element={<Dashboard />} />
-              </Route>
-
+           
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>

@@ -3,9 +3,19 @@ import { Link } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Button from "../common/Button";
 import { isTokenExpired } from "../../utils/auth.js";
+import {useNavigate} from 'react-router-dom';
+import { toast } from "react-toastify";
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    toast.success('Logout successful')
+    navigate("/dashboard/app/account/login", { replace: true });
+  };
 
   const isExpired = isTokenExpired(localStorage.getItem("token"));
   if (isExpired) {
@@ -49,7 +59,10 @@ const Navbar = () => {
           {isExpired ? (
             <Button hasMargin={false} text="Login" to="/dashboard/app/account/login" />
           ) : (
-            <Button hasMargin={false} text="Access Dashboard" to="/dashboard/app/home" />
+           <button onClick={handleLogout} className={`py-3 block mt-0 relative px-6 border-zinc-400 border-1 min-w-[200px] text-center bottom-0 transition cursor-pointer rounded-md hover:bg-[#FAFBFC] sm:px-12`}>
+            
+            Logout
+          </button>
           )}
         </nav>
 

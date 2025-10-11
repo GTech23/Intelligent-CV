@@ -32,7 +32,7 @@ const Login = () => {
       if (payload.success) {
         toast.success(payload.message);
         localStorage.setItem("token", payload.token);
-        navigate("/dashboard/app/home", { replace: true });
+        navigate("/", { replace: true });
       } else {
         toast.error(payload.message);
       }
