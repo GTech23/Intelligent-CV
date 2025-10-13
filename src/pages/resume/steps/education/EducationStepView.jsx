@@ -64,7 +64,7 @@ const EducationStepView = () => {
         <EducationForm />
       ) : (
         <div className="max-w-5xl  w-full mx-auto">
-          <h1 className="text-4xl font-bold text-gray-700">
+          <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">
             Education Summary
           </h1>
           <p>Add, edit, or delete your education.</p>
@@ -91,7 +91,7 @@ const EducationStepView = () => {
                   >
                     <div className="flex flex-col justify-between">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-8">
+                        <div className="flex items-center gap-2 sm:gap-8">
                           <p className="text-blue-600 font-bold bg-blue-100 p-3 rounded-full w-10 h-10 flex items-center justify-center">
                             {index + 1}
                           </p>
@@ -118,7 +118,7 @@ const EducationStepView = () => {
                             onClick={() => handleEditEducation(index)}
                             className="flex items-center font-bold border-zinc-400 gap-3 cursor-pointer p-2 border rounded-md"
                           >
-                            <FaPlus />
+                            <FaPlus className="hidden sm:block" />
                             Edit
                           </button>
                           <button

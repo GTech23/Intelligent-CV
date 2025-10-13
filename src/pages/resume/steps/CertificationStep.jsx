@@ -34,10 +34,10 @@ const CertificationStep = () => {
 
   return (
     <>
-      <div className=" gap-8 max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto mt-12">
         <title>Resume Builder</title>
         <div>
-          <h1 className="text-4xl font-bold text-gray-700">
+          <h1 className="text-2xl font-bold mb-2 text-gray-700 sm:text-4xl">
             Certifications and licenses
           </h1>
           <p>
@@ -93,7 +93,7 @@ const CertificationStep = () => {
                   Back
                 </button>
                 <button
-                  onClick={() => navigate('')}
+                  onClick={() =>  navigate("/dashboard/app/personalize/summary")}
                   type="button"
                   className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1  font-bold "
                 >

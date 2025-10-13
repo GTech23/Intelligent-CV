@@ -28,18 +28,18 @@ const ContactStep = () => {
   };
 
   return (
-    <div className="flex gap-8">
+    <div className="mt-12">
       <title>Resume Builder</title>
       <div>
-        <h1 className="text-4xl font-bold text-gray-700">
+        <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl mb-3">
           Let's start with the basics
         </h1>
         <p>
           To help employers contact you, add your name, email, and phone number.
         </p>
 
-        <form action="#" className="my-4 flex flex-col items-start gap-8 sm:flex-row">
-          <div className="w-40 h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer bg-gray-50 hover:border-blue-500 transition-all">
+        <form action="#" className="my-4">
+          <div className="w-40 hidden h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer bg-gray-50 hover:border-blue-500 transition-all">
             <>
               <FaUserCircle className="text-5xl text-gray-400" />
               <p className="text-sm text-gray-600 mt-1">Add Photo</p>
@@ -55,7 +55,7 @@ const ContactStep = () => {
                 name="firstName"
                 placeholder={"First Name"}
                 autoComplete="false"
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
               />
             </div>
@@ -65,7 +65,7 @@ const ContactStep = () => {
                 name="lastName"
                  autoComplete="false"
                 placeholder={"Last Name"}
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
               />
             </div>
@@ -75,7 +75,7 @@ const ContactStep = () => {
                 name="title"
                  autoComplete="false"
                 placeholder={"Desried Job Title (Optional)"}
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
               />
             </div>
@@ -86,7 +86,7 @@ const ContactStep = () => {
                  autoComplete="false"
                 placeholder={"Email Address"}
                 onBlur={savePersonal}
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
             <div className="">
@@ -96,7 +96,7 @@ const ContactStep = () => {
                 onBlur={savePersonal}
                 placeholder={"Phone Number"}
                  autoComplete="false"
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
             <div className="">
@@ -105,7 +105,7 @@ const ContactStep = () => {
                 autoComplete="off"
                 name="country"
                 placeholder={"Country"}
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
             <div className="">
@@ -114,7 +114,7 @@ const ContactStep = () => {
                 name="city"
                 placeholder={"City"}
                 onBlur={savePersonal}
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
             <div className="">
@@ -122,7 +122,7 @@ const ContactStep = () => {
                 ref={provinceRef}
                 name="state"
                 placeholder={"State or Province"}
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
               />
             </div>
@@ -131,7 +131,7 @@ const ContactStep = () => {
                 ref={postalCodeRef}
                 name="postalCode"
                 placeholder={"Postal Code"}
-                className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
               />
             </div>
@@ -139,7 +139,7 @@ const ContactStep = () => {
             <button
               onClick={() => navigate(-1)}
               type="button"
-              className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold "
+              className="py-2 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold "
             >
               Back
             </button>
@@ -148,7 +148,7 @@ const ContactStep = () => {
                 navigate("/dashboard/app/personalize/work_experience")
               }
               type="button"
-              className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1  font-bold "
+              className="py-2 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1  font-bold "
             >
               Save & Next
             </button>

@@ -52,9 +52,9 @@ const WorkExperienceForm = () => {
   };
 
   return (
-    <div className="flex gap-8">
+    <div className="mt-12 mt-0">
       <div>
-        <h1 className="text-4xl font-bold text-gray-700">Experience</h1>
+        <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Experience</h1>
         <p>
           This is going to be easy, we promise! Let's start with your most
           recent job.
@@ -71,7 +71,7 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "position", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md sm:py-3"
               />
             </div>
 
@@ -84,12 +84,12 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "company", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
               />
             </div>
 
             {/* Country */}
-            <div className="col-span-4">
+            <div className="col-span-6 sm:col-span-4">
               <input
                 name="country"
                 placeholder="Country"
@@ -97,12 +97,12 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "country", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
               />
             </div>
 
             {/* Province */}
-            <div className="col-span-4">
+            <div className="col-span-6 sm:col-span-4">
               <input
                 name="province"
                 placeholder="Province or State"
@@ -110,7 +110,7 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "province", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
               />
             </div>
 
@@ -123,7 +123,7 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "city", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
               />
             </div>
 
@@ -136,7 +136,7 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "startMonth", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
               />
             </div>
 
@@ -150,7 +150,7 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "startYear", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
               />
             </div>
 
@@ -163,7 +163,7 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "endMonth", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
               />
             </div>
 
@@ -177,7 +177,7 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "endYear", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md"
+                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
               />
             </div>
 
@@ -205,14 +205,14 @@ const WorkExperienceForm = () => {
               <button
                 onClick={handleBack}
                 type="button"
-                className="py-3 rounded-2xl px-9 border cursor-pointer border-gray-400 font-bold"
+                className="py-2 rounded-2xl px-9 border cursor-pointer border-gray-400 font-bold"
               >
                 Back
               </button>
               <button
                 onClick={handleSaveToList}
                 type="button"
-                className="py-3 bg-orange-400 rounded-2xl text-white px-9 border font-bold"
+                className="py-2 bg-orange-400 rounded-2xl text-white px-9 border font-bold"
               >
                 Save & Next
               </button>

@@ -6,11 +6,11 @@ const ResumeFinalize = () => {
   const navigate = useNavigate();
   return (
     <>
-      <div className=" gap-8">
+      <div className="mt-12">
         <title>Resume Builder</title>
         <div className="max-w-5xl mb-4 flex flex-col items-center justify-center  w-full mx-auto">
           <div className="flex flex-col w-full items-center justify-center text-center">
-            <h1 className="text-4xl font-bold mb-4 text-gray-700">
+            <h1 className="text-2xl font-bold mb-4 text-gray-700 sm:text-4xl">
               Hurray, Your Resume is Ready
             </h1>
             <p>

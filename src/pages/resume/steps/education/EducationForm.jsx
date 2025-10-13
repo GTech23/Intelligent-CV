@@ -44,7 +44,7 @@ const EducationForm = ({ editIndex }) => {
   };
 
   return (
-    <div className="flex gap-8">
+    <div className="mt-12">
       <title>Resume Builder</title>
       <div className="max-w-5xl mx-auto w-full">
         <h1 className="text-4xl font-bold text-gray-700">Education</h1>
@@ -64,7 +64,7 @@ const EducationForm = ({ editIndex }) => {
                   onChange={(e) =>
                     handleEducationChange(index, "school", e.target.value)
                   }
-                  className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div>
@@ -75,7 +75,7 @@ const EducationForm = ({ editIndex }) => {
                   onChange={(e) =>
                     handleEducationChange(index, "location", e.target.value)
                   }
-                  className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div>
@@ -86,7 +86,7 @@ const EducationForm = ({ editIndex }) => {
                   onChange={(e) =>
                     handleEducationChange(index, "degree", e.target.value)
                   }
-                  className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div>
@@ -97,7 +97,7 @@ const EducationForm = ({ editIndex }) => {
                   onChange={(e) =>
                     handleEducationChange(index, "fieldOfStudy", e.target.value)
                   }
-                  className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div>
@@ -108,7 +108,7 @@ const EducationForm = ({ editIndex }) => {
                   onChange={(e) =>
                     handleEducationChange(index, "graduationMonth", e.target.value)
                   }
-                  className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div>
@@ -119,7 +119,7 @@ const EducationForm = ({ editIndex }) => {
                   onChange={(e) =>
                     handleEducationChange(index, "graduationYear", e.target.value)
                   }
-                  className="w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
               <div className="col-span-2 flex items-center gap-2">
@@ -144,13 +144,13 @@ const EducationForm = ({ editIndex }) => {
             <button
               onClick={handleBack}
               type="button"
-              className="py-3 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold"
+              className="py-2 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold"
             >
               Back
             </button>
             <button
               type="button"
-              className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1 font-bold"
+              className="py-2 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1 font-bold"
               onClick={handleSave}
             >
               Save & Next

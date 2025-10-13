@@ -13,6 +13,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    setMenuOpen(false)
     toast.success('Logout successful')
     navigate("/dashboard/app/account/login", { replace: true });
   };
@@ -122,11 +123,9 @@ const Navbar = () => {
                     onClick={() => setMenuOpen(false)}
                   />
                 ) : (
-                  <Button
-                    text="Access Dashboard"
-                    to="/dashboard/app/home"
-                    onClick={() => setMenuOpen(false)}
-                  />
+                 <button onClick={handleLogout} className={`py-3 block mt-0 relative px-6 border-zinc-400 border-1 min-w-[200px] text-center bottom-0 transition cursor-pointer rounded-md hover:bg-[#FAFBFC] sm:px-12`}>
+                    Logout
+                 </button>
                 )}
               </li>
             </ul>

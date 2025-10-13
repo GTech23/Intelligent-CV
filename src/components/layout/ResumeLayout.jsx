@@ -45,7 +45,7 @@ const ResumeLayout = () => {
   const pathname = useLocation().pathname;
   return (
     <>
-      <section className="py-6 px-0 min-h-screen">
+      <section className="py-2 px-0 min-h-screen md:p-6">
         <div className="p-4 flex justify-between bg-white fixed top-0  left-0 right-0 w-full z-1000">
           <TextLogo />
 

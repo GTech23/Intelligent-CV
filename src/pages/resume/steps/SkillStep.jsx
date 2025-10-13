@@ -68,7 +68,7 @@ const SkillStep = () => {
       skills: items,
     }));
 
-    navigate("/dashboard/app/personalize/summary");
+    navigate("/dashboard/app/personalize/certification");
   };
 
   const insertSuggestion = (skill) => {
@@ -88,7 +88,7 @@ const SkillStep = () => {
   return (
     <div className="flex gap-8">
       <div className="max-w-5xl mx-auto w-full">
-        <h1 className="text-4xl font-bold text-gray-700">Skills</h1>
+        <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Skills</h1>
         <p>
           You're on a roll. Let's find relevant skills for the job you're
           applying for. Listing 6-10 skills is best.

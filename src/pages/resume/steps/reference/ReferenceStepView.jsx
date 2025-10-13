@@ -55,8 +55,8 @@ const ReferenceStepView = () => {
       {showForm ? (
         <ReferenceStepForm />
       ) : (
-        <div className="max-w-5xl  w-full mx-auto">
-          <h1 className="text-4xl font-bold text-gray-700">Edit Reference</h1>
+        <div className="max-w-5xl mt-12  w-full mx-auto">
+          <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Edit Reference</h1>
 
           {references.length === 0 ? (
             <div className="border-2 border-dotted min-h-50 my-8 rounded-2xl flex items-center justify-center">
@@ -78,7 +78,7 @@ const ReferenceStepView = () => {
                   >
                     <div className="flex flex-col justify-between">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-8">
+                        <div className="flex items-center gap-2 sm:gap-8">
                           <p className="text-blue-600 font-bold bg-blue-100 p-3 rounded-full w-10 h-10 flex items-center justify-center">
                             {index + 1}
                           </p>
@@ -100,7 +100,7 @@ const ReferenceStepView = () => {
                             }}
                             className="flex items-center font-bold border-zinc-400 gap-3 cursor-pointer p-2 border rounded-md"
                           >
-                            <FaPlus />
+                            <FaPlus className="hidden sm:block" />
                             Edit
                           </button>
                           <button

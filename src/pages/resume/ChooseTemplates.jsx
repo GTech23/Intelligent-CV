@@ -54,14 +54,14 @@ const ChooseTemplates = () => {
   return (
     <>
       <title>Resume Builder - Choose Templates</title>
-      <section className="p-6 min-h-screen">
+      <section className="p-1 min-h-screen sm:p-4 md:p-6">
         <div className="p-4 bg-white fixed top-0 left-0 right-0 w-full">
           <TextLogo />
         </div>
 
-        <div className="bg-neutral-100 min-h-screen mt-10 rounded-3xl p-6">
+        <div className="bg-neutral-100 min-h-screen mt-10 rounded-3xl p-1 sm:p-4 md:p-6">
           <div className="flex items-center flex-col p-6 justify-center mb-8 space-y-4">
-            <h1 className="text-3xl text-center font-bold text-gray-700 sm:text-left sm:text-4xl">
+            <h1 className="text-2xl text-center font-bold text-gray-700 sm:text-left sm:text-4xl">
               Choose from our professionally designed templates
             </h1>
           </div>

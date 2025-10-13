@@ -42,10 +42,10 @@ const ReferenceStepForm = ({ editIndex }) => {
   };
   return (
     <>
-      <div className=" gap-8">
+      <div className="mt-12">
         <title>Resume Builder</title>
         <div className="max-w-5xl  w-full mx-auto">
-          <h1 className="text-4xl font-bold text-gray-700">Add Reference</h1>
+          <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Add Reference</h1>
           <form action="#" className="my-4 flex items-start gap-8">
             <div className="grid grid-cols-2 gap-8 w-full">
               <div className="">

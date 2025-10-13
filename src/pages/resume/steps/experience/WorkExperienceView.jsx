@@ -12,12 +12,11 @@ const WorkExperienceView = () => {
 
   const experiences = formData.experience || [];
 
-  // Keep original indices while filtering empty entries for display
+
   const visible = experiences
     .map((exp, idx) => ({ exp, idx }))
     .filter(({ exp }) => {
       if (!exp) return false;
-      // treat responsibilities as meaningful content too
       const hasField = Object.values(exp).some(
         (v) => v && v.toString().trim() !== ""
       );
@@ -49,7 +48,7 @@ const WorkExperienceView = () => {
       endMonth: "",
       endYear: "",
       responsibilities: [],
-      responsibilitiesHtml: "",
+  
     };
 
     setFormData((prev) => ({
@@ -70,7 +69,7 @@ const WorkExperienceView = () => {
         <WorkExperienceForm />
       ) : (
         <div className="max-w-5xl w-full mx-auto">
-          <h1 className="text-4xl font-bold mb-4 text-gray-700">
+          <h1 className="text-2xl font-bold mb-4 text-gray-700 md:text-4xl">
             Review your work experience
           </h1>
           <p>Edit, update, or add new roles to complete your resume.</p>
@@ -88,15 +87,15 @@ const WorkExperienceView = () => {
           )}
 
           {visible.map(({ exp, idx }) => (
-            <div key={idx} className="p-4 bg-white rounded-lg min-h-50 mt-8">
+            <div key={idx} className="p-4 bg-white rounded-lg min-h-50 mt-4">
               <div className="flex flex-col justify-between">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-8">
+                  <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
                     <p className="text-blue-600 font-bold bg-blue-100 p-3 rounded-full w-10 h-10 flex items-center justify-center">
                       {idx + 1}
                     </p>
                     <div className="flex flex-col">
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
                         <p className="font-bold">{exp.position}</p>
                         <p>| {exp.company}</p>
                       </div>
@@ -112,7 +111,7 @@ const WorkExperienceView = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-4 justify-between">
+                  <div className="flex items-center gap-2 justify-between">
                     <button
                       onClick={() => {
                         query.set("expIndex", String(idx));
@@ -120,7 +119,7 @@ const WorkExperienceView = () => {
                       }}
                       className="flex items-center font-bold border-zinc-400 gap-3 cursor-pointer p-2 border rounded-md"
                     >
-                      <FaPencil />
+                      <FaPencil className="hidden sm:block" />
                       Edit
                     </button>
                     <button
