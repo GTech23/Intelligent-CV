@@ -4,19 +4,25 @@ import { Outlet, useLocation } from "react-router-dom";
 import { FaDownload } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import {useResume} from '../../context/ResumeContext'
 const ResumeLayout = () => {
   const [loading, setLoading] = useState(false);
-
+  const {formData} = useResume();
+  console.log(formData)
   const downloadResume = async () => {
+    
     try {
       setLoading(true);
       const response = await fetch(
-        `https://intelligent-cv-backend.onrender.com/api/resume/68d5bce72877e6ed3effbb67/download`,
+        `https://intelligent-cv-backend.onrender.com/api/resume/68d54d89d5a59a43c45f3950/download`,
         {
-          method: "GET",
+          method: "POST",
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
           },
+
+          body: JSON.stringify(formData)
+
         }
       );
 

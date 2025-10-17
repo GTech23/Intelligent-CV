@@ -10,7 +10,7 @@ const ResumeDownload = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://intelligent-cv-backend.onrender.com/api/resume/68d5bce72877e6ed3effbb67/view`,
+        `https://intelligent-cv-backend.onrender.com/api/resume/68d54d89d5a59a43c45f395/view`,
         {
           method: "GET",
           headers: {
