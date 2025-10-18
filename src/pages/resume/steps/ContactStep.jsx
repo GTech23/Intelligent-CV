@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ContactStep = () => {
-  const { formData, setFormData } = useResume();
+  const { setFormData } = useResume();
   const navigate = useNavigate();
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
@@ -121,7 +121,7 @@ const ContactStep = () => {
               <input
                 ref={provinceRef}
                 name="state"
-                placeholder={"State or Province"}
+                placeholder={"State"}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
               />

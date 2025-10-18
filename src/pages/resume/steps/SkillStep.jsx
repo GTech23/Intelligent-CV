@@ -68,7 +68,7 @@ const SkillStep = () => {
       skills: items,
     }));
 
-    navigate("/dashboard/app/personalize/certification");
+    navigate("/dashboard/app/personalize/summary");
   };
 
   const insertSuggestion = (skill) => {
@@ -86,7 +86,7 @@ const SkillStep = () => {
   };
 
   return (
-    <div className="flex gap-8">
+    <div className="">
       <div className="max-w-5xl mx-auto w-full">
         <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Skills</h1>
         <p>
@@ -110,8 +110,10 @@ const SkillStep = () => {
           </div>
         </div>
 
-        {/* Buttons section */}
-        <div className="flex items-center justify-between mt-18 w-full">
+       
+      </div>
+       {/* Buttons section */}
+        <div className="flex items-center justify-between my-18 w-full">
           <button
             onClick={() => navigate(-1)}
             type="button"
@@ -127,7 +129,6 @@ const SkillStep = () => {
             Save & Next
           </button>
         </div>
-      </div>
     </div>
   );
 };

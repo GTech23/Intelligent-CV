@@ -76,7 +76,7 @@ const SummaryStep = () => {
           />
         </div>
 
-        <div className="overflow-y-auto mt-8 max-h-[450px] h-full sm:mt-0">
+        <div className="overflow-y-auto mt-8 max-h-[450px] h-full">
           <ResultCard>
             Seeking to utilize excellent communication, interpersonal, and
             organizational skills to complete tasks. Reliable with a good work

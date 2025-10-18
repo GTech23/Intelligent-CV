@@ -91,22 +91,22 @@ const EducationStepView = () => {
                   >
                     <div className="flex flex-col justify-between">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 sm:gap-8">
+                        <div className="flex items-center gap-1 sm:gap-8">
                           <p className="text-blue-600 font-bold bg-blue-100 p-3 rounded-full w-10 h-10 flex items-center justify-center">
                             {index + 1}
                           </p>
                           <div className="flex flex-col">
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-1 sm:gap-4">
                               <p className="font-bold">
                                 {edu.degree} in {edu.fieldOfStudy}
                               </p>
                               <p>| {edu.school}</p>
                             </div>
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-center gap-2">
                               <p className="text-sm">{edu.location}</p>
                               {!edu.removeGraduationDate && (
                                 <p className="text-sm">
-                                  | Graduated {edu.graduationMonth}{" "}
+                                  | Graduated {(edu.graduationMonth).slice(0,3)}{" "}
                                   {edu.graduationYear}
                                 </p>
                               )}

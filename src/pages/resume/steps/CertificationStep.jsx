@@ -93,7 +93,7 @@ const CertificationStep = () => {
                   Back
                 </button>
                 <button
-                  onClick={() =>  navigate("/dashboard/app/personalize/summary")}
+                  onClick={() =>  navigate("/dashboard/app/personalize/skill")}
                   type="button"
                   className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1  font-bold "
                 >

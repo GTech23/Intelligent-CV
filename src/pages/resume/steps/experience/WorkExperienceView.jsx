@@ -87,24 +87,24 @@ const WorkExperienceView = () => {
           )}
 
           {visible.map(({ exp, idx }) => (
-            <div key={idx} className="p-4 bg-white rounded-lg min-h-50 mt-4">
+            <div key={idx} className="p-1 bg-white rounded-lg min-h-50 mt-4 sm:p-4">
               <div className="flex flex-col justify-between">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
+                  <div className="flex items-center gap-1 sm:gap-4 md:gap-8">
                     <p className="text-blue-600 font-bold bg-blue-100 p-3 rounded-full w-10 h-10 flex items-center justify-center">
                       {idx + 1}
                     </p>
                     <div className="flex flex-col">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 sm:gap-2">
                         <p className="font-bold">{exp.position}</p>
                         <p>| {exp.company}</p>
                       </div>
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 sm:gap-4">
                         <p className="text-sm">
                           {exp.city}, {exp.country}
                         </p>
                         <p className="text-sm">
-                          | {exp.startMonth} {exp.startYear} - {exp.endMonth}{" "}
+                          | {(exp.startMonth).slice(0,3)} {exp.startYear} - {exp.endMonth}{" "}
                           {exp.endYear}
                         </p>
                       </div>

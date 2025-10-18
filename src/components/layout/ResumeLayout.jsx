@@ -69,7 +69,7 @@ const ResumeLayout = () => {
         </div>
 
         <Sidebar />
-        <div className=" ml-0 rounded-3xl bg-[#f3f5eb] min-h-screen  mt-10 p-8 sm:ml-[320px]">
+        <div className=" ml-0 rounded-3xl bg-[#f3f5eb] min-h-screen  mt-10 px-4 py-12 sm:ml-[320px]">
           <Outlet />
         </div>
       </section>
