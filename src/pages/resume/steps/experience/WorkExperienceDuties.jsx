@@ -161,12 +161,12 @@ const WorkExperienceDuties = () => {
         {experiences[index]?.company || "Company"}
       </p>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div>
           <RawQuillEditor value={editorValue} onChange={setEditorValue} />
         </div>
 
-        <div className="overflow-y-auto max-h-[450px] h-full space-y-2">
+        <div className="overflow-y-auto mt-12 max-h-[450px] h-full space-y-2 lg:mt-0">
           {[
             "Developed API integrations using Node.js and Express to connect backend services.",
             "Implemented automated testing with Jest and Mocha.",

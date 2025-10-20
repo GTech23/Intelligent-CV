@@ -14,11 +14,12 @@ const ResumeLayout = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://intelligent-cv-backend.onrender.com/api/resume/68d54d89d5a59a43c45f3950/download`,
+        `https://intelligent-cv-backend.onrender.com/api/resume/${localStorage.getItem("selectedTemplate")}/download`,
         {
           method: "POST",
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
+            "content-type": "application/json"
           },
 
           body: JSON.stringify(formData)
@@ -69,7 +70,7 @@ const ResumeLayout = () => {
         </div>
 
         <Sidebar />
-        <div className=" ml-0 rounded-3xl bg-[#f3f5eb] min-h-screen  mt-10 px-4 py-12 sm:ml-[320px]">
+        <div className=" ml-0 rounded-3xl bg-[#f3f5eb] min-h-screen  mt-10 p-8 sm:ml-[320px]">
           <Outlet />
         </div>
       </section>
