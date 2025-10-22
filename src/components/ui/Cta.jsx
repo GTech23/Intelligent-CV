@@ -4,7 +4,7 @@ const Cta = () => {
   return (
     <section className="bg-[#e76021]  text-white py-20 px-6 text-center">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
           Create a Job-Winning Resume Today
         </h1>
         <p className="text-lg md:text-xl mb-10">

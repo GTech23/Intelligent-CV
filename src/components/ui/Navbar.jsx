@@ -33,7 +33,7 @@ const Navbar = () => {
           Intelligent <span className="font-bold">CV</span>
         </Link>
 
-        <nav className="hidden md:flex items-center space-x-10">
+        <nav className="hidden lg:flex items-center space-x-10">
           <ul className="flex items-center space-x-8">
             <li>
               <Link to="/" className="hover:text-[#EA723C]">
@@ -68,7 +68,7 @@ const Navbar = () => {
         </nav>
 
         <button
-          className="text-3xl text-[#EA723C] md:hidden focus:outline-none"
+          className="text-3xl text-[#EA723C] lg:hidden focus:outline-none"
           onClick={toggleMenu}
           aria-label="Toggle Menu"
         >
@@ -77,7 +77,7 @@ const Navbar = () => {
 
 
         {menuOpen && (
-          <div className="absolute top-20 left-0 w-full bg-white shadow-md border-t border-gray-100 md:hidden animate-slideDown">
+          <div className="absolute top-20 left-0 w-full bg-white shadow-md border-t border-gray-100 lg:hidden animate-slideDown">
             <ul className="flex flex-col items-center space-y-6 py-6 text-lg">
               <li>
                 <Link

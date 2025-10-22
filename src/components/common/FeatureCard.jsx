@@ -4,7 +4,7 @@ import dataBackedImage from "../../assets/images/feature-img4.avif";
 
 const FeatureCard = () => {
   return (
-    <div className="grid grid-cols-1 gap-8 items-center p-4 my-8 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-8 items-center p-4 my-8 sm:grid-cols-1 lg:grid-cols-3">
       <div className=" shadow-lg min-h-50 p-4 rounded-3xl border-1 border-zinc-300">
         <div>
           <h3 className="text-2xl font-bold text-[#24272E]  mb-3">

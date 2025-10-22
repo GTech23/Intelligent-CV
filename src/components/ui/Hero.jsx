@@ -5,8 +5,8 @@ import { FaArrowRight } from "react-icons/fa";
 const Hero = () => {
   return (
     <section className="w-full mx-auto py-7 px-7 ">
-      <div className=" flex flex-col items-center min-h-[85vh]  gap-4  sm:flex-row sm:space-x-12">
-        <div className="h-full px-7 sm:mr-20">
+      <div className=" flex flex-col items-center min-h-[85vh]  gap-4  lg:flex-row sm:space-x-12">
+        <div className="h-full  sm:mr-20">
           <h1 className="text-5xl font-bold mb-4 text-[#24272E] sm:text-6xl">
             Make your professional resume{" "}
             <span className="text-[#EA723C] leading-normal">in minutes.</span>

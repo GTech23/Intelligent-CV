@@ -7,27 +7,49 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import quote from "../../assets/svg/quote.svg";
 import stars from "../../assets/svg/5-stars-slider-fill.svg";
 
-const TestimonialCard = () => {
+const quotes = [
+  {
+    author: 'Onos Ejoor',
+    text: " Intelligent CV 247 is my main place to create an efficient resume for my future employment. It makes things easier because at time.",
+    rating: stars,
+  },
+
+  {
+    author: 'Eluwa Joshua',
+    text: "I figured out that Intelligent CV is one the best resume builder platform with a good price rate unlike others",
+    rating: stars,
+  },
+
+  {
+    author: 'Elijah Christopher',
+    text: "Intelligent CV is a game changer with its instuitive user friendly experience, easy to navigate the site. 5 stars to the team 😊",
+    rating: stars,
+  },
+  {
+    author: 'Barkin Olusopu',
+    text: "Just love the way the resume process are, no hassle to tassle, less than 5 mins your resume should be completed. I seamlessly loves the AI integration their web design",
+    rating: stars,
+  },
+  
+]
+const TestimonialCard = ({quotedata:{author, text, rating}}) => {
   return (
     <div className="border border-zinc-300 rounded-2xl bg-[#FAFBFC] min-h-[300px] p-6 flex flex-col justify-between w-[90%] mx-auto sm:w-[95%] md:w-full">
       <div className="flex flex-col space-y-8">
         <img src={quote} alt="quote icon" width={45} />
         <div className="flex flex-col space-y-4">
           <h3 className="text-xl font-semibold text-gray-800">
-            Intelligent CV 247
+           {author}
           </h3>
           <p className="text-base text-gray-700 leading-relaxed">
-            Intelligent CV 247 is my main place to create an efficient resume
-            for my future employment. It makes things easier because at times,
-            it can take me hours to create one.
+            {text}
           </p>
         </div>
       </div>
 
       <div className="mt-6">
-        <span className="block font-medium text-gray-800">Olademeji A.</span>
-        <img src={stars} alt="rating stars" className="my-2 w-28" />
-        <span className="text-sm text-gray-500">2 weeks ago</span>
+        <span className="block font-medium text-gray-800">{author}</span>
+        <img src={rating} alt="rating stars" className="my-2 w-28" />
       </div>
     </div>
   );
@@ -72,18 +94,13 @@ const Testimonial = () => {
             },
           }}
         >
-          <SwiperSlide>
-            <TestimonialCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <TestimonialCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <TestimonialCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <TestimonialCard />
-          </SwiperSlide>
+          
+            {quotes.map((quote) => (
+              <SwiperSlide>
+                <TestimonialCard quotedata={quote} />
+               </SwiperSlide>
+            ))}
+         
         </Swiper>
       </div>
     </section>
