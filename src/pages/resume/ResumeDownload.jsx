@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../../components/common/Loader";
-
+import {useResume} from '../../context/ResumeContext'
 const ResumeDownload = () => {
   const [loading, setLoading] = useState(false);
   const [html, setHtml] = useState("");
+  const {formData} = useResume();
 
   const previewResume = async () => {
+    
     try {
       setLoading(true);
       const response = await fetch(
-        `https://intelligent-cv-backend.onrender.com/api/resume/68d54d89d5a59a43c45f395/view`,
+         `https://intelligent-cv-backend.onrender.com/api/resume/${localStorage.getItem("selectedTemplate")}/view`,
         {
-          method: "GET",
+          method: "POST",
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "text/html",
+            "content-type": "application/json"
           },
+
+          body: JSON.stringify(formData)
         }
       );
 
@@ -27,6 +31,7 @@ const ResumeDownload = () => {
 
       const data = await response.text();
       setHtml(data);
+      console.log(data)
     } catch (error) {
       toast.error(`An Error occurred rendering PDF`);
       console.error(error);
