@@ -102,11 +102,11 @@ const SkillStep = () => {
 
           {/* Suggestions */}
           <div className="space-y-2 overflow-y-auto max-h-[400px] mt-8 sm:mt-0">
-            {["React", "Node.js", "Project Management"].map((s, i) => (
+            {/* {["React", "Node.js", "Project Management"].map((s, i) => (
               <ResultCard key={i} onClick={() => insertSuggestion(s)}>
                 {s}
               </ResultCard>
-            ))}
+            ))} */}
           </div>
         </div>
 

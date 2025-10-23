@@ -8,7 +8,6 @@ import {useResume} from '../../context/ResumeContext'
 const ResumeLayout = () => {
   const [loading, setLoading] = useState(false);
   const {formData} = useResume();
-  console.log(formData)
   const downloadResume = async () => {
     
     try {
