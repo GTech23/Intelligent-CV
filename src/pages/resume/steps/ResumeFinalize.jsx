@@ -22,10 +22,10 @@ const ResumeFinalize = () => {
           <img src={resumeComplete} className="w-full md:w-1/2" alt="" />
         </div>
 
-        <div className="flex  justify-center space-x-8 gap-4">
+        <div className="p-4 flex flex-col justify-center text-center items-center  gap-4 lg:space-x-4 lg:flex-row">
           <button onClick={() => {
             navigate("/dashboard/app/personalize/")
-          }} className="py-3 px-8  bg-white text-black  font-bold rounded-2xl cursor-pointer flex items-center justify-center gap-4">
+          }} className="py-3 px-8  bg-white text-sm text-black  font-bold rounded-2xl cursor-pointer flex items-center justify-center gap-4">
             <FaArrowLeft />
             Continue Editing
           </button>

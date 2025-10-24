@@ -56,7 +56,7 @@ const ReferenceStepView = () => {
         <ReferenceStepForm />
       ) : (
         <div className="max-w-5xl mt-12  w-full mx-auto">
-          <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Edit Reference</h1>
+          <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Add Reference</h1>
 
           {references.length === 0 ? (
             <div className="border-2 border-dotted min-h-50 my-8 rounded-2xl flex items-center justify-center">

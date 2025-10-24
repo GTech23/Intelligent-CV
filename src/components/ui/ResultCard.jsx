@@ -11,22 +11,5 @@ function ResultCard({ children, handleClick }) {
   );
 }
 
-export function ResultsList() {
-  return (
-    <div className="max-w-md mx-auto p-4 bg-gray-50 rounded-lg shadow-inner overflow-y-auto max-h-[400px]">
-      <ResultCard>
-        Seeking to utilize excellent communication, interpersonal, and
-        organizational skills to complete tasks. Reliable with a good work ethic
-        and the ability to quickly adapt to new tasks and environments.
-      </ResultCard>
-      <ResultCard>
-        Reliable worker with excellent communication, time management, and
-        computer skills. A driven and detail-oriented individual with a desire
-        to use analytical and...
-      </ResultCard>
-      {/* Add more ResultCard components as needed */}
-    </div>
-  );
-}
 
 export default ResultCard;

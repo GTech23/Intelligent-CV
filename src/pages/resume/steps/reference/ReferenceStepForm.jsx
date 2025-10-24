@@ -45,9 +45,9 @@ const ReferenceStepForm = ({ editIndex }) => {
       <div className="mt-12">
         <title>Resume Builder</title>
         <div className="max-w-5xl  w-full mx-auto">
-          <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Add Reference</h1>
+          <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Edit Reference</h1>
           <form action="#" className="my-4 flex items-start gap-8">
-            <div className="grid grid-cols-2 gap-8 w-full">
+            <div className="grid grid-cols-2 gap-4 w-full md:gap-8">
               <div className="">
                 <input
                   name="reference-first-name"
@@ -107,7 +107,7 @@ const ReferenceStepForm = ({ editIndex }) => {
                 <input
                   name="reference-company"
                   value={ref.company || ""}
-                  placeholder={"Company or Organization Name*"}
+                  placeholder={"Company"}
                   className={`w-full px-6 border-gray-300 bg-white py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                   onChange={(e) =>
                     handleReferenceChange("company", e.target.value)

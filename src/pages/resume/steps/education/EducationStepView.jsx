@@ -69,7 +69,7 @@ const EducationStepView = () => {
           </h1>
           <p>Add, edit, or delete your education.</p>
 
-          {formData.education.length === 0 && (
+          {education.length === 0 && (
             <div className="border-1 bg-[#EFF1E4] border-dotted min-h-50 rounded-2xl my-4 flex items-center justify-center">
               <button
                 onClick={redirectToForm}
@@ -134,13 +134,14 @@ const EducationStepView = () => {
                 );
               })}
 
+           {education.length !== 0 && ( 
             <button
               onClick={redirectToForm}
               className="flex gap-2 items-center font-bold text-md cursor-pointer hover:underline mt-4"
             >
               <FaPlus />
               Add another education
-            </button>
+            </button>)}
           </div>
 
           <div className="flex items-center justify-between my-3">
@@ -151,7 +152,7 @@ const EducationStepView = () => {
               Back
             </button>
             <button
-              onClick={() => navigate("/dashboard/app/personalize/skill")}
+              onClick={() => navigate("/dashboard/app/personalize/certification")}
               className="py-3 bg-orange-400 rounded-2xl border-transparent cursor-pointer text-white px-9 border-1  font-bold "
             >
               Save & Next

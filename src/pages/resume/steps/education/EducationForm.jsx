@@ -54,7 +54,7 @@ const EducationForm = ({ editIndex }) => {
         </p>
 
         <form action="#" className="my-4 flex items-start gap-8">
-          <div className="grid grid-cols-2 w-full gap-8">
+          <div className="grid grid-cols-2 w-full gap-4 lg:gap-8">
             <>
               <div>
                 <input
@@ -81,7 +81,7 @@ const EducationForm = ({ editIndex }) => {
               <div>
                 <input
                   name="degree"
-                  placeholder="Degree or Program"
+                  placeholder="Degree"
                   value={edu.degree}
                   onChange={(e) =>
                     handleEducationChange(index, "degree", e.target.value)
@@ -103,7 +103,7 @@ const EducationForm = ({ editIndex }) => {
               <div>
                 <input
                   name="graduation-month"
-                  placeholder="Graduation Month"
+                  placeholder="Grad. Month"
                   value={edu.graduationMonth}
                   onChange={(e) =>
                     handleEducationChange(index, "graduationMonth", e.target.value)
@@ -114,7 +114,7 @@ const EducationForm = ({ editIndex }) => {
               <div>
                 <input
                   name="graduation-year"
-                  placeholder="Graduation Year"
+                  placeholder="Grad. Year"
                   value={edu.graduationYear}
                   onChange={(e) =>
                     handleEducationChange(index, "graduationYear", e.target.value)
@@ -127,6 +127,7 @@ const EducationForm = ({ editIndex }) => {
                   type="checkbox"
                   className="accent-orange-400 w-5 h-5"
                   name="removeGraduationDate"
+                  id="removeGraduationDate"
                   checked={edu.removeGraduationDate}
                   onChange={(e) =>
                     handleEducationChange(
@@ -136,7 +137,7 @@ const EducationForm = ({ editIndex }) => {
                     )
                   }
                 />
-                <label htmlFor="removeGraduationDate">
+                <label id='removeGraduationDate' htmlFor="removeGraduationDate">
                   Remove graduation date from resume
                 </label>
               </div>

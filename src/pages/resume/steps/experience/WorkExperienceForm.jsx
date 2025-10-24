@@ -52,7 +52,7 @@ const WorkExperienceForm = () => {
   };
 
   return (
-    <div className="mt-12 mt-0">
+    <div className=" mt-0">
       <div>
         <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Experience</h1>
         <p>
@@ -60,8 +60,8 @@ const WorkExperienceForm = () => {
           recent job.
         </p>
 
-        <form className="my-4 items-start gap-8">
-          <div key={index} className="grid grid-cols-12 gap-8 mb-8">
+        <form className="my-4 items-start gap-2 md:gap-4 lg:gap-8">
+          <div key={index} className="grid grid-cols-12 gap-4 mb-8 md:gap-8">
             {/* Job Title */}
             <div className="col-span-6">
               <input
@@ -79,7 +79,7 @@ const WorkExperienceForm = () => {
             <div className="col-span-6">
               <input
                 name="company"
-                placeholder="Company or Organization Name"
+                placeholder="Company"
                 value={ref.company || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "company", e.target.value)
@@ -105,7 +105,7 @@ const WorkExperienceForm = () => {
             <div className="col-span-6 sm:col-span-4">
               <input
                 name="province"
-                placeholder="Province or State"
+                placeholder="State"
                 value={ref.province || ""}
                 onChange={(e) =>
                   handleExperienceChange(index, "province", e.target.value)
@@ -115,7 +115,7 @@ const WorkExperienceForm = () => {
             </div>
 
             {/* City */}
-            <div className="col-span-4">
+            <div className="col-span-6 lg:col-span-4">
               <input
                 name="city"
                 placeholder="City"
@@ -168,7 +168,7 @@ const WorkExperienceForm = () => {
             </div>
 
             {/* End Year */}
-            <div className="col-span-6">
+            <div className="col-span-12 lg:col-span-6">
               <input
                 type="number"
                 name="endYear"

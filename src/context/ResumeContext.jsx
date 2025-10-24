@@ -20,7 +20,7 @@ export const ResumeProvider = ({ children }) => {
     education: [],
     experience: [],
     skills: [],
-    certifications: [],
+    certifications: [""],
     references: [],
   });
 
