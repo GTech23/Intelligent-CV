@@ -34,7 +34,7 @@ const Register = () => {
         toast.success(payload.message);
         navigate("/dashboard/app/account/login", { replace: true });
       } else {
-        toast.error(payload.message);
+        toast.error(payload.details[0]);
       }
     } catch (err) {
       toast.error(err.message);
