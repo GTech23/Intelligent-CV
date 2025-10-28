@@ -49,7 +49,6 @@ const SummaryStep = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [toast, setToast] = useState(null);
   const [usedSet, setUsedSet] = useState(new Set());
 
   // keep local editorValue synced if formData changes externally
@@ -86,7 +85,6 @@ const SummaryStep = () => {
     return [];
   };
 
-  // fetch suggestions (opts.replace: replace existing; otherwise append unique)
   const fetchSuggestions = async (opts = { replace: false }) => {
     setError(null);
     setLoading(true);
@@ -125,30 +123,14 @@ const SummaryStep = () => {
     }
   };
 
-  // initial fetch on mount (replace)
   useEffect(() => {
     fetchSuggestions({ replace: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
-  const copyToClipboard = async (text) => {
-    if (!text) return;
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-      return true;
-    }
-    // fallback
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    return true;
-  };
-
+ 
   const insertSuggestion = (text) => {
-    // Insert as plain text (append with spacing). Keep editorValue as plain text string.
+
     setEditorValue((prev) => {
       const joined = prev && prev.trim().length > 0 ? `${prev}\n\n${text}` : text;
       // update formData to keep summary synced
@@ -167,7 +149,6 @@ const SummaryStep = () => {
     if (usedSet.has(text)) return;
 
     try {
-      await copyToClipboard(text);
       insertSuggestion(text);
 
       setUsedSet((prev) => {
@@ -176,11 +157,8 @@ const SummaryStep = () => {
         return next;
       });
 
-      setToast("Copied to Clipboard");
-      setTimeout(() => setToast(null), TOAST_DURATION);
     } catch (err) {
-      setToast("Failed to copy");
-      setTimeout(() => setToast(null), TOAST_DURATION);
+      console.error(err.message)
     }
   };
 
@@ -267,21 +245,7 @@ const SummaryStep = () => {
         </button>
       </div>
 
-      {/* Toast */}
-      <div
-        aria-live="polite"
-        className="fixed bottom-8 right-8 z-50"
-        style={{ pointerEvents: "none" }}
-      >
-        {toast && (
-          <div
-            className="inline-block px-4 py-2 rounded shadow-lg bg-black text-white"
-            style={{ pointerEvents: "auto" }}
-          >
-            {toast}
-          </div>
-        )}
-      </div>
+      
     </div>
   );
 };

@@ -43,6 +43,9 @@ const arrayToUlHtml = (arr = []) =>
 
 const SkillStep = () => {
   const { formData, setFormData } = useResume();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [skills, setSkills] = useState([]);
   const navigate = useNavigate();
 
   const [editorValue, setEditorValue] = useState("");
@@ -71,7 +74,7 @@ const SkillStep = () => {
     navigate("/dashboard/app/personalize/summary");
   };
 
-  const insertSuggestion = (skill) => {
+  const insertSkills = (skill) => {
     const container = document.createElement("div");
     container.innerHTML = editorValue || "";
     let ul = container.querySelector("ul");
@@ -85,6 +88,36 @@ const SkillStep = () => {
     setEditorValue(container.innerHTML);
   };
 
+  const fetchSkill = async () => {
+    setError(null);
+    setLoading(true);
+    try {
+          const res = await fetch("https://intelligent-cv-backend.onrender.com/api/ai/skills", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              jobTitle: formData?.personal?.title || "",
+            }),
+          });
+
+          if (!res.ok) throw new Error(`Request failed (${res.status})`);
+          const data = await res.json();
+          const items = data.skills || [];
+          setSkills(items)
+    } catch (err) {
+      setError(err.message || "Failed to fetch suggestions");
+      console.error(err.message)
+    } finally {
+      setLoading(false);
+    }
+  };
+
+ useEffect(() => { 
+    fetchSkill();
+
+  }, [])
+
+
   return (
     <div className="">
       <div className="max-w-5xl mx-auto w-full">
@@ -95,18 +128,45 @@ const SkillStep = () => {
         </p>
 
         <div className="grid grid-cols-1 gap-8 mt-6 sm:grid-cols-2">
-          {/* Quill editor */}
+      
           <div>
             <RawQuillEditor value={editorValue} onChange={setEditorValue} />
           </div>
 
           {/* Suggestions */}
           <div className="space-y-2 overflow-y-auto max-h-[400px] mt-8 sm:mt-0">
-            {/* {["React", "Node.js", "Project Management"].map((s, i) => (
-              <ResultCard key={i} onClick={() => insertSuggestion(s)}>
-                {s}
-              </ResultCard>
-            ))} */}
+            {loading && (
+            <div className="flex items-center gap-3 p-4">
+              <div
+                aria-hidden
+                style={{
+                  width: 18,
+                  height: 18,
+                  borderRadius: "50%",
+                  border: "3px solid rgba(0,0,0,0.15)",
+                  borderTopColor: "rgba(0,0,0,0.6)",
+                  animation: "spin 1s linear infinite",
+                }}
+              />
+              <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+              <div className="text-sm text-gray-600">Generating suggestions…</div>
+            </div>
+          )}
+
+          {error && <div className="p-4 text-sm text-red-500">Error: {error}</div>}
+
+          {!loading && !error && skills.length === 0 && (
+            <div className="p-4 text-sm text-gray-600">No skill found.</div>
+          )}
+
+            {skills.map((skill, index) => (
+              <ResultCard
+                key={index}
+              
+                handleClick={() => insertSkills(skill)}
+                
+              >{skill}</ResultCard>
+            ))}
           </div>
         </div>
 

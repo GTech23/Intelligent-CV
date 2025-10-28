@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import SupportButton from "../../components/ui/SupportButton";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const usernameRef = useRef();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  async function handleRegister() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = useForm({ mode: "onTouched", defaultValues: { username: "", email: "", password: "" } });
+  async function onSubmit(data) {
     setLoading(true);
     try {
       const response = await fetch(
@@ -20,24 +24,20 @@ const Register = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            username: usernameRef.current.value,
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-          }),
+          body: JSON.stringify(data),
         }
       );
 
       const payload = await response.json();
-      setLoading(false);
       if (payload.success) {
         toast.success(payload.message);
+        reset();
         navigate("/dashboard/app/account/login", { replace: true });
       } else {
-        toast.error(payload.details[0]);
+        toast.error(payload.message);
       }
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message || "An error occurred");
       console.log(err);
     } finally {
       setLoading(false);
@@ -57,46 +57,70 @@ const Register = () => {
             <h2 className="text-3xl mb-8 text-center font-bold">
               Create an account with us
             </h2>
-            <form action="#">
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
               <div className="mb-4">
                 <input
-                  ref={usernameRef}
                   type="text"
                   className="py-2 text-lg px-4 border-1 border-zinc-500 w-full rounded-md bg-white"
                   placeholder="Username"
-                  required
                   id="username"
                   name="username"
+                  aria-invalid={errors.username ? "true" : "false"}
+                  {...register("username", {
+                    required: "Username is required",
+                    minLength: { value: 8, message: "Username must be at least 8 characters" },
+                    maxLength: { value: 15, message: "Username must be at most 15 characters" },
+                  })}
                 />
+                {errors.username && (
+                  <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>
+                )}
               </div>
               <div className="mb-4">
                 <input
-                  ref={emailRef}
                   type="email"
                   className="py-2 text-lg px-4 border-1 border-zinc-500 w-full rounded-md bg-white"
                   placeholder="Email"
-                  required
                   id="email"
                   name="email"
+                  aria-invalid={errors.email ? "true" : "false"}
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "Enter a valid email address",
+                    },
+                  })}
                 />
+                {errors.email && (
+                  <p className="text-red-500 font-bold text-sm mt-1">{errors.email.message}</p>
+                )}
               </div>
               <div className="mb-4">
                 <input
-                  ref={passwordRef}
                   id="password"
                   name="password"
                   type="password"
                   className="py-2 px-4 border-1 text-lg border-zinc-500 w-full rounded-md bg-white"
                   placeholder="Password"
-                  required
+                  aria-invalid={errors.password ? "true" : "false"}
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: { value: 8, message: "Password must be at least 8 characters" },
+                  })}
                 />
+                {errors.password && (
+                  <p className="text-red-500 font-bold text-sm mt-1">{errors.password.message}</p>
+                )}
               </div>
 
               <div>
                 <button
-                  type="button"
-                  onClick={handleRegister}
-                  className="bg-[#EA723C] rounded-lg cursor-pointer py-3 px-8 w-full my-6 text-white font-semibold text-lg"
+                  type="submit"
+                  disabled={!isValid || loading}
+                  className={`bg-[#EA723C] rounded-lg py-3 px-8 w-full my-6 text-white font-semibold text-lg ${
+                    loading || !isValid ? "opacity-60 cursor-not-allowed" : ""
+                  }`}
                 >
                   {loading ? "Creating account..." : "Join"}
                 </button>

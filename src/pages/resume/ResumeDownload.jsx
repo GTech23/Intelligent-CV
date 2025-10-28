@@ -25,7 +25,12 @@ const ResumeDownload = () => {
       );
 
       if (!response.ok) {
-        toast.error(`An Error occurred rendering PDF`);
+        if(response.status === 429) {
+          toast.error("Too many requests. Please try again later.");
+        }else{
+          toast.error("Failed to render resume. Please try again."); 
+        }
+       
         return;
       }
 
