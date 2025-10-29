@@ -86,9 +86,10 @@ const ChooseTemplates = () => {
                   </span>
                 )}
                 <img
-                  src={advanced}
+                  src={template.previewUrl}
                   alt={template.name}
                   className="w-full object-cover h-auto mb-4 rounded-lg"
+                  loading='eager'
                 />
                 <h2 className="text-xl font-semibold mb-2 text-[#EA723C] text-center">
                   {template.name}
