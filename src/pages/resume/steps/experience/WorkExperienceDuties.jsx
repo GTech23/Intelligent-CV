@@ -55,8 +55,6 @@ const escapeHtml = (unsafe) =>
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
-const TOAST_DURATION = 2000;
-
 const WorkExperienceDuties = () => {
   const { formData, setFormData } = useResume();
   const navigate = useNavigate();
@@ -74,7 +72,6 @@ const WorkExperienceDuties = () => {
   const [suggestions, setSuggestions] = useState([]); // array of strings
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [toast, setToast] = useState(null);
   const [usedSet, setUsedSet] = useState(new Set()); // tracks clicked suggestions (grayed out)
 
   // load initial content from responsibilities
@@ -192,18 +189,6 @@ const WorkExperienceDuties = () => {
     // if already used, do nothing
     if (usedSet.has(text)) return;
 
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(text);
-      } else {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        document.body.removeChild(ta);
-      }
-
       insertSuggestion(text);
 
       // mark used (gray out)
@@ -212,13 +197,6 @@ const WorkExperienceDuties = () => {
         next.add(text);
         return next;
       });
-
-      setToast("Copied to Clipboard");
-      setTimeout(() => setToast(null), TOAST_DURATION);
-    } catch (err) {
-      setToast("Failed to copy");
-      setTimeout(() => setToast(null), TOAST_DURATION);
-    }
   };
 
   if (index < 0 || index >= experiences.length) {
@@ -319,22 +297,6 @@ const WorkExperienceDuties = () => {
         >
           Save & Next
         </button>
-      </div>
-
-      {/* Toast */}
-      <div
-        aria-live="polite"
-        className="fixed bottom-8 right-8 z-50"
-        style={{ pointerEvents: "none" }}
-      >
-        {toast && (
-          <div
-            className="inline-block px-4 py-2 rounded shadow-lg bg-black text-white"
-            style={{ pointerEvents: "auto" }}
-          >
-            {toast}
-          </div>
-        )}
       </div>
     </div>
   );
