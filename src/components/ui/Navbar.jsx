@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Button from "../common/Button";
-import { isTokenExpired } from "../../utils/auth.js";
-import {useNavigate} from 'react-router-dom';
+import { isTokenExpired, getValidToken } from "../../utils/auth.js";
 import { toast } from "react-toastify";
 
 
@@ -22,6 +21,26 @@ const Navbar = () => {
   if (isExpired) {
     localStorage.removeItem("token");
   }
+
+  // decode JWT payload (small, defensive decoder)
+  const decodeJwtPayload = (token) => {
+    if (!token) return null;
+    try {
+      const parts = token.split('.');
+      if (parts.length < 2) return null;
+      const payload = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+      const pad = payload.length % 4;
+      const padded = pad ? payload + '='.repeat(4 - pad) : payload;
+      const json = atob(padded);
+      return JSON.parse(json);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const token = getValidToken();
+  const user = decodeJwtPayload(token) || null;
+  const displayName = user?.username
 
   const linkBase =
     "relative transition-colors duration-200 hover:text-[#EA723C] after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:-translate-x-1/2 after:w-0 after:h-[3px] after:rounded-full after:bg-[#EA723C] after:transition-all after:duration-300 hover:after:w-3/4";
@@ -91,12 +110,17 @@ const Navbar = () => {
             to="/dashboard/app/account/login"
           />
         ) : (
-          <button
-            onClick={handleLogout}
-            className="py-3 block mt-0 relative px-6 border border-zinc-400 min-w-[200px] text-center transition cursor-pointer rounded-md hover:bg-[#FAFBFC] sm:px-12"
-          >
-            Logout
-          </button>
+          <div className="flex items-center gap-4">
+            {displayName && (
+              <div className="hidden md:block text-sm text-gray-700 truncate max-w-[180px]">{displayName}</div>
+            )}
+            <button
+              onClick={handleLogout}
+              className="py-3 block mt-0 relative px-6 border border-zinc-400 min-w-[120px] text-center transition cursor-pointer rounded-md hover:bg-[#FAFBFC] sm:px-12"
+            >
+              Logout
+            </button>
+          </div>
         )}
       </nav>
 
@@ -156,6 +180,11 @@ const Navbar = () => {
               >
                 Pricing
               </NavLink>
+            </li>
+            <li>
+              {!isExpired && displayName && (
+                <div className="px-4 py-2 text-sm text-gray-800">Signed in as <span className="font-semibold">{displayName}</span></div>
+              )}
             </li>
             <li>
               {isExpired ? (

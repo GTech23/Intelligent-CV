@@ -118,7 +118,7 @@ const Login = () => {
                   Terms & conditions
                 </Link>{" "}
                 and{" "}
-                <Link to="/privacy-policy" className="underline">
+                <Link to="/privacy" className="underline">
                   Privacy Policy
                 </Link>
               </p>

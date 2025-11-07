@@ -5,7 +5,6 @@ import JobWinningTemplate from "../components/ui/JobWinningTemplate";
 import Cta from "../components/ui/Cta";
 import FAQSection from "../components/ui/Faq";
 import HowItWorksSection from "../components/ui/HowItWorksSection";
-import SupportButton from "../components/ui/SupportButton";
 import PartnersSection from "../components/ui/PartnerSection";
 import PricingSection from "../components/ui/PricingSection";
 import StatsSection from "../components/ui/Stats";
@@ -25,7 +24,6 @@ const Home = () => {
       <FAQSection />
       <Cta />
       <NewsletterSignup />
-      <SupportButton />
     </>
   );
 };
