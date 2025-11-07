@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useResume } from "../../../../context/ResumeContext";
 import useQuery from "../../../../hooks/UseQuery";
 
+
 const RawQuillEditor = ({ value, onChange }) => {
   const editorRef = useRef(null);
   const quillRef = useRef(null);
@@ -26,12 +27,11 @@ const RawQuillEditor = ({ value, onChange }) => {
 
       if (value) quillRef.current.root.innerHTML = value;
 
-      quillRef.current.on("text-change", () =>
-        onChange(quillRef.current.root.innerHTML)
-      );
+      quillRef.current.on("text-change", () => {
+        onChange(quillRef.current.root.innerHTML);
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // mount only
+  }, []);
 
   useEffect(() => {
     if (quillRef.current && value !== quillRef.current.root.innerHTML) {
@@ -42,10 +42,13 @@ const RawQuillEditor = ({ value, onChange }) => {
   return <div ref={editorRef} />;
 };
 
-const arrayToUlHtml = (arr = []) =>
-  !arr || arr.length === 0
-    ? ""
-    : `<ul>${arr.map((s) => `<li>${escapeHtml(String(s))}</li>`).join("")}</ul>`;
+// Convert array of strings → <ul><li>…</li></ul>
+const arrayToUlHtml = (arr = []) => {
+  if (!arr || arr.length === 0) return "";
+  return `<ul>${arr
+    .map((s) => `<li>${escapeHtml(String(s))}</li>`)
+    .join("")}</ul>`;
+};
 
 const escapeHtml = (unsafe) =>
   unsafe
@@ -58,6 +61,7 @@ const escapeHtml = (unsafe) =>
 const WorkExperienceDuties = () => {
   const { formData, setFormData } = useResume();
   const navigate = useNavigate();
+  const [duties, setDuties] = useState([])
   const query = useQuery();
 
   const experiences = formData.experience || [];
@@ -69,80 +73,19 @@ const WorkExperienceDuties = () => {
   const current = experiences[index] || {};
 
   const [editorValue, setEditorValue] = useState("");
-  const [suggestions, setSuggestions] = useState([]); // array of strings
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [usedSet, setUsedSet] = useState(new Set()); // tracks clicked suggestions (grayed out)
 
-  // load initial content from responsibilities
+  // load initial content from responsibilities array
   useEffect(() => {
     const cur = (formData.experience || [])[index] || {};
-    if (Array.isArray(cur.responsibilities) && cur.responsibilities.length > 0) {
+    if (
+      Array.isArray(cur.responsibilities) &&
+      cur.responsibilities.length > 0
+    ) {
       setEditorValue(arrayToUlHtml(cur.responsibilities));
     } else {
       setEditorValue("");
     }
   }, [formData, index]);
-
-  // fetch suggestions
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
-    async function fetchSuggestions() {
-      setError(null);
-      setLoading(true);
-
-      try {
-        const res = await fetch(
-          "https://intelligent-cv-backend.onrender.com/api/ai/",
-          {
-            method: "POST",
-            signal,
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ jobTitle: current?.position || "" }),
-          }
-        );
-
-        if (!res.ok) throw new Error(`Request failed (${res.status})`);
-        const data = await res.json();
-
-        // Normalize response into array of strings
-        let items = [];
-        if (Array.isArray(data)) items = data;
-        else if (Array.isArray(data.duties)) items = data.duties;
-        else if (Array.isArray(data.suggestions)) items = data.suggestions;
-        else if (Array.isArray(data.results)) items = data.results;
-        else if (Array.isArray(data.items)) items = data.items;
-        else if (data && typeof data === "object") {
-          const possible =
-            data.text ||
-            data.duty ||
-            data.description ||
-            data.title ||
-            data[0]; // fallback
-          if (typeof possible === "string") items = [possible];
-        }
-
-        items = items.map((it) =>
-          typeof it === "string" ? it : JSON.stringify(it)
-        );
-
-        setSuggestions(items);
-        // reset usedSet when suggestions change
-        setUsedSet(new Set());
-      } catch (err) {
-        if (err.name !== "AbortError") {
-          setError(err.message || "Failed to fetch suggestions");
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchSuggestions();
-    return () => controller.abort();
-  }, [current?.position]);
 
   const handleBack = () => {
     query.delete("duty");
@@ -151,6 +94,7 @@ const WorkExperienceDuties = () => {
   };
 
   const handleSaveNext = () => {
+    // Parse only <li> from editorValue
     const container = document.createElement("div");
     container.innerHTML = editorValue || "";
     const items = Array.from(container.querySelectorAll("li")).map((li) =>
@@ -185,24 +129,12 @@ const WorkExperienceDuties = () => {
     setEditorValue(container.innerHTML);
   };
 
-  const handleSuggestionClick = async (text) => {
-    // if already used, do nothing
-    if (usedSet.has(text)) return;
-
-      insertSuggestion(text);
-
-      // mark used (gray out)
-      setUsedSet((prev) => {
-        const next = new Set(prev);
-        next.add(text);
-        return next;
-      });
-  };
-
   if (index < 0 || index >= experiences.length) {
     return (
       <div className="max-w-4xl mx-auto p-6">
-        <p className="text-red-500 font-semibold">Invalid experience selected.</p>
+        <p className="text-red-500 font-semibold">
+          Invalid experience selected.
+        </p>
         <button
           onClick={() => {
             query.delete("duty");
@@ -216,6 +148,41 @@ const WorkExperienceDuties = () => {
       </div>
     );
   }
+
+
+const fetchJobDuties = async () => {
+  try {
+    const response = await fetch("https://intelligent-cv-backend.onrender.com/api/ai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ jobTitle: "Frontend Developer" }),
+    });
+
+    const data = await response.json();
+
+    const text = data.response || "";
+
+const duties = text
+  .split("\n")
+  .map(line => line.trim())
+  .filter(line => line.startsWith("*")) 
+  .map(line => line.replace(/^\*\s*/, "")).unShift();
+
+  console.log(duties)
+  
+
+  } catch (error) {
+    console.error("Error fetching job duties:", error);
+    return [];
+  }
+};
+
+  
+
+  useEffect(() => {
+    fetchJobDuties()
+  }, [])
+
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -237,50 +204,15 @@ const WorkExperienceDuties = () => {
         </div>
 
         <div className="overflow-y-auto mt-12 max-h-[450px] h-full space-y-2 lg:mt-0">
-          {/* Spinner / loading */}
-          {loading && (
-            <div className="flex items-center gap-3 p-4">
-              <div
-                aria-hidden
-                style={{
-                  width: 18,
-                  height: 18,
-                  borderRadius: "50%",
-                  border: "3px solid rgba(0,0,0,0.15)",
-                  borderTopColor: "rgba(0,0,0,0.6)",
-                  animation: "spin 1s linear infinite",
-                }}
-              />
-              <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-              <div className="text-sm text-gray-600">Fetching suggestions…</div>
-            </div>
-          )}
-
-          {error && (
-            <div className="p-4 text-sm text-red-500">Failed to load: {error}</div>
-          )}
-
-          {!loading && !error && suggestions.length === 0 && (
-            <div className="p-4 text-sm text-gray-600">No suggestions found.</div>
-          )}
-
-          {!loading &&
-            !error &&
-            suggestions.map((s, i) => {
-              const used = usedSet.has(s);
-              return (
-                <div
-                  key={i}
-                  className={`transition-opacity duration-200 ${
-                    used ? "opacity-40 pointer-events-none" : ""
-                  }`}
-                >
-                  <ResultCard handleClick={() => handleSuggestionClick(s)}>
-                    {s}
-                  </ResultCard>
-                </div>
-              );
-            })}
+          {[
+            "Developed API integrations using Node.js and Express to connect backend services.",
+            "Implemented automated testing with Jest and Mocha.",
+            "Optimized server-side performance with caching.",
+          ].map((s, i) => (
+            <ResultCard key={i} onClick={() => insertSuggestion(s)}>
+              {s}
+            </ResultCard>
+          ))}
         </div>
       </div>
 

@@ -163,7 +163,11 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "endMonth", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
+                disabled={!!ref.isCurrentlyWorking}
+                aria-disabled={!!ref.isCurrentlyWorking}
+                className={`w-full px-6 border-gray-300 py-2 border rounded-md ${
+                  ref.isCurrentlyWorking ? "bg-gray-100 cursor-not-allowed" : "bg-white"
+                }`}
               />
             </div>
 
@@ -177,7 +181,11 @@ const WorkExperienceForm = () => {
                 onChange={(e) =>
                   handleExperienceChange(index, "endYear", e.target.value)
                 }
-                className="w-full px-6 border-gray-300 bg-white py-2 border rounded-md"
+                disabled={!!ref.isCurrentlyWorking}
+                aria-disabled={!!ref.isCurrentlyWorking}
+                className={`w-full px-6 border-gray-300 py-2 border rounded-md ${
+                  ref.isCurrentlyWorking ? "bg-gray-100 cursor-not-allowed" : "bg-white"
+                }`}
               />
             </div>
 

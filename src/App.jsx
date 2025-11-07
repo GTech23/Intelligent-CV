@@ -5,6 +5,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Loader from "./components/common/Loader";
 import ScrollToTop from "./components/common/ScrollToTop";
 import { ResumeProvider } from "./context/ResumeContext";
+import About from "./pages/About";
+import Services from "./pages/Services";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
 
 const Home = lazy(() => import("./pages/Home"));
 const NotFoundPage = lazy(() => import("./pages/NotFound"));
@@ -83,6 +87,11 @@ useEffect(() => {
               <Route path="/" element={<HomeLayout />}>
                 <Route index element={<Home />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
               </Route>
 
               <Route
