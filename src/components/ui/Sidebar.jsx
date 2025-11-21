@@ -6,22 +6,23 @@ import {
   FaTools,
   FaPenNib,
   FaAddressBook,
+  FaQuestionCircle,
   FaFileAlt,
 } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import { getValidToken } from "../../utils/auth";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  // decode JWT payload without extra deps (safe, defensive)
   const decodeJwtPayload = (token) => {
     if (!token) return null;
     try {
       const parts = token.split(".");
       if (parts.length < 2) return null;
       const payload = parts[1].replace(/-/g, "+").replace(/_/g, "/");
-      // add padding
+
       const pad = payload.length % 4;
       const padded = pad ? payload + "=".repeat(4 - pad) : payload;
       const json = atob(padded);
@@ -49,6 +50,7 @@ const Sidebar = () => {
       // ignore
     }
     navigate("/dashboard/app/account/login");
+    toast.success("logout successful");
   };
   const steps = [
     {
@@ -126,7 +128,7 @@ const Sidebar = () => {
       </ul>
 
       {/* Authenticated user card */}
-      {user && (
+      {user ? (
         <div className="flex items-center gap-3 p-4 rounded-lg mb-4 bg-white shadow-sm">
           <div className="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
             {avatar ? (
@@ -159,6 +161,16 @@ const Sidebar = () => {
               Logout
             </button>
           </div>
+        </div>
+      ) : (
+        <div>
+          <p className="text-red-500 flex items-center gap-2 font-medium">
+            Not Signed In <FaQuestionCircle />{" "}
+          </p>
+
+          <p className="text-sm text-zinc-700">
+            You need to be authenticated before downloading your resume
+          </p>
         </div>
       )}
     </aside>

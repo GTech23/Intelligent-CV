@@ -55,7 +55,7 @@ const Login = () => {
             <h2 className="text-3xl mb-8 text-center font-bold">
               Access your account
             </h2>
-            <form action="#">
+            <form action="#" method="POST">
               <div className="mb-4">
                 <input
                   ref={emailRef}

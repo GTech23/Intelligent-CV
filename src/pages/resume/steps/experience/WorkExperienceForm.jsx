@@ -35,7 +35,7 @@ const WorkExperienceForm = () => {
         const updated = [...experiences];
         updated.splice(index, 1);
         setFormData((prev) => ({ ...prev, experience: updated }));
-      }
+      } 
     }
     // go back to list (clear add/edit params)
     query.delete("add_experience");
