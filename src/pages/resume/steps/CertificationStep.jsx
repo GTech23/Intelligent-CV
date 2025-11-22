@@ -48,6 +48,16 @@ const CertificationStep = () => {
           <form action="#" className="my-4  items-start gap-8">
             <div className="grid grid-cols-1 gap-8">
               <div className="">
+
+                {formData.certifications.length < 1 && <div className="border-1 bg-[#EFF1E4] border-dotted min-h-50 rounded-2xl my-4 flex items-center justify-center">
+                  <button
+                      onClick={handleAddCertification}
+                      className="flex gap-2 items-center font-bold text-md cursor-pointer hover:underline"
+                    >
+                    <FaPlus />
+                    Add Certification / License
+                  </button>
+              </div>}
                 {formData.certifications.map((cert, index) => (
                   <div key={index} className="relative w-full mb-3">
                     <input
@@ -58,31 +68,35 @@ const CertificationStep = () => {
                       }
                       value={cert}
                       placeholder={`Certification & License ${index + 1}`}
-                      className="w-full px-6 pr-12 py-3 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-3"
+                      className="w-full relative px-6 pr-12 py-3 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-3"
                     />
 
                     <button
                       aria-label="Remove Certification"
                       onClick={() => handleRemoveCertification(index)}
                       type="button"
-                      className="absolute cursor-pointer right-3 top-1/2 -translate-y-1/2 text-red-500 hover:text-red-700"
+                      className="absolute cursor-pointer right-3 top-[25px] -translate-y-1/2 text-red-500 hover:text-red-700"
                     >
                       <FiTrash size={18} />
                     </button>
                   </div>
                 ))}
+
+
               </div>
 
-              <button
-                type="button"
-                onClick={handleAddCertification}
-                className="flex items-center  cursor-pointer gap-2"
-              >
-                <FaPlus />
-                <span className="hover:underline cursor-pointer">
-                  Add another license or certification
-                </span>
-              </button>
+              {formData.certifications.length > 0 &&  
+                <button
+                  type="button"
+                  onClick={handleAddCertification}
+                  className="flex items-center  cursor-pointer gap-2"
+                >
+                  <FaPlus />
+                  <span className="hover:underline cursor-pointer">
+                    Add another license or certification
+                  </span>
+                </button>
+              }
 
               <div className=" col-span-1 flex items-center justify-between">
                 <button

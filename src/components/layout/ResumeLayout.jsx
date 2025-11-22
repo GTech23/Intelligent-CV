@@ -1,13 +1,14 @@
 import TextLogo from "../../components/common/TextLogo";
 import Sidebar from "../ui/Sidebar";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FaDownload } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import {useResume} from '../../context/ResumeContext'
 const ResumeLayout = () => {
   const [loading, setLoading] = useState(false);
-  const {formData} = useResume();
+  const {formData, setFormData} = useResume();
+  const navigate = useNavigate();
   const downloadResume = async () => {
     
     try {
@@ -40,6 +41,9 @@ const ResumeLayout = () => {
       document.body.appendChild(link);
       link.click();
       link.remove();
+      navigate('/');
+      toast.success('Resume download was successful');
+      setFormData({})
     } catch (error) {
       toast.error(`An Error occured generated PDF`);
       console.error(error);

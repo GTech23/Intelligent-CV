@@ -119,6 +119,7 @@ const ResumeDownload = () => {
                   transformOrigin: "top left",
                   border: "none",
                   display: "block",
+                
                 }}
               />
             </div>

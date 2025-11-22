@@ -12,6 +12,7 @@ const WorkExperienceView = () => {
 
   const experiences = formData.experience || [];
 
+
   const visible = experiences
     .map((exp, idx) => ({ exp, idx }))
     .filter(({ exp }) => {
@@ -47,6 +48,7 @@ const WorkExperienceView = () => {
       endMonth: "",
       endYear: "",
       responsibilities: [],
+  
     };
 
     setFormData((prev) => ({
@@ -85,10 +87,7 @@ const WorkExperienceView = () => {
           )}
 
           {visible.map(({ exp, idx }) => (
-            <div
-              key={idx}
-              className="p-1 bg-white rounded-lg min-h-50 mt-4 sm:p-4"
-            >
+            <div key={idx} className="p-1 bg-white rounded-lg min-h-50 mt-4 sm:p-4">
               <div className="flex flex-col justify-between">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1 sm:gap-4 md:gap-8">
@@ -105,8 +104,8 @@ const WorkExperienceView = () => {
                           {exp.city}, {exp.country}
                         </p>
                         <p className="text-sm">
-                          | {exp.startMonth.slice(0, 3)} {exp.startYear} -{" "}
-                          {exp.endMonth} {exp.endYear}
+                          | {(exp.startMonth).slice(0,3)} {exp.startYear} - {exp.endMonth}{" "}
+                          {exp.endYear}
                         </p>
                       </div>
                     </div>
@@ -175,7 +174,7 @@ const WorkExperienceView = () => {
 
           <div className="flex items-center justify-between my-3">
             <button
-              onClick={() => navigate("/dashboard/app/personalize")}
+              onClick={() => navigate(-1)}
               type="button"
               className="py-3 bg-white rounded-2xl px-9 border cursor-pointer border-gray-400 font-bold"
             >
