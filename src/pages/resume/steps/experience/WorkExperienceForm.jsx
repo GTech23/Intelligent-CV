@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useResume } from "../../../../context/ResumeContext";
 import { useNavigate } from "react-router-dom";
 import useQuery from "../../../../hooks/UseQuery";
+import { isObjectEmpty } from "../../../../utils/utils";
+import { toast } from "react-toastify";
 
 const WorkExperienceForm = () => {
   const { formData, setFormData } = useResume();
@@ -28,33 +30,43 @@ const WorkExperienceForm = () => {
   };
 
   const handleBack = () => {
-    // if user cancels while adding a blank experience, remove it
-    if (!savedRef.current) {
-      const isEmpty = Object.values(ref).every((v) => !v);
-      if (isEmpty && experiences.length > 0) {
-        const updated = [...experiences];
-        updated.splice(index, 1);
-        setFormData((prev) => ({ ...prev, experience: updated }));
-      } 
-    }
-    // go back to list (clear add/edit params)
+    const currentObject = formData.experience[index];
+    console.log(currentObject);
+
+    setFormData((prev) => ({
+      ...prev,
+      experience: (prev.experience || []).filter((_, i) => i !== index),
+    }));
     query.delete("add_experience");
     query.delete("expIndex");
     navigate(`?${query.toString()}`);
   };
 
   const handleSaveToList = () => {
-    savedRef.current = true;
-    // simply return to the list view (clear add/edit query params)
+    const currentObject = formData.experience[index];
+    console.log(currentObject);
+    if (isObjectEmpty(currentObject)) {
+      toast.error("Experience cannot be empty ");
+      return;
+    }
+
     query.delete("add_experience");
     query.delete("expIndex");
     navigate(`?${query.toString()}`);
   };
 
+  useEffect(() => {
+    if (formData.experience.length < 1) {
+      navigate("/dashboard/app/personalize/work_experience");
+    }
+  }, []);
+
   return (
     <div className=" mt-0">
       <div>
-        <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">Experience</h1>
+        <h1 className="text-2xl font-bold text-gray-700 sm:text-4xl">
+          Experience
+        </h1>
         <p>
           This is going to be easy, we promise! Let's start with your most
           recent job.
@@ -166,7 +178,9 @@ const WorkExperienceForm = () => {
                 disabled={!!ref.isCurrentlyWorking}
                 aria-disabled={!!ref.isCurrentlyWorking}
                 className={`w-full px-6 border-gray-300 py-2 border rounded-md ${
-                  ref.isCurrentlyWorking ? "bg-gray-100 cursor-not-allowed" : "bg-white"
+                  ref.isCurrentlyWorking
+                    ? "bg-gray-100 cursor-not-allowed"
+                    : "bg-white"
                 }`}
               />
             </div>
@@ -184,7 +198,9 @@ const WorkExperienceForm = () => {
                 disabled={!!ref.isCurrentlyWorking}
                 aria-disabled={!!ref.isCurrentlyWorking}
                 className={`w-full px-6 border-gray-300 py-2 border rounded-md ${
-                  ref.isCurrentlyWorking ? "bg-gray-100 cursor-not-allowed" : "bg-white"
+                  ref.isCurrentlyWorking
+                    ? "bg-gray-100 cursor-not-allowed"
+                    : "bg-white"
                 }`}
               />
             </div>
@@ -213,14 +229,14 @@ const WorkExperienceForm = () => {
               <button
                 onClick={handleBack}
                 type="button"
-                className="py-2 rounded-2xl px-9 border cursor-pointer border-gray-400 font-bold"
+                className="py-2 rounded-2xl px-9 border cursor-pointer bg-white border-gray-400 font-bold"
               >
                 Back
               </button>
               <button
                 onClick={handleSaveToList}
                 type="button"
-                className="py-2 bg-orange-400 rounded-2xl text-white px-9 border font-bold"
+                className="py-2 cursor-pointer bg-orange-400 rounded-2xl text-white px-9 border font-bold"
               >
                 Save & Next
               </button>

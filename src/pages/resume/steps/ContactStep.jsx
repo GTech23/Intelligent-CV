@@ -63,7 +63,7 @@ const ContactStep = () => {
               <input
                 ref={lastNameRef}
                 name="lastName"
-                 autoComplete="false"
+                autoComplete="false"
                 placeholder={"Last Name"}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
@@ -73,7 +73,7 @@ const ContactStep = () => {
               <input
                 ref={jobTitleRef}
                 name="title"
-                 autoComplete="false"
+                autoComplete="false"
                 placeholder={"Desried Job Title (e.g. Graphics Designer)"}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
@@ -83,7 +83,7 @@ const ContactStep = () => {
               <input
                 ref={emailRef}
                 name="email"
-                 autoComplete="false"
+                autoComplete="false"
                 placeholder={"Email Address"}
                 onBlur={savePersonal}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
@@ -95,7 +95,7 @@ const ContactStep = () => {
                 name="phone"
                 onBlur={savePersonal}
                 placeholder={"Phone Number"}
-                 autoComplete="false"
+                autoComplete="false"
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
@@ -139,7 +139,7 @@ const ContactStep = () => {
             <button
               onClick={() => navigate(-1)}
               type="button"
-              className="py-2 rounded-2xl px-9 border-1 cursor-pointer border-gray-400 font-bold "
+              className="py-2 rounded-2xl px-9 border-1 bg-white  cursor-pointer border-gray-400 font-bold "
             >
               Back
             </button>
