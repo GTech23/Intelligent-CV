@@ -10,8 +10,8 @@ const PricingSection = () => {
         </p>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-          {pricingMeta.map((pm) => (
-            <PricingCard pricingStats={pm} />
+          {pricingMeta.map((pm, index) => (
+            <PricingCard key={index} pricingStats={pm} />
           ))}
         </div>
       </div>

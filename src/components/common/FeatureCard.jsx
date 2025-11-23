@@ -28,8 +28,8 @@ const FeatureCard = () => {
           </h3>
           <p className="text-lg mb-8 text-zinc-600">
             Instantly create bullet points to describe your past work
-            experience. Then use our ChatGPT-powered summary generator to build
-            a summary that concisely highlights your top professional
+            experience. Then use our Gemini-powered summary generator to build a
+            summary that concisely highlights your top professional
             qualifications.
           </p>
         </div>

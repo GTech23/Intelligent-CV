@@ -123,7 +123,6 @@ const Login = () => {
                 </Link>
               </p>
             </form>
-            <SupportButton />
           </div>
         </div>
       </div>

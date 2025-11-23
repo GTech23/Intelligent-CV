@@ -3,7 +3,7 @@ import FeatureCard from "../common/FeatureCard";
 const Features = () => {
   return (
     <>
-      <section className=" min-h-140 p-3 mb-20">
+      <section className=" max-w-[1600px] mx-auto min-h-140 p-3 mb-20">
         <div className="flex items-center flex-col space-y-8 justify-center">
           <h2 className="text-4xl font-bold text-center mb-4">
             Features of Our AI Resume Builder

@@ -1,12 +1,11 @@
-import React from "react";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 
 const stats = [
-  { label: "Resumes Created", value: 4000, suffix: "+" },
-  { label: "Active Users", value: 1000, suffix: "+" },
-  { label: "PDF Downloads", value: 3000, suffix: "+" },
-  { label: "Templates Available", value: 10 },
+  { label: "Resumes Created", value: 500, suffix: "+" },
+  { label: "Active Users", value: 500, suffix: "+" },
+  { label: "PDF Downloads", value: 1200, suffix: "+" },
+  { label: "Templates Available", value: 5 },
 ];
 
 const StatsSection = () => {

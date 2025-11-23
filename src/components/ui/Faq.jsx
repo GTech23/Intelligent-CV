@@ -3,11 +3,6 @@ import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const faqs = [
   {
-    question: "Why use our Resume Builder?",
-    answer:
-      "It's fast, it's easy, and it can make a professional, full-page resume for anyone. Regardless of how much work experience you have, how long you went to school, or what skills you possess, our software was designed by certified resume writers to generate a complete resume for every kind of job seeker.",
-  },
-  {
     question: "What should I put on my resume?",
     answer:
       "There are five main sections that every resume should include: Contact Info, Resume Introduction, Professional Experience, Education, and Skills. However, keep in mind that depending on your industry, you may want to include additional sections.",

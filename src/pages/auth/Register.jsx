@@ -13,7 +13,10 @@ const Register = () => {
     handleSubmit,
     formState: { errors, isValid },
     reset,
-  } = useForm({ mode: "onTouched", defaultValues: { username: "", email: "", password: "" } });
+  } = useForm({
+    mode: "onTouched",
+    defaultValues: { username: "", email: "", password: "" },
+  });
   async function onSubmit(data) {
     setLoading(true);
     try {
@@ -68,12 +71,20 @@ const Register = () => {
                   aria-invalid={errors.username ? "true" : "false"}
                   {...register("username", {
                     required: "Username is required",
-                    minLength: { value: 8, message: "Username must be at least 8 characters" },
-                    maxLength: { value: 15, message: "Username must be at most 15 characters" },
+                    minLength: {
+                      value: 8,
+                      message: "Username must be at least 8 characters",
+                    },
+                    maxLength: {
+                      value: 15,
+                      message: "Username must be at most 15 characters",
+                    },
                   })}
                 />
                 {errors.username && (
-                  <p className="text-red-500 text-sm mt-1">{errors.username.message}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.username.message}
+                  </p>
                 )}
               </div>
               <div className="mb-4">
@@ -93,7 +104,9 @@ const Register = () => {
                   })}
                 />
                 {errors.email && (
-                  <p className="text-red-500 font-bold text-sm mt-1">{errors.email.message}</p>
+                  <p className="text-red-500 font-bold text-sm mt-1">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
               <div className="mb-4">
@@ -106,11 +119,16 @@ const Register = () => {
                   aria-invalid={errors.password ? "true" : "false"}
                   {...register("password", {
                     required: "Password is required",
-                    minLength: { value: 8, message: "Password must be at least 8 characters" },
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters",
+                    },
                   })}
                 />
                 {errors.password && (
-                  <p className="text-red-500 font-bold text-sm mt-1">{errors.password.message}</p>
+                  <p className="text-red-500 font-bold text-sm mt-1">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
 
@@ -142,7 +160,6 @@ const Register = () => {
                 </Link>
               </p>
             </form>
-            <SupportButton />
           </div>
         </div>
       </div>

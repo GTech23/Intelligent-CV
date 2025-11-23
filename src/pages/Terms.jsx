@@ -72,7 +72,7 @@ const Terms = () => {
             </p>
             <p>
               Refund requests are handled on a case-by-case basis. If you believe you are entitled to a
-              refund, contact our support team at <a href="mailto:hello@intelligentcv.example" className="text-[#EA723C]">hello@intelligentcv.example</a>.
+              refund, contact our support team at <a href="mailto:hello@intelligentcv.com" className="text-[#EA723C]">hello@intelligentcv.com</a>.
             </p>
           </Section>
 
@@ -146,7 +146,7 @@ const Terms = () => {
           <Section id="contact" title="Contact us">
             <p>
               If you have questions about these Terms, contact us at
-              <a href="mailto:hello@intelligentcv.example" className="text-[#EA723C]"> hello@intelligentcv.example</a> or visit our <Link to="/contact" className="text-[#EA723C]">Contact page</Link>.
+              <a href="mailto:hello@intelligentcv.com" className="text-[#EA723C]"> hello@intelligentcv.com</a> or visit our <Link to="/contact" className="text-[#EA723C]">Contact page</Link>.
             </p>
           </Section>
 

@@ -9,6 +9,10 @@ import About from "./pages/About";
 import Services from "./pages/Services";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
+import UserDashboard from "./pages/dashboard/UserDashboard";
+import DashboardLayout from "./components/layout/DashboardLayout";
+import DashboardProfile from "./pages/dashboard/DashboardProfile";
+import Settings from "./pages/dashboard/Settings";
 
 const Home = lazy(() => import("./pages/Home"));
 const NotFoundPage = lazy(() => import("./pages/NotFound"));
@@ -44,11 +48,10 @@ const ResumeLayout = lazy(() => import("./components/layout/ResumeLayout"));
 const App = () => {
   const [loading, setLoading] = useState(true);
 
-useEffect(() => {
-  const timer = setTimeout(() => setLoading(false), 1000);
-  return () => clearTimeout(timer);
-}, []);
-
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (loading) {
     return (
@@ -94,10 +97,7 @@ useEffect(() => {
                 <Route path="/privacy" element={<Privacy />} />
               </Route>
 
-              <Route
-                path="/dashboard/app/account/login"
-                element={<Login />}
-              />
+              <Route path="/dashboard/app/account/login" element={<Login />} />
               <Route
                 path="/dashboard/app/account/create"
                 element={<Register />}
@@ -150,7 +150,12 @@ useEffect(() => {
                 />
               </Route>
 
-           
+              <Route element={<DashboardLayout />}>
+                <Route path="/dashboard" element={<UserDashboard />} />
+                <Route path="/dashboard/me" element={<DashboardProfile />} />
+                <Route path="/dashboard/settings" element={<Settings />} />
+              </Route>
+
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>

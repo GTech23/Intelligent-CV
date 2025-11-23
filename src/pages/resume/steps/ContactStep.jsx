@@ -39,7 +39,7 @@ const ContactStep = () => {
         </p>
 
         <form action="#" className="my-4">
-          <div className="w-40 hidden h-40 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer bg-gray-50 hover:border-blue-500 transition-all">
+          <div className="w-40 hidden h-40 border-2 border-dashed border-gray-300 rounded-lg  flex-col items-center justify-center cursor-pointer bg-gray-50 hover:border-blue-500 transition-all">
             <>
               <FaUserCircle className="text-5xl text-gray-400" />
               <p className="text-sm text-gray-600 mt-1">Add Photo</p>

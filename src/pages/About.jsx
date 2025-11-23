@@ -14,7 +14,11 @@ import { FaLinkedin, FaTwitter } from "react-icons/fa";
 const TeamCard = ({ img, name, role, bio, twitter_url }) => (
   <div className="bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition">
     <div className="flex items-center space-x-4">
-      <img src={img} alt={name} className="w-20 h-20 rounded-full object-cover" />
+      <img
+        src={img}
+        alt={name}
+        className="w-20 h-20 rounded-full object-cover"
+      />
       <div>
         <h4 className="text-lg font-semibold">{name}</h4>
         <p className="text-sm text-zinc-500">{role}</p>
@@ -24,10 +28,18 @@ const TeamCard = ({ img, name, role, bio, twitter_url }) => (
     <p className="mt-4 text-sm text-gray-700">{bio}</p>
 
     <div className="mt-4 flex items-center space-x-3">
-      <a className="text-zinc-500 hover:text-[#EA723C]" href="#" aria-label={`${name} LinkedIn`}>
+      <a
+        className="text-zinc-500 hover:text-[#EA723C]"
+        href="#"
+        aria-label={`${name} LinkedIn`}
+      >
         <FaLinkedin />
       </a>
-      <a className="text-zinc-500 hover:text-[#1DA1F2]" href={twitter_url} aria-label={`${name} Twitter`}>
+      <a
+        className="text-zinc-500 hover:text-[#1DA1F2]"
+        href={twitter_url}
+        aria-label={`${name} Twitter`}
+      >
         <FaTwitter />
       </a>
     </div>
@@ -41,16 +53,15 @@ const About = () => {
       name: "Godstime Pious",
       role: "Head of Product",
       bio: "Designs delightful resume experiences and leads product strategy to help jobseekers land interviews.",
-      twitter_url: 'https://www.twitter.com/GodstimePious'
+      twitter_url: "https://www.twitter.com/GodstimePious",
     },
     {
       img: team2,
       name: "Oladimeji Abdulrazaq",
       role: "Co-founder & Lead Engineer",
       bio: "Builds the AI-driven resume engine and ensures fast, reliable PDF exports at scale.",
-      twitter_url: 'https://www.twitter.com/iam_oladhimeji'
+      twitter_url: "https://www.twitter.com/iam_oladhimeji",
     },
-   
   ];
 
   return (
@@ -60,11 +71,14 @@ const About = () => {
         <div className="max-w-6xl mx-auto grid gap-8 lg:grid-cols-2 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-              We help millions of professionals build resumes that get interviews.
+              We help millions of professionals build resumes that get
+              interviews.
             </h1>
             <p className="text-lg text-gray-700 mb-6">
-              Intelligent CV is the modern resume builder for ambitious professionals.
-              We combine beautiful templates, recruiter-optimized content, and AI-smarts to help you present your story clearly and confidently.
+              Intelligent CV is the modern resume builder for ambitious
+              professionals. We combine beautiful templates, recruiter-optimized
+              content, and AI-smarts to help you present your story clearly and
+              confidently.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -84,12 +98,17 @@ const About = () => {
             </div>
 
             <div className="mt-6 text-sm text-zinc-500">
-              <strong>Trusted by</strong> thousands of students and professionals worldwide.
+              <strong>Trusted by</strong> thousands of students and
+              professionals worldwide.
             </div>
           </div>
 
           <div className="flex justify-center lg:justify-end">
-            <img src={HeroImage} alt="team collaborating" className="rounded-lg shadow-md" />
+            <img
+              src={HeroImage}
+              alt="team collaborating"
+              className="rounded-lg shadow-md"
+            />
           </div>
         </div>
       </section>
@@ -99,12 +118,18 @@ const About = () => {
         <div className="max-w-6xl mx-auto grid gap-8 lg:grid-cols-3">
           <div className="p-6 bg-white rounded-2xl shadow-sm border">
             <h3 className="text-xl font-semibold mb-2">Our Mission</h3>
-            <p className="text-gray-700">Make high-quality resumes accessible to everyone — whether you're just starting out or pivoting careers.</p>
+            <p className="text-gray-700">
+              Make high-quality resumes accessible to everyone — whether you're
+              just starting out or pivoting careers.
+            </p>
           </div>
 
           <div className="p-6 bg-white rounded-2xl shadow-sm border">
             <h3 className="text-xl font-semibold mb-2">Our Vision</h3>
-            <p className="text-gray-700">To be the most trusted career companion for jobseekers, powering data-driven resume decisions.</p>
+            <p className="text-gray-700">
+              To be the most trusted career companion for jobseekers, powering
+              data-driven resume decisions.
+            </p>
           </div>
 
           <div className="p-6 bg-white rounded-2xl shadow-sm border">
@@ -132,7 +157,8 @@ const About = () => {
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Meet the team</h2>
           <p className="text-gray-600 mb-10 max-w-2xl mx-auto">
-            A small, focused team building tools that help you show your best professional self.
+            A small, focused team building tools that help you show your best
+            professional self.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6">

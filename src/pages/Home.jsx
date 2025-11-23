@@ -8,7 +8,6 @@ import HowItWorksSection from "../components/ui/HowItWorksSection";
 import PartnersSection from "../components/ui/PartnerSection";
 import PricingSection from "../components/ui/PricingSection";
 import StatsSection from "../components/ui/Stats";
-import NewsletterSignup from "../components/ui/NewsLetterSignup";
 
 const Home = () => {
   return (
@@ -23,7 +22,6 @@ const Home = () => {
       <PricingSection />
       <FAQSection />
       <Cta />
-      <NewsletterSignup />
     </>
   );
 };

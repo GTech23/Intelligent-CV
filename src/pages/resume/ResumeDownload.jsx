@@ -201,7 +201,7 @@ const ResumeDownload = () => {
     <div className="flex flex-col h-[100dvh] bg-gray-50 font-sans text-gray-900 overflow-hidden">
       {/* --- Header --- */}
       <header className="flex-none bg-white border-b border-gray-200 shadow-sm px-4 py-3 z-30">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-orange-100 text-[#EA723C] rounded-lg">
               <Icons.FileText />

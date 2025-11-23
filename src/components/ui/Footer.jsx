@@ -11,7 +11,7 @@ import {
 
 const Footer = () => {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState(null); // null | 'success' | 'error'
+  const [status, setStatus] = useState(null);
 
   const submitNewsletter = (e) => {
     e.preventDefault();
@@ -27,14 +27,15 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-900 text-gray-300 pt-12">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-10 border-b border-gray-800">
           <div>
             <Link to="/" className="inline-block">
               <h2 className="text-2xl font-bold text-white">Intelligent CV</h2>
             </Link>
             <p className="text-sm mt-3 text-gray-400 max-w-xs">
-              Build professional, recruiter-friendly resumes quickly with our AI-powered tools, expert writers, and tailored templates.
+              Build professional, recruiter-friendly resumes quickly with our
+              AI-powered tools, expert writers, and tailored templates.
             </p>
 
             <div className="flex items-center gap-3 mt-4">
@@ -121,10 +122,17 @@ const Footer = () => {
 
           <div>
             <h3 className="font-semibold text-white mb-3">Stay updated</h3>
-            <p className="text-sm text-gray-400 mb-3">Get monthly tips on resumes, job search, and interview prep.</p>
+            <p className="text-sm text-gray-400 mb-3">
+              Get monthly tips on resumes, job search, and interview prep.
+            </p>
 
-            <form onSubmit={submitNewsletter} className="flex flex-col sm:flex-row gap-3">
-              <label htmlFor="footer-email" className="sr-only">Email address</label>
+            <form
+              onSubmit={submitNewsletter}
+              className="flex flex-col sm:flex-row gap-3"
+            >
+              <label htmlFor="footer-email" className="sr-only">
+                Email address
+              </label>
               <input
                 id="footer-email"
                 type="email"
@@ -145,28 +153,33 @@ const Footer = () => {
             </form>
 
             {status === "success" && (
-              <p className="text-sm text-green-400 mt-3">Thanks — check your inbox for confirmation.</p>
+              <p className="text-sm text-green-400 mt-3">
+                Thanks — check your inbox for confirmation.
+              </p>
             )}
             {status === "error" && (
-              <p className="text-sm text-rose-400 mt-3">Please enter a valid email address.</p>
+              <p className="text-sm text-rose-400 mt-3">
+                Please enter a valid email address.
+              </p>
             )}
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 py-6 text-sm text-gray-400">
           <div className="flex items-center gap-4">
-            <span>&copy; {new Date().getFullYear()} Intelligent CV</span>
-            <a href="/sitemap.xml" className="hover:text-white">
-              Sitemap
-            </a>
+            <span>&copy; {new Date().getFullYear()} Intelligent CV 247</span>
           </div>
 
           <div className="flex items-center gap-4">
-            <a href="#" className="text-gray-400 hover:text-white flex items-center gap-2">
+            <p className="text-gray-400 hover:text-white flex items-center gap-2">
               <FaGlobe /> <span className="text-sm">English</span>
-            </a>
-            <a href="mailto:hello@intelligentcv.example" className="text-gray-400 hover:text-white flex items-center gap-2">
-              <FaEnvelope /> <span className="text-sm">hello@intelligentcv.example</span>
+            </p>
+            <a
+              href="mailto:hello@intelligentcv.com"
+              className="text-gray-400 hover:text-white flex items-center gap-2"
+            >
+              <FaEnvelope />{" "}
+              <span className="text-sm">hello@intelligentcv.com</span>
             </a>
           </div>
         </div>

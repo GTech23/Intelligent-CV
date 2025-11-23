@@ -6,7 +6,6 @@ import chicago from "../../assets/images/templates/chicago.webp";
 import latest from "../../assets/images/templates/2025.avif";
 import elegant from "../../assets/images/templates/elegant.avif";
 
-
 const templateMeta = [
   {
     name: `Modern`,
@@ -28,7 +27,7 @@ const templateMeta = [
 
 const JobWinningTemplate = () => {
   return (
-    <section className="max-w-8xl mx-auto w-[95%]  min-h-150 p-6 mb-20">
+    <section className="max-w-[1600px] mx-auto w-[95%]  min-h-150 p-6 mb-20">
       <div className="flex items-center flex-col space-y-8 justify-center">
         <h2 className="text-4xl font-bold text-center mb-4">
           Job Winning Templates
@@ -46,8 +45,8 @@ const JobWinningTemplate = () => {
       </div>
 
       <div className=" grid grid-cols-1 mt-10 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {templateMeta.map((meta) => {
-          return <TemplateCardPreview meta={meta} />;
+        {templateMeta.map((meta, index) => {
+          return <TemplateCardPreview key={index} meta={meta} />;
         })}
       </div>
     </section>
