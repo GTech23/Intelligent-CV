@@ -2,28 +2,29 @@ import TextLogo from "../../components/common/TextLogo";
 import Sidebar from "../ui/Sidebar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FaDownload } from "react-icons/fa6";
+import { FaSave } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import {useResume} from '../../context/ResumeContext'
+import { useResume } from "../../context/ResumeContext";
 const ResumeLayout = () => {
   const [loading, setLoading] = useState(false);
-  const {formData, setFormData} = useResume();
+  const { formData, setFormData } = useResume();
   const navigate = useNavigate();
   const downloadResume = async () => {
-    
     try {
       setLoading(true);
       const response = await fetch(
-        `https://intelligent-cv-backend.onrender.com/api/resume/${localStorage.getItem("selectedTemplate")}/download`,
+        `https://intelligent-cv-backend.onrender.com/api/resume/${localStorage.getItem(
+          "selectedTemplate"
+        )}/download`,
         {
           method: "POST",
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
-            "content-type": "application/json"
+            "content-type": "application/json",
           },
 
-          body: JSON.stringify(formData)
-
+          body: JSON.stringify(formData),
         }
       );
 
@@ -41,9 +42,9 @@ const ResumeLayout = () => {
       document.body.appendChild(link);
       link.click();
       link.remove();
-      navigate('/');
-      toast.success('Resume download was successful');
-      setFormData({})
+      navigate("/");
+      toast.success("Resume download was successful");
+      setFormData({});
     } catch (error) {
       toast.error(`An Error occured generated PDF`);
       console.error(error);
@@ -60,13 +61,24 @@ const ResumeLayout = () => {
           <TextLogo />
 
           {pathname === "/dashboard/app/personalize/done" ? (
-            <button
-              onClick={downloadResume}
-              className="py-2 px-3 bg-[#EA723C] text-white font-bold rounded-2xl flex items-center justify-center gap-4 cursor-pointer"
-            >
-              <FaDownload />
-              {loading ? "Downloading" : "Download"}
-            </button>
+            <>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={downloadResume}
+                  className="py-2 px-3 bg-[#EA723C] text-white font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <FaDownload />
+                  {loading ? "Downloading" : "Download"}
+                </button>
+                <button
+                  onClick={downloadResume}
+                  className="py-1 px-2 bg-transparent text-[#EA723C] border-2 border-[#EA723C] font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <FaSave />
+                  Save
+                </button>
+              </div>
+            </>
           ) : (
             ""
           )}

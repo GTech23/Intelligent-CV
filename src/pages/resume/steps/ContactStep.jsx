@@ -74,7 +74,7 @@ const ContactStep = () => {
                 ref={jobTitleRef}
                 name="title"
                 autoComplete="false"
-                placeholder={"Desried Job Title (e.g. Graphics Designer)"}
+                placeholder={"Desired Job Title (e.g. Graphics Designer)"}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
                 onBlur={savePersonal}
               />
@@ -105,6 +105,7 @@ const ContactStep = () => {
                 autoComplete="off"
                 name="country"
                 placeholder={"Country"}
+                onBlur={savePersonal}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>

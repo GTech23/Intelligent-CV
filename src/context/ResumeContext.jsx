@@ -15,7 +15,7 @@ export const ResumeProvider = ({ children }) => {
       city: "",
       state: "",
       postalCode: "",
-      summary:"",
+      summary: "",
     },
     education: [],
     experience: [],
