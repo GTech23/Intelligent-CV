@@ -1,14 +1,9 @@
 import { useState } from "react";
-import {
-  Outlet,
-  NavLink,
-  useNavigate,
-  useLocation,
-  Link,
-} from "react-router-dom";
+import { Outlet, NavLink, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getValidToken } from "../../utils/auth";
+
 import { jwtDecode } from "jwt-decode";
+import { getValidToken } from "../../utils/auth";
 
 const Icons = {
   Home: () => (
@@ -127,10 +122,10 @@ const Icons = {
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const decoded = jwtDecode(getValidToken());
 
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: <Icons.Home /> },
-
     { name: "Profile", path: "/dashboard/me", icon: <Icons.User /> },
     { name: "Settings", path: "/dashboard/settings", icon: <Icons.Settings /> },
   ];
@@ -203,7 +198,7 @@ const DashboardLayout = () => {
 
           <div className="hidden md:block">
             <h2 className="text-lg font-semibold text-gray-800 capitalize">
-              {day}, {`Godstime`}
+              {day}, {decoded.username}
             </h2>
           </div>
 
@@ -212,7 +207,9 @@ const DashboardLayout = () => {
               <span className="text-sm font-medium text-gray-700">
                 My Account
               </span>
-              <span className="text-xs text-gray-500">Free Plan</span>
+              <span className="text-xs text-gray-500">
+                {decoded.currentPlan} plan
+              </span>
             </div>
             <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 border border-gray-300">
               <Icons.User />

@@ -185,8 +185,12 @@ const Navbar = () => {
               <li>
                 {!isExpired && displayName && (
                   <div className="px-4 py-2 text-sm text-gray-800">
-                    Signed in as{" "}
-                    <span className="font-semibold">{displayName}</span>
+                    <Link
+                      to="/dashboard"
+                      className="hidden md:block text-sm text-gray-700 truncate max-w-[180px]"
+                    >
+                      Signed in as {displayName}
+                    </Link>
                   </div>
                 )}
               </li>

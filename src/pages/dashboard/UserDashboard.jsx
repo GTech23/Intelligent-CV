@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { jwtDecode } from "jwt-decode";
+import { getValidToken } from "../../utils/auth";
 
 const BACKEND_BASE = "https://intelligent-cv-backend.onrender.com";
 
@@ -20,6 +22,8 @@ const StatCard = ({ title, value, icon, color }) => (
   </div>
 );
 
+const decoded = jwtDecode(getValidToken());
+console.log(decoded);
 const ResumeCard = ({ resume, onEdit, onDelete, onDownload }) => (
   <div className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full relative">
     <div
@@ -40,10 +44,10 @@ const ResumeCard = ({ resume, onEdit, onDelete, onDownload }) => (
     <div className="p-5 flex flex-col flex-1">
       <div className="flex-1">
         <h3
-          className="font-semibold text-gray-900 truncate text-lg"
-          title={resume.title || "Untitled Resume"}
+          className="font-semibold text-gray-900  text-lg"
+          title={resume?.name || "Untitled Resume"}
         >
-          {resume.title || "Untitled Resume"}
+          {resume?.name || "Untitled Resume"}
         </h3>
         <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
           <svg
@@ -59,7 +63,7 @@ const ResumeCard = ({ resume, onEdit, onDelete, onDownload }) => (
               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          Last edited: {new Date(resume.updatedAt).toLocaleDateString()}
+          Last edited: {new Date(resume?.updatedAt).toLocaleDateString()}
         </p>
       </div>
 
@@ -141,81 +145,42 @@ const ResumeCard = ({ resume, onEdit, onDelete, onDownload }) => (
 const UserDashboard = () => {
   const navigate = useNavigate();
 
-  const [resumes, setResumes] = useState([
-    {
-      title: "Software Engineer Resume",
-    },
-    {
-      title: "Graphics Design Resume",
-    },
-  ]);
+  const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState({ name: "User" });
 
-  useEffect(() => {
-    fetchDashboardData();
-  }, []);
-
-  const fetchDashboardData = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/dashboard/app/account/login");
-      return;
-    }
-
+  const fetchResumeInfo = async () => {
+    setLoading(true);
     try {
-      const response = await fetch(`${BACKEND_BASE}/api/resume/my-resumes`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `https://intelligent-cv-backend.onrender.com/api/resume/`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "content-type": "application/json",
+          },
+        }
+      );
 
-      if (response.ok) {
-        const data = await response.json();
-        setResumes(data.data || data || []);
-      } else {
-        console.warn("Failed to fetch resumes, using fallback or empty state.");
+      if (!response.ok) {
+        toast.error(`An Error occured fetching user`);
+        return;
       }
+
+      const data = await response.json();
+      setLoading(false);
+      setResumes(data);
     } catch (error) {
-      console.error("Dashboard Error:", error);
-      toast.error("Failed to load your resumes.");
+      toast.error(`An Error occured fetching user`);
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDelete = async (id) => {
-    if (
-      !window.confirm(
-        "Are you sure you want to delete this resume? This action cannot be undone."
-      )
-    )
-      return;
-
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`${BACKEND_BASE}/api/resume/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (res.ok) {
-        setResumes((prev) => prev.filter((r) => r._id !== id));
-        toast.success("Resume deleted.");
-      } else {
-        throw new Error("Delete failed");
-      }
-    } catch (err) {
-      toast.error("Could not delete resume.");
-    }
-  };
-
-  const handleEdit = (resume) => {
-    localStorage.setItem("currentResumeId", resume._id);
-    navigate(`/editor/${resume._id}`);
-  };
-
-  const handleDownload = (id) => {
-    navigate(`/download/${id}`);
-  };
+  useEffect(() => {
+    fetchResumeInfo();
+  }, []);
 
   if (loading) return <Loader />;
 
@@ -229,78 +194,82 @@ const UserDashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <StatCard
-          title="Total Resumes"
-          value={resumes.length}
-          icon={
-            <svg
-              className="w-6 h-6 text-[#EA723C]"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-          }
-          color="bg-orange-50"
-        />
-        <StatCard
-          title="Total Views"
-          value="0"
-          icon={
-            <svg
-              className="w-6 h-6 text-blue-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-              />
-            </svg>
-          }
-          color="bg-blue-50"
-        />
-        <StatCard
-          title="Plan"
-          value="Free"
-          icon={
-            <svg
-              className="w-6 h-6 text-green-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          }
-          color="bg-green-50"
-        />
+        {!loading && (
+          <>
+            <StatCard
+              title="Total Resumes"
+              value={resumes.count}
+              icon={
+                <svg
+                  className="w-6 h-6 text-[#EA723C]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              }
+              color="bg-orange-50"
+            />
+            <StatCard
+              title="Total Views"
+              value="0"
+              icon={
+                <svg
+                  className="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+              }
+              color="bg-blue-50"
+            />
+            <StatCard
+              title="Plan"
+              value={decoded.currentPlan}
+              icon={
+                <svg
+                  className="w-6 h-6 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              }
+              color="bg-green-50"
+            />
+          </>
+        )}
       </div>
 
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg font-semibold text-gray-900">My Documents</h2>
         <span className="text-sm text-gray-500">
-          {resumes.length} Documents
+          {resumes.count} Document{resumes.count === 1 ? "" : "s"}
         </span>
       </div>
 
@@ -332,18 +301,19 @@ const UserDashboard = () => {
           </p>
         </div>
 
-        {resumes.map((resume) => (
-          <ResumeCard
-            key={resume._id}
-            resume={resume}
-            onEdit={() => handleEdit(resume)}
-            onDelete={() => handleDelete(resume._id)}
-            onDownload={() => handleDownload(resume._id)}
-          />
-        ))}
+        {resumes.count > 0 &&
+          resumes.resumes?.map((resume) => (
+            <ResumeCard
+              key={resume._id}
+              resume={resume}
+              onEdit={() => handleEdit(resume)}
+              onDelete={() => handleDelete(resume._id)}
+              onDownload={() => handleDownload(resume._id)}
+            />
+          ))}
       </div>
 
-      {resumes.length === 0 && !loading && (
+      {resumes.count === 0 && !loading && (
         <div className="text-center py-12">
           <p className="text-gray-400 text-sm">
             You have no saved resumes. Click "Create New Resume" to get started.

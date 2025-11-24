@@ -10,6 +10,40 @@ const ResumeLayout = () => {
   const [loading, setLoading] = useState(false);
   const { formData, setFormData } = useResume();
   const navigate = useNavigate();
+
+  const saveResume = async () => {
+    formData.templateId = localStorage.getItem("selectedTemplate");
+    try {
+      const response = await fetch(
+        `https://intelligent-cv-backend.onrender.com/api/resume/`,
+        {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "content-type": "application/json",
+          },
+
+          body: JSON.stringify(formData),
+        }
+      );
+
+      console.log(response);
+
+      if (!response.ok) {
+        toast.error(`An Error occured saving resume`);
+        return;
+      }
+      navigate("/dashboard");
+      toast.success("Resume saved successfully");
+      setFormData({});
+    } catch (error) {
+      toast.error(error.message);
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const downloadResume = async () => {
     try {
       setLoading(true);
@@ -33,12 +67,11 @@ const ResumeLayout = () => {
         return;
       }
 
-      const blob = await response.blob();
+      const data = await response.json();
       setLoading(false);
-      const url = window.URL.createObjectURL(blob);
+      const url = data.url;
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "resume.pdf");
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -71,7 +104,7 @@ const ResumeLayout = () => {
                   {loading ? "Downloading" : "Download"}
                 </button>
                 <button
-                  onClick={downloadResume}
+                  onClick={saveResume}
                   className="py-1 px-2 bg-transparent text-[#EA723C] border-2 border-[#EA723C] font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <FaSave />
