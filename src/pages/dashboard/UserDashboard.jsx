@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
-import { getValidToken } from "../../utils/auth";
+
+import { useResume } from "../../context/ResumeContext";
 
 const BACKEND_BASE = "https://intelligent-cv-backend.onrender.com";
 
@@ -25,27 +26,6 @@ const StatCard = ({ title, value, icon, color }) => (
 const decoded = localStorage.getItem("token")
   ? jwtDecode(localStorage.getItem("token"))
   : "";
-
-const handleDelete = async (id) => {
-  try {
-    const response = await fetch(`${BACKEND_BASE}/api/resume/${id}`, {
-      method: `DELETE`,
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Unable to delete resume");
-    }
-
-    const data = await response.json();
-    toast.success(data.message);
-    navigate("/dashboard");
-  } catch (err) {
-    toast.error(err.message);
-    console.error(err);
-  }
-};
 
 const ResumeCard = ({ resume, onEdit, onDelete, onDownload }) => (
   <div className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full relative">
@@ -167,9 +147,68 @@ const ResumeCard = ({ resume, onEdit, onDelete, onDownload }) => (
 
 const UserDashboard = () => {
   const navigate = useNavigate();
+  const { setFormData } = useResume();
 
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${BACKEND_BASE}/api/resume/${id}`, {
+        method: `DELETE`,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Unable to delete resume");
+      }
+
+      const data = await response.json();
+      toast.success(data.message);
+      navigate("/dashboard");
+    } catch (err) {
+      toast.error(err.message);
+      console.error(err);
+    }
+  };
+  const handleEdit = async (id) => {
+    const resume = resumes.resumes.find((resume) => resume._id === id);
+    setFormData({ ...resume, updating: true });
+    navigate(`/dashboard/app/personalize?resumeId=${id}`);
+  };
+
+  const handleDownload = async (id) => {
+    const resume = resumes.resumes.find((resume) => resume._id === id);
+    console.log(resume);
+    const response = await fetch(
+      `https://intelligent-cv-backend.onrender.com/api/resume/${resume.templateId}/download `,
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(resume),
+      }
+    );
+    if (!response.ok) {
+      toast.error(`An Error occured fetching user`);
+      return;
+    }
+
+    const data = await response.json();
+    const downloadUrl = data.url;
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.setAttribute("target", "_blank");
+    link.setAttribute("download", `resume-${id}.pdf`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success(`Resume generated successfully`);
+    navigate("/dashboard");
+  };
 
   const fetchResumeInfo = async () => {
     setLoading(true);
@@ -329,7 +368,7 @@ const UserDashboard = () => {
             <ResumeCard
               key={resume._id}
               resume={resume}
-              onEdit={() => handleEdit(resume)}
+              onEdit={() => handleEdit(resume._id)}
               onDelete={() => handleDelete(resume._id)}
               onDownload={() => handleDownload(resume._id)}
             />

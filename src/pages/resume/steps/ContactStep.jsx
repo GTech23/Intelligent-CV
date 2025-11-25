@@ -1,23 +1,36 @@
 import { FaUserCircle, FaUpload } from "react-icons/fa";
 import { useResume } from "../../../context/ResumeContext";
-import { useRef } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ContactStep = () => {
-  const { setFormData } = useResume();
+  const { formData, setFormData } = useResume();
   const navigate = useNavigate();
-  const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
-  const jobTitleRef = useRef(null);
-  const emailRef = useRef(null);
-  const phoneRef = useRef(null);
-  const countryRef = useRef(null);
-  const cityRef = useRef(null);
-  const provinceRef = useRef(null);
-  const postalCodeRef = useRef(null);
 
-  const savePersonal = (e) => {
+  const [personalDetails, setPersonalDetails] = useState({
+    firstName: "",
+    lastName: "",
+    title: "",
+    email: "",
+    phone: "",
+    country: "",
+    city: "",
+    state: "",
+    postalCode: "",
+  });
+
+  useEffect(() => {
+    if (formData.personal) {
+      setPersonalDetails(formData.personal);
+    }
+  }, [formData.personal]);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
+    setPersonalDetails((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
     setFormData((prev) => ({
       ...prev,
       personal: {
@@ -51,49 +64,49 @@ const ContactStep = () => {
           <div className="grid grid-cols-2 gap-8">
             <div className="">
               <input
-                ref={firstNameRef}
                 name="firstName"
                 placeholder={"First Name"}
                 autoComplete="false"
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-                onBlur={savePersonal}
+                value={personalDetails.firstName || ""}
+                onChange={handleChange}
               />
             </div>
             <div className="">
               <input
-                ref={lastNameRef}
                 name="lastName"
                 autoComplete="false"
                 placeholder={"Last Name"}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-                onBlur={savePersonal}
+                value={personalDetails.lastName || ""}
+                onChange={handleChange}
               />
             </div>
             <div className="col-span-2">
               <input
-                ref={jobTitleRef}
                 name="title"
                 autoComplete="false"
                 placeholder={"Desired Job Title (e.g. Graphics Designer)"}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-                onBlur={savePersonal}
+                value={personalDetails.title || ""}
+                onChange={handleChange}
               />
             </div>
             <div className="">
               <input
-                ref={emailRef}
                 name="email"
                 autoComplete="false"
                 placeholder={"Email Address"}
-                onBlur={savePersonal}
+                onChange={handleChange}
+                value={personalDetails.email || ""}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
             <div className="">
               <input
-                ref={phoneRef}
                 name="phone"
-                onBlur={savePersonal}
+                onChange={handleChange}
+                value={personalDetails.phone || ""}
                 placeholder={"Phone Number"}
                 autoComplete="false"
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
@@ -101,39 +114,39 @@ const ContactStep = () => {
             </div>
             <div className="">
               <input
-                ref={countryRef}
                 autoComplete="off"
                 name="country"
                 placeholder={"Country"}
-                onBlur={savePersonal}
+                onChange={handleChange}
+                value={personalDetails.country || ""}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
             <div className="">
               <input
-                ref={cityRef}
                 name="city"
                 placeholder={"City"}
-                onBlur={savePersonal}
+                onChange={handleChange}
+                value={personalDetails.city || ""}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
               />
             </div>
             <div className="">
               <input
-                ref={provinceRef}
                 name="state"
                 placeholder={"State"}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-                onBlur={savePersonal}
+                onChange={handleChange}
+                value={personalDetails.state || ""}
               />
             </div>
             <div className="">
               <input
-                ref={postalCodeRef}
                 name="postalCode"
                 placeholder={"Postal Code"}
                 className={`w-full px-6 border-gray-300 bg-white py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-                onBlur={savePersonal}
+                onChange={handleChange}
+                value={personalDetails.postalCode || ""}
               />
             </div>
 

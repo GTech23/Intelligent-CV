@@ -2,14 +2,48 @@ import TextLogo from "../../components/common/TextLogo";
 import Sidebar from "../ui/Sidebar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FaDownload } from "react-icons/fa6";
-import { FaSave } from "react-icons/fa";
+import { FaSave, FaSync } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useResume } from "../../context/ResumeContext";
 const ResumeLayout = () => {
   const [loading, setLoading] = useState(false);
+  const [updateLoading, setUpdateloading] = useState(false);
   const { formData, setFormData } = useResume();
   const navigate = useNavigate();
+
+  const updateResume = async () => {
+    setUpdateloading(true);
+    formData.templateId = localStorage.getItem("selectedTemplate");
+    try {
+      const response = await fetch(
+        `https://intelligent-cv-backend.onrender.com/api/resume/${formData._id} `,
+        {
+          method: "PUT",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "content-type": "application/json",
+          },
+
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        toast.error(`An Error occured updating resume`);
+        return;
+      }
+      setUpdateloading(false);
+      navigate("/dashboard");
+      toast.success("Resume updated successfully");
+      setFormData({});
+    } catch (error) {
+      toast.error(error.message);
+      console.error(error);
+    } finally {
+      setUpdateloading(false);
+    }
+  };
 
   const saveResume = async () => {
     formData.templateId = localStorage.getItem("selectedTemplate");
@@ -103,13 +137,23 @@ const ResumeLayout = () => {
                   <FaDownload />
                   {loading ? "Downloading" : "Download"}
                 </button>
-                <button
-                  onClick={saveResume}
-                  className="py-1 px-2 bg-transparent text-[#EA723C] border-2 border-[#EA723C] font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <FaSave />
-                  Save
-                </button>
+                {formData.updating ? (
+                  <button
+                    onClick={updateResume}
+                    className="py-1 px-2 bg-transparent text-[#EA723C] border-2 border-[#EA723C] font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <FaSync />
+                    {updateLoading ? "Updating" : "Update"}
+                  </button>
+                ) : (
+                  <button
+                    onClick={saveResume}
+                    className="py-1 px-2 bg-transparent text-[#EA723C] border-2 border-[#EA723C] font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <FaSave />
+                    Save
+                  </button>
+                )}
               </div>
             </>
           ) : (

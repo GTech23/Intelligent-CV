@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet, NavLink, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -123,8 +123,8 @@ const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
   const decoded = localStorage.getItem("token")
-  ? jwtDecode(localStorage.getItem("token"))
-  : "";
+    ? jwtDecode(localStorage.getItem("token"))
+    : "";
 
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: <Icons.Home /> },
@@ -154,6 +154,14 @@ const DashboardLayout = () => {
       : currentDate > 12 && currentDate < 16
       ? "Good Afternoon"
       : "Good Evening";
+
+  useEffect(() => {
+    const token = getValidToken();
+    if (!token) {
+      navigate("/dashboard/app/account/login");
+    }
+    return;
+  }, []);
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden font-sans">
