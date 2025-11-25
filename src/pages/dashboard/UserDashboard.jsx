@@ -26,7 +26,27 @@ const decoded = localStorage.getItem("token")
   ? jwtDecode(localStorage.getItem("token"))
   : "";
 
-console.log(decoded);
+const handleDelete = async (id) => {
+  try {
+    const response = await fetch(`${BACKEND_BASE}/api/resume/${id}`, {
+      method: `DELETE`,
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Unable to delete resume");
+    }
+
+    const data = await response.json();
+    toast.success(data.message);
+    navigate("/dashboard");
+  } catch (err) {
+    toast.error(err.message);
+    console.error(err);
+  }
+};
+
 const ResumeCard = ({ resume, onEdit, onDelete, onDownload }) => (
   <div className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full relative">
     <div
