@@ -184,10 +184,11 @@ const Navbar = () => {
               </li>
               <li>
                 {!isExpired && displayName && (
-                  <div className="px-4 py-2 text-sm text-gray-800">
+                  <div className="px-4 py-2 text-sm text-gray-800 w-full text-center">
                     <Link
                       to="/dashboard"
-                      className="hidden md:block text-sm text-gray-700 truncate max-w-[180px]"
+                      className="block text-sm text-gray-700 truncate max-w-[180px] mx-auto"
+                      onClick={() => setMenuOpen(false)}
                     >
                       Signed in as {displayName}
                     </Link>

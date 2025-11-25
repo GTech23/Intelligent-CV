@@ -22,7 +22,10 @@ const StatCard = ({ title, value, icon, color }) => (
   </div>
 );
 
-const decoded = jwtDecode(getValidToken());
+const decoded = localStorage.getItem("token")
+  ? jwtDecode(localStorage.getItem("token"))
+  : "";
+
 console.log(decoded);
 const ResumeCard = ({ resume, onEdit, onDelete, onDownload }) => (
   <div className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col h-full relative">

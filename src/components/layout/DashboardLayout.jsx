@@ -122,7 +122,9 @@ const Icons = {
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
-  const decoded = jwtDecode(getValidToken());
+  const decoded = localStorage.getItem("token")
+  ? jwtDecode(localStorage.getItem("token"))
+  : "";
 
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: <Icons.Home /> },
