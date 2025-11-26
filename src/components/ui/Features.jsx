@@ -1,5 +1,7 @@
 import FeatureCard from "../common/FeatureCard";
-
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 const Features = () => {
   return (
     <>

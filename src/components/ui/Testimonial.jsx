@@ -14,6 +14,19 @@ const quotes = [
     rating: stars,
     occupation: `Full Stack Web Developer`,
   },
+  {
+    author: "Rosannah Isaiah",
+    text: " I found Intelligent CV 247 to be a reliable resume builder. The platform offers a user-friendly interface. The AI-powered features helped me create a professional and effective resume in no time.",
+    rating: stars,
+    occupation: `Student`,
+  },
+
+  {
+    author: "Samuel Tuoyo",
+    text: "Intelligent CV has been instrumental in refining my resume. The AI suggestions are spot-on, and the interface is intuitive, making the whole process quick and efficient. Highly recommend!",
+    rating: stars,
+    occupation: `Backend Developer`,
+  },
 
   {
     author: "Eluwa Joshua",

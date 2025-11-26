@@ -3,6 +3,9 @@ import jetblue from "../../assets/svg/jetblue.svg";
 import dicks from "../../assets/svg/dicks.svg";
 import uber from "../../assets/svg/uber.svg";
 import zapier from "../../assets/svg/zapier.svg";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 const logos = [
   {
     name: "Intels",
@@ -36,7 +39,12 @@ const PartnersSection = () => {
 
         <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-8 items-center justify-center">
           {logos.map((logo, index) => (
-            <div key={index} className="flex justify-center">
+            <div
+              data-aos="zoom-in-right"
+              data-aos-duration="3000"
+              key={index}
+              className="flex justify-center"
+            >
               <img
                 src={logo.src}
                 alt={`${logo.name} logo`}

@@ -1,5 +1,8 @@
 import React from "react";
 import { FaFileAlt, FaEdit, FaDownload } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
+AOS.init();
 
 const steps = [
   {
@@ -31,6 +34,8 @@ const HowItWorksSection = () => {
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-10">
           {steps.map((step, index) => (
             <div
+              data-aos="zoom-in"
+              data-aos-duration="3000"
               key={index}
               className="bg-gray-50 border border-gray-200 rounded-lg p-6 shadow hover:shadow-md transition duration-300"
             >
