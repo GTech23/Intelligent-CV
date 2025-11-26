@@ -9,7 +9,7 @@ export const ResumeProvider = ({ children }) => {
       firstName: "Your",
       lastName: "Name",
       title: "Job title",
-      email: "",
+      email: "youremail@domain.com",
       phone: "",
       country: "",
       city: "",

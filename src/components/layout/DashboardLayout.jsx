@@ -127,9 +127,9 @@ const DashboardLayout = () => {
     : "";
 
   const navItems = [
-    { name: "Dashboard", path: "/dashboard", icon: <Icons.Home /> },
+    { name: "Dashboard", path: "/dashboard", icon: <Icons.Home />, end: true },
     { name: "Profile", path: "/dashboard/me", icon: <Icons.User /> },
-    { name: "Settings", path: "/dashboard/settings", icon: <Icons.Settings /> },
+    // { name: "Settings", path: "/dashboard/settings", icon: <Icons.Settings /> },
   ];
 
   const handleLogout = () => {
@@ -179,6 +179,7 @@ const DashboardLayout = () => {
               key={item.path}
               to={item.path}
               className={({ isActive }) => getLinkClass(isActive)}
+              end={item.end}
             >
               {item.icon}
               <span>{item.name}</span>
@@ -263,6 +264,7 @@ const DashboardLayout = () => {
               to={item.path}
               onClick={() => setIsSidebarOpen(false)}
               className={({ isActive }) => getLinkClass(isActive)}
+              end={item.end} // Added 'end' prop here
             >
               {item.icon}
               <span>{item.name}</span>
