@@ -131,6 +131,7 @@ const ResumeLayout = () => {
             <>
               <div className="flex items-center gap-2">
                 <button
+                  disabled={loading}
                   onClick={downloadResume}
                   className="py-2 px-3 bg-[#EA723C] text-white font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer"
                 >
@@ -139,6 +140,7 @@ const ResumeLayout = () => {
                 </button>
                 {formData.updating ? (
                   <button
+                    disabled={updateLoading}
                     onClick={updateResume}
                     className="py-1 px-2 bg-transparent text-[#EA723C] border-2 border-[#EA723C] font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer"
                   >
