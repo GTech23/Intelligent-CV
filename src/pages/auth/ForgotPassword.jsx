@@ -50,7 +50,7 @@ const ForgotPassword = () => {
       return;
     }
 
-    try{
+    try {
       const response = await fetch(
         "https://intelligent-cv-backend.onrender.com/api/auth/verify-otp",
         {
@@ -58,9 +58,12 @@ const ForgotPassword = () => {
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify({ email: emailRef.current.value.trim(), otp: otp.trim() }),
+          body: JSON.stringify({
+            email: emailRef.current.value.trim(),
+            otp: otp.trim(),
+          }),
         }
-      )
+      );
       const data = await response.json();
       console.log(data);
       if (response.ok) {
@@ -69,9 +72,7 @@ const ForgotPassword = () => {
       } else {
         toast.error(data.message || "Invalid OTP");
       }
-
-    
-    }catch(err){
+    } catch (err) {
       console.log(err);
       toast.error("Network error");
     }
@@ -135,7 +136,7 @@ const ForgotPassword = () => {
 
       {/* ✅ OTP Modal */}
       {showModal && (
-        <div className="fixed inset-0 flex justify-center items-center z-50 bg-transparent">
+        <div className="fixed inset-0 flex justify-center items-center z-50 bg-black/50 backdrop-blur-sm">
           <div className="relative bg-white w-full max-w-md p-6 rounded-lg shadow-lg border border-gray-300">
             {/* Close Button */}
             <button
@@ -146,10 +147,10 @@ const ForgotPassword = () => {
             </button>
 
             <h3 className="text-xl font-bold mb-4 text-center text-gray-800">
-             One Time Password (OTP)
+              One Time Password (OTP)
             </h3>
             <p className="text-sm text-gray-600 mb-3 text-center">
-             Enter the OTP sent to your email to reset your password.
+              Enter the OTP sent to your email to reset your password.
             </p>
 
             <input

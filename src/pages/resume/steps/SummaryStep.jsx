@@ -13,25 +13,38 @@ const RawQuillEditor = ({ value, onChange }) => {
     if (editorRef.current && !quillRef.current) {
       quillRef.current = new Quill(editorRef.current, {
         theme: "snow",
-        modules: { toolbar: [["bold", "italic", "underline"], [{ list: "bullet" }], ["clean"]] },
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline"],
+            [{ list: "bullet" }],
+            ["clean"],
+          ],
+        },
         placeholder: "Add, edit, and write here.",
       });
 
-      // set initial content (value is plain text or HTML)
-      quillRef.current.root.innerHTML = value || "";
+      if (value) {
+        quillRef.current.setText(value);
+      }
 
-      // report plain text back (no HTML tags)
-      quillRef.current.on("text-change", () => {
-        const plain = quillRef.current.root.textContent || "";
-        onChange(plain);
+      quillRef.current.on("text-change", (delta, oldDelta, source) => {
+        if (source === "user") {
+          const plain = quillRef.current.getText();
+          onChange(plain);
+        }
       });
     }
-    // keep editor content in sync if parent passes a new value
-  }, [onChange]);
+  }, []);
 
   useEffect(() => {
-    if (quillRef.current && value !== quillRef.current.root.innerHTML) {
-      quillRef.current.root.innerHTML = value || "";
+    if (quillRef.current) {
+      const currentContent = quillRef.current.getText();
+      const isDifferent =
+        value !== currentContent && value + "\n" !== currentContent;
+
+      if (isDifferent) {
+        quillRef.current.setText(value || "");
+      }
     }
   }, [value]);
 
@@ -44,22 +57,20 @@ const SummaryStep = () => {
   const { formData, setFormData } = useResume();
   const navigate = useNavigate();
 
-  // editorValue is the HTML/text content we push into Quill
-  const [editorValue, setEditorValue] = useState(formData?.personal?.summary || "");
+  const [editorValue, setEditorValue] = useState(
+    formData?.personal?.summary || ""
+  );
   const [suggestions, setSuggestions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [usedSet, setUsedSet] = useState(new Set());
 
-  // keep local editorValue synced if formData changes externally
   useEffect(() => {
     const s = formData?.personal?.summary || "";
     setEditorValue(s);
   }, [formData?.personal?.summary]);
 
-  // update form data whenever editor plain text changes
   const handleSummaryChange = (plainText) => {
-    // Update both local editorValue (as plain text) and formData
     setEditorValue(plainText);
     setFormData((prev) => ({
       ...prev,
@@ -70,16 +81,20 @@ const SummaryStep = () => {
     }));
   };
 
-  // Normalize backend response to array of strings
   const normalize = (data) => {
     if (!data) return [];
-    if (Array.isArray(data)) return data.map((it) => (typeof it === "string" ? it : String(it)));
+    if (Array.isArray(data))
+      return data.map((it) => (typeof it === "string" ? it : String(it)));
     if (Array.isArray(data.suggestions)) return data.suggestions.map(String);
     if (Array.isArray(data.results)) return data.results.map(String);
     if (Array.isArray(data.duties)) return data.duties.map(String);
     if (data && typeof data === "object") {
       const possible =
-        data.text || data.suggestion || data.summary || data.description || data.title;
+        data.text ||
+        data.suggestion ||
+        data.summary ||
+        data.description ||
+        data.title;
       if (typeof possible === "string") return [possible];
     }
     return [];
@@ -89,14 +104,17 @@ const SummaryStep = () => {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch("https://intelligent-cv-backend.onrender.com/api/ai/summary", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          // provide context for summary generation if useful
-          jobTitle: formData?.personal?.title || "",
-        }),
-      });
+      const res = await fetch(
+        "https://intelligent-cv-backend.onrender.com/api/ai/summary",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            // provide context for summary generation if useful
+            jobTitle: formData?.personal?.title || "",
+          }),
+        }
+      );
 
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
       const data = await res.json();
@@ -125,14 +143,12 @@ const SummaryStep = () => {
 
   useEffect(() => {
     fetchSuggestions({ replace: true });
-
   }, []);
 
- 
   const insertSuggestion = (text) => {
-
     setEditorValue((prev) => {
-      const joined = prev && prev.trim().length > 0 ? `${prev}\n\n${text}` : text;
+      const joined =
+        prev && prev.trim().length > 0 ? `${prev}\n\n${text}` : text;
       // update formData to keep summary synced
       setFormData((prevState) => ({
         ...prevState,
@@ -156,9 +172,8 @@ const SummaryStep = () => {
         next.add(text);
         return next;
       });
-
     } catch (err) {
-      console.error(err.message)
+      console.error(err.message);
     }
   };
 
@@ -170,13 +185,11 @@ const SummaryStep = () => {
             Professional Summary
           </h1>
           <p>
-            This section will usually be one of the first things a hiring manager
-            reads. It tells them, “Here's who I am, and here's what I can do for
-            your company”.
+            This section will usually be one of the first things a hiring
+            manager reads. It tells them, “Here's who I am, and here's what I
+            can do for your company”.
           </p>
         </div>
-
-    
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -199,14 +212,20 @@ const SummaryStep = () => {
                 }}
               />
               <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-              <div className="text-sm text-gray-600">Generating suggestions…</div>
+              <div className="text-sm text-gray-600">
+                Generating suggestions…
+              </div>
             </div>
           )}
 
-          {error && <div className="p-4 text-sm text-red-500">Error: {error}</div>}
+          {error && (
+            <div className="p-4 text-sm text-red-500">Error: {error}</div>
+          )}
 
           {!loading && !error && suggestions.length === 0 && (
-            <div className="p-4 text-sm text-gray-600">No suggestions found.</div>
+            <div className="p-4 text-sm text-gray-600">
+              No suggestions found.
+            </div>
           )}
 
           {!loading &&
@@ -244,8 +263,6 @@ const SummaryStep = () => {
           Save & Next
         </button>
       </div>
-
-      
     </div>
   );
 };
