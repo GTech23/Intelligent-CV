@@ -12,7 +12,7 @@ import Privacy from "./pages/Privacy";
 import UserDashboard from "./pages/dashboard/UserDashboard";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import DashboardProfile from "./pages/dashboard/DashboardProfile";
-// import Settings from "./pages/dashboard/Settings";
+import NewPassword from "./pages/auth/NewPassword";
 
 const Home = lazy(() => import("./pages/Home"));
 const NotFoundPage = lazy(() => import("./pages/NotFound"));
@@ -105,6 +105,10 @@ const App = () => {
               <Route
                 path="/dashboard/app/account/forgot-password"
                 element={<ForgotPassword />}
+              />
+              <Route
+                path="/dashboard/app/account/password/new"
+                element={<NewPassword />}
               />
               <Route
                 path="/resume-builder/app/choose-templates"

@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import SupportButton from "../../components/ui/SupportButton";
+import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [otp, setOtp] = useState("");
@@ -29,16 +30,21 @@ const ForgotPassword = () => {
         }
       );
 
-      const data = await response.json();
-      if (response.ok) {
-        toast.success(data.message || "OTP sent to your email");
-        setShowModal(true); // ✅ show OTP modal after success
-      } else {
-        toast.error(data.message || "Something went wrong");
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error("Too many requests. Please try again later");
+        }
+        throw new Error("Something went wrong");
       }
+
+      const data = await response.json();
+
+      toast.success(data.message || "OTP sent to your email");
+      localStorage.setItem("email", email);
+      setShowModal(true);
     } catch (err) {
-      console.log(err);
-      toast.error("Network error");
+      console.log(err.message);
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -59,27 +65,31 @@ const ForgotPassword = () => {
             "content-type": "application/json",
           },
           body: JSON.stringify({
-            email: emailRef.current.value.trim(),
+            email: localStorage.getItem("email"),
             otp: otp.trim(),
           }),
         }
       );
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          toast.error("Too many requests. Please try again later");
+          return;
+        }
+        throw new Error("Invalid OTP");
+      }
       const data = await response.json();
       console.log(data);
-      if (response.ok) {
-        toast.success(data.message || "OTP verified successfully!");
-        setShowModal(false);
-      } else {
-        toast.error(data.message || "Invalid OTP");
-      }
+      localStorage.setItem("otp", otp);
+
+      toast.success(data.message);
+      localStorage.setItem("resetToken", data.data.resetToken);
+      setShowModal(false);
+      navigate("/dashboard/app/account/password/new");
     } catch (err) {
       console.log(err);
-      toast.error("Network error");
+      toast.error(err.message);
     }
-
-    console.log("OTP submitted:", otp);
-    toast.success("OTP submitted successfully!");
-    setShowModal(false);
   };
 
   return (
@@ -100,12 +110,12 @@ const ForgotPassword = () => {
               Submit your forgotten password
             </h2>
             <p className="text-md mb-8">
-              Enter your login email below. We will send you an email with a
-              link to reset your password. Email us at support@intelligentcv.com
-              if you have difficulty accessing your account.
+              Enter your login email below. We will send you a one time password
+              to reset your password. Email us at support@intelligentcv.com if
+              you have difficulty accessing your account.
             </p>
 
-            <form method="POST">
+            <form onSubmit={handleResetPassword}>
               <div>
                 <input
                   ref={emailRef}
@@ -121,25 +131,25 @@ const ForgotPassword = () => {
               <div>
                 <button
                   type="button"
+                  disabled={loading}
                   onClick={handleResetPassword}
-                  className="bg-[#EA723C] rounded-lg cursor-pointer py-3 px-8 w-full my-6 text-white font-semibold text-lg"
+                  className={`bg-[#EA723C] rounded-lg  py-3 px-8 w-full my-6 text-white font-semibold text-lg ${
+                    loading ? "cursor-not-allowed" : "cursor-pointer"
+                  }`}
                 >
                   {loading ? "Processing..." : "Submit"}
                 </button>
               </div>
             </form>
-
-            <SupportButton />
           </div>
         </div>
       </div>
 
-      {/* ✅ OTP Modal */}
       {showModal && (
         <div className="fixed inset-0 flex justify-center items-center z-50 bg-black/50 backdrop-blur-sm">
           <div className="relative bg-white w-full max-w-md p-6 rounded-lg shadow-lg border border-gray-300">
-            {/* Close Button */}
             <button
+              disabled={loading}
               onClick={() => setShowModal(false)}
               className="absolute top-2 right-3 text-gray-500 hover:text-red-500 text-xl font-bold"
             >
@@ -169,10 +179,13 @@ const ForgotPassword = () => {
                 Cancel
               </button>
               <button
+                disabled={loading}
                 onClick={handleOtpSubmit}
-                className="px-4 py-2 rounded-md bg-[#EA723C] text-white font-semibold hover:bg-[#d8642c]"
+                className={`px-4 py-2 rounded-md bg-[#EA723C] text-white font-semibold hover:bg-[#d8642c] ${
+                  loading ? "cursor-not-allowed" : "cursor-pointer"
+                }`}
               >
-                Submit
+                {loading ? "Processing..." : "Submit"}
               </button>
             </div>
           </div>
