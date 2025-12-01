@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /dashboard/app/
+Disallow: /dashboard/app/personalize/
+Disallow: /dashboard/app/personalize/done
+Sitemap: https://www.intelligent-cv.vercel.app/sitemap.xml
+
