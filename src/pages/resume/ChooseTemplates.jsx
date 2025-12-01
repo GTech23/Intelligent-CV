@@ -55,7 +55,7 @@ const ChooseTemplates = () => {
     <>
       <title>Resume Builder - Choose Templates</title>
       <section className="p-1 min-h-screen sm:p-4 md:p-6">
-        <div className="p-4 bg-white fixed top-0 left-0 right-0 w-full">
+        <div className="p-4 bg-white z-1000 fixed top-0 left-0 right-0 w-full">
           <TextLogo />
         </div>
 
