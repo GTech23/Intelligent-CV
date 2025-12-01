@@ -127,6 +127,14 @@ const ResumeLayout = () => {
         <div className="p-4 flex justify-between bg-white fixed top-0  left-0 right-0 w-full z-1000">
           <TextLogo />
 
+          {/* <button
+            onClick={() => navigate("/resume-builder/app/choose-templates")}
+            className="py-2 px-3 border-2 transition-all duration-300 border-[#EA723C] text-[#EA723C] font-bold rounded-2xl flex items-center justify-center gap-2 cursor-pointer hover:bg-[#EA723C] hover:text-white"
+          >
+            <FaSync />
+            Change Template
+          </button> */}
+
           {pathname === "/dashboard/app/personalize/done" ? (
             <>
               <div className="flex items-center gap-2">

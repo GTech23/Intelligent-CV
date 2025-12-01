@@ -9,7 +9,7 @@ import {
   FaQuestionCircle,
   FaFileAlt,
 } from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { getValidToken } from "../../utils/auth";
 import { toast } from "react-toastify";
 
@@ -169,7 +169,12 @@ const Sidebar = () => {
           </p>
 
           <p className="text-sm text-zinc-700">
-            You need to be authenticated before downloading your resume
+            You need to be authenticated before downloading your resume. Kindly{" "}
+            <Link to="/dashboard/app/account/login">
+              <button className="text-sm text-blue-500 font-bold cursor-pointer hover:underline">
+                Login
+              </button>
+            </Link>
           </p>
         </div>
       )}
